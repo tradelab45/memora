@@ -1,0 +1,25 @@
+{
+  "name": "memora",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @memora/web",
+    "build": "npm run build --workspace @memora/web",
+    "lint": "npm run lint --workspace @memora/web",
+    "typecheck": "npm run typecheck --workspace @memora/web",
+    "test:web": "npm run test --workspace @memora/web",
+    "test:database": "node scripts/test-database.mjs",
+    "contracts:generate": "node scripts/generate-contracts.mjs"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "prettier": "3.9.9"
+  }
+}

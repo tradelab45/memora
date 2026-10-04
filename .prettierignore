@@ -1,0 +1,9 @@
+node_modules/
+.next/
+package-lock.json
+packages/contracts/src/api.d.ts
+packages/contracts/openapi.json
+docs/source-conversation.md
+supabase/
+apps/mobile/
+services/

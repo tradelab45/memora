@@ -1,0 +1,719 @@
+.memora-cinematic {
+  --rust: #722f35;
+  --paper: #f6f0e5;
+  background: #f6f0e5;
+  color: #332c28;
+}
+.memora-cinematic > .site-header {
+  width: 100%;
+  padding-inline: 4%;
+  height: 72px;
+  min-height: 72px;
+  border: 0;
+  background: #f6f0e5;
+  backdrop-filter: none;
+}
+.memora-cinematic .brand-symbol {
+  border: 0;
+  font-size: 32px;
+}
+.memora-cinematic .wordmark {
+  font-size: 12px;
+  letter-spacing: 3.5px;
+}
+.memora-cinematic .header-cta {
+  background: #6b2e34;
+  color: #fff2df;
+  border-color: #6b2e34;
+  border-radius: 0;
+}
+.memora-cinematic .desktop-nav {
+  font-size: 10px;
+}
+.archive-width {
+  width: min(1350px, 92%);
+  margin-inline: auto;
+}
+.archive-section-label {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ab95835c;
+  padding-top: 20px;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.archive-intro {
+  padding-block: 85px 80px;
+}
+.archive-intro-grid {
+  display: grid;
+  grid-template-columns: 0.7fr 2fr;
+  gap: 70px;
+  padding: 65px 0 70px;
+}
+.archive-margin-note {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.archive-intro h2 {
+  font-size: clamp(42px, 5vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+}
+.archive-intro-grid > div > p {
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.9;
+  margin-top: 34px;
+  color: #685b50;
+}
+.archive-index {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-block: 1px solid #ab95835c;
+}
+.archive-index > span {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 25px 13px;
+  font-family: var(--serif);
+  font-size: 18px;
+  border-right: 1px solid #ab95835c;
+}
+.archive-index > span:last-child {
+  border: 0;
+}
+.archive-index small {
+  font:
+    8px Arial,
+    sans-serif;
+  color: #7e6455;
+  align-self: flex-start;
+}
+.archive-index svg {
+  margin-left: auto;
+  color: #87584e;
+}
+.archive-people {
+  background: #ddd8c9;
+  padding: 55px 0 75px;
+}
+.archive-people-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 8%;
+  margin-top: 50px;
+  align-items: center;
+}
+.archive-people-photo {
+  position: relative;
+  height: 620px;
+  overflow: hidden;
+}
+.archive-people-photo img {
+  object-fit: cover;
+}
+.archive-photo-coordinate {
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  padding: 10px 13px;
+  background: #f7f0e5;
+  color: #432e29;
+}
+.archive-registration {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+}
+.archive-people-copy h2 {
+  font-size: clamp(44px, 4.6vw, 68px);
+  line-height: 1.07;
+  letter-spacing: -3px;
+  margin: 23px 0;
+}
+.archive-people-copy > p:not(.eyebrow) {
+  color: #61584c;
+  line-height: 1.9;
+  max-width: 350px;
+}
+.archive-person-list {
+  margin-top: 40px;
+}
+.archive-person-list a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 0;
+  border-top: 1px solid #a295816b;
+  transition: padding 0.25s;
+}
+.archive-person-list a:hover {
+  padding-left: 9px;
+}
+.archive-person-initial {
+  width: 37px;
+  height: 37px;
+  border: 1px solid #b6a895;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: 19px var(--serif);
+  color: #722f35;
+}
+.archive-person-list strong {
+  font: 27px var(--serif);
+}
+.archive-person-list a > span:nth-last-child(2) {
+  font-size: 10px;
+  margin-left: auto;
+  color: #655847;
+}
+.archive-person-list svg {
+  margin-left: 9px;
+}
+.archive-memories {
+  padding-block: 85px 70px;
+}
+.archive-memory-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding-block: 50px 60px;
+}
+.archive-memory-heading h2 {
+  font-size: clamp(46px, 5.5vw, 80px);
+  letter-spacing: -3px;
+  line-height: 1.04;
+}
+.archive-memory-heading > p {
+  max-width: 260px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #65594e;
+  margin-bottom: 8px;
+}
+.archive-contact-sheet {
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr 0.85fr;
+  gap: 30px;
+  align-items: start;
+}
+.archive-contact-1 {
+  margin-top: 100px;
+}
+.archive-contact-2 {
+  margin-top: 42px;
+}
+.archive-contact-image {
+  position: relative;
+  aspect-ratio: 0.9;
+  overflow: hidden;
+  background: #e1d8c9;
+}
+.archive-contact-1 .archive-contact-image {
+  aspect-ratio: 0.8;
+}
+.archive-contact-2 .archive-contact-image {
+  aspect-ratio: 1;
+}
+.archive-contact-image img {
+  object-fit: cover;
+}
+.archive-contact-image > span {
+  position: absolute;
+  bottom: 16px;
+  left: 15px;
+  background: #f7f0e5;
+  color: #432e29;
+  padding: 8px 10px;
+  font-size: 7px;
+  letter-spacing: 1.1px;
+}
+.archive-contact-caption {
+  padding-top: 22px;
+}
+.archive-contact-caption > span {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: #705d4e;
+}
+.archive-contact-caption h3 {
+  font-size: 29px;
+  letter-spacing: -0.8px;
+  margin: 11px 0;
+}
+.archive-contact-caption p {
+  max-width: 290px;
+  font: italic 15px/1.65 var(--serif);
+  color: #74614f;
+}
+.memora-cinematic .timeline-section {
+  padding-block: 55px 95px;
+}
+.memora-cinematic .timeline-section .section-heading h2 {
+  font-size: 51px;
+}
+.memora-cinematic .timeline-card {
+  background: #ede4d5;
+  border: 0;
+  border-radius: 0;
+}
+.memora-cinematic .timeline-scrubber {
+  margin-top: 35px;
+}
+.memora-cinematic .timeline-year-node:not(.is-active) .node-year {
+  color: #70624f;
+}
+.archive-books {
+  background: #d8c1ac;
+  padding: 55px 0 80px;
+}
+.archive-books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8%;
+  align-items: center;
+  padding-top: 35px;
+}
+.archive-book-art {
+  position: relative;
+  min-height: 580px;
+  display: grid;
+  place-items: center;
+}
+.archive-book-year {
+  position: absolute;
+  font: 240px/0.68 var(--serif);
+  letter-spacing: -23px;
+  color: #89614e;
+  inset: 66px auto auto 0;
+}
+.archive-printed-book {
+  position: relative;
+  width: 280px;
+  height: 392px;
+  transform: rotate(-10deg);
+  box-shadow:
+    12px 12px 0 #b29b80,
+    14px 14px 0 #722f35,
+    23px 30px 35px #5d3e4933;
+}
+.archive-printed-book .book-cover {
+  width: 100%;
+  height: 100%;
+}
+.archive-book-edition {
+  position: absolute;
+  bottom: 27px;
+  left: 0;
+  font-size: 8px;
+  letter-spacing: 1.7px;
+}
+.archive-book-copy h2 {
+  font-size: clamp(43px, 4.9vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+  margin: 25px 0;
+}
+.archive-book-copy > p:not(.eyebrow) {
+  font-size: 14px;
+  line-height: 1.85;
+  max-width: 370px;
+  color: #514336;
+}
+.archive-book-copy > .button {
+  margin-top: 28px;
+  border-color: #722f35;
+  color: #59232a;
+  border-radius: 0;
+  min-height: 52px;
+}
+.archive-book-spec {
+  margin-top: 45px;
+  display: flex;
+  gap: 20px;
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: #4f4339;
+  border-top: 1px solid #78574155;
+  padding-top: 20px;
+}
+.archive-privacy {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1fr;
+  gap: 45px;
+  align-items: center;
+  padding-block: 95px;
+  border-bottom: 1px solid #ab95835c;
+}
+.archive-privacy-sign {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.archive-privacy-sign > span {
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  max-width: 110px;
+  line-height: 1.9;
+}
+.archive-privacy h2 {
+  font-size: 48px;
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
+.archive-privacy > div > p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #65594e;
+}
+.archive-privacy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding-block: 13px;
+  font-size: 11px;
+  margin-top: 12px;
+  border-bottom: 1px solid #722f35;
+}
+.memora-cinematic .questions-section {
+  padding-block: 80px;
+}
+.archive-closing {
+  position: relative;
+  background: #49252c;
+  color: #f6e8d3;
+  padding-top: 90px;
+  overflow: clip;
+}
+.archive-closing h2 {
+  font-size: clamp(85px, 12vw, 178px);
+  line-height: 0.9;
+  letter-spacing: -7px;
+  margin: 40px 0;
+}
+.archive-closing h2 em {
+  color: #dfb393;
+}
+.archive-closing-link {
+  display: inline-flex;
+  gap: 60px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #d4b499;
+  font-size: 14px;
+}
+.archive-closing-note {
+  font-size: 10px;
+  margin-top: 19px;
+  color: #dcc4b0;
+}
+.archive-big-wordmark {
+  font-family: Arial, sans-serif;
+  font-size: 21.1vw;
+  font-weight: 500;
+  letter-spacing: -1.7vw;
+  line-height: 0.78;
+  margin: 90px -1% -1.5vw;
+  color: #bb8d7c;
+  white-space: nowrap;
+}
+.archive-footer {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding-block: 30px;
+  font-size: 9px;
+}
+.archive-footer > span:first-of-type {
+  margin-right: auto;
+  color: #685b50;
+}
+.archive-footer a:last-of-type {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.archive-footer a:last-of-type svg {
+  transform: rotate(180deg);
+}
+.cinematic-cover {
+  background: #512e37;
+  border-color: #b89b71;
+  color: #f2e4c6;
+}
+.cinematic-cover .book-cover-title,
+.cinematic-cover .book-cover-title i,
+.cinematic-cover .book-imprint,
+.cinematic-cover .book-cover-edition,
+.cinematic-cover .book-cover-year {
+  color: #f2e4c6;
+}
+.cinematic-cover .book-cover-inner {
+  border-color: #b89b71;
+}
+@media (max-width: 1000px) {
+  .archive-intro-grid {
+    grid-template-columns: 0.5fr 2fr;
+    gap: 30px;
+  }
+  .archive-index > span {
+    font-size: 15px;
+    gap: 7px;
+    padding-inline: 5px;
+  }
+  .archive-people-grid,
+  .archive-books-grid {
+    gap: 5%;
+  }
+  .archive-people-photo {
+    height: 540px;
+  }
+  .archive-contact-sheet {
+    gap: 20px;
+  }
+  .archive-privacy {
+    gap: 25px;
+  }
+  .archive-privacy h2 {
+    font-size: 40px;
+  }
+  .archive-book-spec {
+    gap: 10px;
+    font-size: 6px;
+  }
+  .archive-footer {
+    gap: 15px;
+  }
+}
+@media (max-width: 760px) {
+  .memora-cinematic > .site-header {
+    padding-inline: 20px;
+    gap: 12px;
+  }
+  .memora-cinematic .wordmark {
+    font-size: 10px;
+    gap: 8px;
+    letter-spacing: 2px;
+  }
+  .memora-cinematic .header-cta {
+    display: none;
+  }
+  .memora-cinematic .motion-toggle {
+    margin-left: auto;
+  }
+  .archive-width {
+    width: calc(100% - 40px);
+  }
+  .archive-section-label {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+  }
+  .archive-intro {
+    padding-block: 48px 55px;
+  }
+  .archive-intro-grid {
+    display: block;
+    padding: 30px 0 35px;
+  }
+  .archive-margin-note {
+    margin-bottom: 30px;
+    font-size: 11px;
+  }
+  .archive-intro h2 {
+    font-size: 42px;
+    letter-spacing: -1.9px;
+  }
+  .archive-intro-grid > div > p {
+    font-size: 13px;
+    margin-top: 25px;
+  }
+  .archive-index {
+    display: flex;
+    flex-wrap: wrap;
+    padding-block: 8px;
+  }
+  .archive-index > span {
+    width: 50%;
+    padding: 13px 4px;
+    border: 0;
+    font-size: 17px;
+    gap: 10px;
+  }
+  .archive-index svg {
+    width: 13px;
+    margin-right: 15px;
+  }
+  .archive-people {
+    padding: 38px 0 50px;
+  }
+  .archive-people-grid {
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+    gap: 40px;
+  }
+  .archive-people-photo {
+    height: 430px;
+  }
+  .archive-people-copy h2 {
+    font-size: 49px;
+    letter-spacing: -2px;
+  }
+  .archive-person-list {
+    margin-top: 28px;
+  }
+  .archive-memories {
+    padding-block: 50px 25px;
+  }
+  .archive-memory-heading {
+    display: block;
+    padding: 35px 0;
+  }
+  .archive-memory-heading h2 {
+    font-size: 49px;
+    letter-spacing: -2px;
+  }
+  .archive-memory-heading > p {
+    margin-top: 25px;
+    font-size: 12px;
+  }
+  .archive-contact-sheet {
+    display: flex;
+    overflow-x: auto;
+    gap: 22px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 30px;
+  }
+  .archive-contact {
+    min-width: 83%;
+    margin-top: 0;
+    scroll-snap-align: start;
+  }
+  .archive-contact-image,
+  .archive-contact-1 .archive-contact-image,
+  .archive-contact-2 .archive-contact-image {
+    aspect-ratio: 1;
+  }
+  .archive-contact-caption h3 {
+    font-size: 28px;
+  }
+  .memora-cinematic .timeline-section {
+    padding-block: 30px 55px;
+  }
+  .memora-cinematic .timeline-section .section-heading h2 {
+    font-size: 39px;
+    letter-spacing: -1.8px;
+  }
+  .memora-cinematic .timeline-content-side {
+    padding: 26px;
+  }
+  .archive-books {
+    padding: 35px 0 55px;
+  }
+  .archive-books-grid {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+    gap: 25px;
+  }
+  .archive-book-art {
+    min-height: 510px;
+  }
+  .archive-book-year {
+    font-size: 210px;
+    left: -8px;
+  }
+  .archive-printed-book {
+    width: 237px;
+    height: 333px;
+  }
+  .archive-book-edition {
+    bottom: 20px;
+  }
+  .archive-book-copy h2 {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+  .archive-book-copy > p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .archive-book-spec {
+    font-size: 7px;
+    gap: 18px;
+  }
+  .archive-privacy {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-block: 55px;
+  }
+  .archive-privacy-sign > span {
+    max-width: none;
+  }
+  .archive-privacy h2 {
+    font-size: 47px;
+  }
+  .archive-privacy > div > p {
+    font-size: 13px;
+    max-width: 350px;
+  }
+  .memora-cinematic .questions-section {
+    padding-block: 55px;
+  }
+  .archive-closing {
+    padding-top: 65px;
+  }
+  .archive-closing h2 {
+    font-size: 98px;
+    letter-spacing: -4px;
+    margin-block: 35px;
+  }
+  .archive-closing-link {
+    font-size: 13px;
+    gap: 45px;
+  }
+  .archive-big-wordmark {
+    margin-top: 75px;
+  }
+  .archive-footer {
+    flex-wrap: wrap;
+    padding-block: 25px;
+    column-gap: 20px;
+    row-gap: 18px;
+  }
+  .archive-footer > span:first-of-type {
+    display: none;
+  }
+  .archive-footer .wordmark {
+    flex-basis: 100%;
+  }
+  .archive-footer > span:last-child {
+    margin-left: auto;
+    font-size: 8px;
+  }
+}
+@media (max-width: 360px) {
+  .archive-intro h2 {
+    font-size: 37px;
+  }
+  .archive-people-copy h2,
+  .archive-book-copy h2,
+  .archive-memory-heading h2 {
+    font-size: 42px;
+  }
+  .archive-people-photo {
+    height: 350px;
+  }
+  .archive-person-list a {
+    gap: 9px;
+  }
+  .archive-person-list a > span:nth-last-child(2) {
+    font-size: 9px;
+  }
+  .archive-closing h2 {
+    font-size: 85px;
+  }
+}

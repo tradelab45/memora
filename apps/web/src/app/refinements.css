@@ -1,0 +1,1016 @@
+/* Cinematic chapter system. Content remains usable before scripts load. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  min-height: 82px;
+  background: #f8f5eef2;
+  backdrop-filter: blur(14px);
+}
+.reading-progress {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  pointer-events: none;
+  overflow: hidden;
+}
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.motion-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 44px;
+  padding: 0;
+  margin-left: auto;
+  color: var(--muted);
+  border: 0;
+  background: transparent;
+}
+.motion-toggle:hover {
+  color: var(--rust);
+}
+.motion-toggle:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.desktop-nav {
+  margin-left: auto;
+}
+.header-cta {
+  margin-left: 0;
+}
+.desktop-nav a {
+  position: relative;
+}
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.desktop-nav a:hover::after {
+  transform: scaleX(1);
+}
+.hero {
+  min-height: min(820px, calc(100svh - 82px));
+  padding-top: 30px;
+  gap: 0;
+}
+.hero-line {
+  display: block;
+}
+.hero h1 {
+  font-size: clamp(54px, 5.6vw, 83px);
+  line-height: 1.06;
+}
+.hero-edition {
+  display: flex;
+  gap: 24px;
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  margin-top: 39px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  max-width: 390px;
+}
+.hero-edition > span + span {
+  margin-left: auto;
+}
+.hero-bottom a {
+  width: 44px;
+  height: 44px;
+}
+.book-stage {
+  margin: 0;
+}
+.floating-photo[data-tilt] {
+  position: absolute;
+}
+.stage-peek-button {
+  min-height: 44px;
+  bottom: 30px;
+  right: 50%;
+  transform: translateX(50%);
+  white-space: nowrap;
+}
+.stage-peek-button:hover {
+  transform: translateX(50%) translateY(-2px);
+}
+.stage-handwritten {
+  bottom: 87px;
+}
+.stage-label {
+  bottom: 5px;
+  color: var(--muted);
+}
+.intro-section {
+  padding-block: 88px;
+  border-bottom: 0;
+}
+.story-chain {
+  margin-top: 35px;
+}
+.story-chain > span:last-child {
+  color: var(--rust);
+}
+
+/* Sticky visual plates accompany three readable story steps. */
+.journey-section {
+  background: #302f28;
+  color: var(--paper);
+  padding: 85px 0 60px;
+  overflow: clip;
+}
+.journey-heading {
+  position: relative;
+  padding-bottom: 55px;
+  border-bottom: 1px solid #f8f5ee29;
+}
+.journey-heading .eyebrow {
+  color: #dbc3ad;
+  margin-bottom: 22px;
+}
+.journey-heading h2 {
+  font-size: clamp(39px, 4vw, 59px);
+}
+.journey-section em {
+  color: #e3b394;
+}
+.journey-scroll-note {
+  position: absolute;
+  right: 0;
+  bottom: 64px;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  color: #e2d5c5;
+}
+.journey-scroll-note > span {
+  display: inline-block;
+  font-size: 24px;
+  margin-left: 18px;
+}
+.journey-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;
+}
+.journey-step {
+  min-height: 420px;
+  padding-block: 100px;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  border-bottom: 1px solid #f8f5ee21;
+}
+.journey-step:last-child {
+  border-bottom: 0;
+}
+.journey-step-number {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 23px;
+  color: #e3b394;
+  padding-top: 4px;
+}
+.journey-step .eyebrow {
+  font-size: 9px;
+  color: #dbc3ad;
+  letter-spacing: 1.6px;
+  margin-bottom: 19px;
+}
+.journey-step h3 {
+  font-size: 44px;
+  letter-spacing: -1.4px;
+  line-height: 1.15;
+}
+.journey-description {
+  line-height: 1.9;
+  font-size: 14px;
+  color: #e2d5c5;
+  max-width: 365px;
+  margin-top: 22px;
+}
+.journey-step .text-link {
+  color: #eac1a2;
+  margin-top: 22px;
+}
+.journey-step.is-active .journey-step-number {
+  color: #fff0dd;
+}
+.journey-art {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  padding: 50px 35px;
+}
+.journey-visual {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+}
+.journey-paper {
+  position: relative;
+  padding: 26px 26px 20px;
+  background: #f4ecdf;
+  color: var(--ink);
+  box-shadow:
+    8px 8px 0 #d4c7b4,
+    13px 13px 0 #98553c,
+    0 25px 55px #0003;
+  transform: rotate(3deg);
+}
+.journey-visual-1 .journey-paper {
+  transform: rotate(-3deg);
+}
+.journey-visual-2 .journey-paper {
+  transform: rotate(2deg);
+  border: 1px solid #d1bc9d;
+  box-shadow:
+    inset 7px 0 4px #8168502e,
+    7px 7px 0 #e0d3bc,
+    13px 13px 0 #98553c,
+    0 25px 55px #0003;
+}
+.journey-paper-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--rust);
+  font-size: 9px;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+.journey-image {
+  position: relative;
+  aspect-ratio: 1.45;
+  overflow: hidden;
+}
+.journey-image img {
+  object-fit: cover;
+}
+.journey-people {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 30px;
+}
+.journey-people > span {
+  display: grid;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 1px solid #a7795b55;
+  color: #744431;
+  background: #ead8c5;
+  font-family: var(--serif);
+}
+.journey-people > span:nth-child(2) {
+  background: #d6dbc9;
+}
+.journey-people > span:nth-child(3) {
+  background: #e7d1a1;
+}
+.journey-people p {
+  font-family: var(--serif);
+  font-style: italic;
+  margin-left: auto;
+  font-size: 22px;
+}
+.journey-caption p {
+  font-family: var(--serif);
+  font-size: 25px;
+  line-height: 1.35;
+  margin-top: 25px;
+}
+.journey-caption > span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  color: var(--rust);
+  margin-top: 16px;
+}
+.journey-book-title {
+  text-align: center;
+}
+.journey-book-title p {
+  font-family: var(--serif);
+  font-size: 36px;
+  line-height: 1.1;
+  margin-top: 22px;
+}
+.journey-book-title i {
+  color: var(--rust);
+}
+.journey-book-title > span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  margin-top: 18px;
+}
+.journey-folio {
+  font-size: 6px;
+  letter-spacing: 1.1px;
+  border-top: 1px solid #c7b99f;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 32px;
+  padding-top: 13px;
+}
+.journey-handwritten {
+  position: absolute;
+  right: -13px;
+  bottom: -50px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: #eac1a2;
+  transform: rotate(-7deg);
+}
+.journey-art-orbit {
+  position: absolute;
+  border: 1px solid #eee2cd21;
+  border-radius: 50%;
+  inset: 18% -7% 16%;
+  transform: rotate(-20deg);
+  pointer-events: none;
+}
+.journey-enhanced .journey-art {
+  position: sticky;
+  top: 105px;
+  height: 570px;
+  display: block;
+}
+.journey-enhanced .journey-visual {
+  position: absolute;
+  top: 60px;
+  left: 35px;
+  width: calc(100% - 70px);
+  opacity: 0;
+  transform: translateY(32px) rotate(5deg) scale(0.97);
+  transition:
+    opacity 0.55s ease,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.journey-enhanced .journey-visual.is-active {
+  opacity: 1;
+  transform: translateY(0) rotate(0) scale(1);
+}
+.journey-enhanced .journey-art-orbit {
+  inset: 5% -8% 7%;
+}
+
+/* Static chapters share rows, keeping photographs paired with their copy. */
+@media (min-width: 761px) {
+  .journey-section:not(.journey-enhanced) .journey-steps,
+  .journey-section:not(.journey-enhanced) .journey-art {
+    display: contents;
+  }
+  .journey-section:not(.journey-enhanced) .journey-step {
+    grid-column: 1;
+    align-self: center;
+  }
+  .journey-section:not(.journey-enhanced) .journey-visual {
+    grid-column: 2;
+    align-self: center;
+    width: calc(100% - 65px);
+    margin: 55px auto 80px;
+  }
+  .journey-section:not(.journey-enhanced) .journey-step:nth-child(1),
+  .journey-section:not(.journey-enhanced) .journey-visual:nth-child(1) {
+    grid-row: 1;
+  }
+  .journey-section:not(.journey-enhanced) .journey-step:nth-child(2),
+  .journey-section:not(.journey-enhanced) .journey-visual:nth-child(2) {
+    grid-row: 2;
+  }
+  .journey-section:not(.journey-enhanced) .journey-step:nth-child(3),
+  .journey-section:not(.journey-enhanced) .journey-visual:nth-child(3) {
+    grid-row: 3;
+  }
+  .journey-section:not(.journey-enhanced) .journey-art-orbit {
+    display: none;
+  }
+}
+
+/* Timeline: a photo spread with accessible manual chapter selection. */
+.timeline-section {
+  padding-block: 95px;
+}
+.timeline-invitation {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 1.7px;
+  margin-top: 40px;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rust);
+}
+.timeline-scrubber {
+  margin: 30px 0 36px;
+  padding-inline: 0;
+}
+.timeline-track-line {
+  left: 12px;
+  right: 12px;
+  height: 1px;
+}
+.node-label {
+  font-size: 8px;
+}
+.timeline-card {
+  padding: 0;
+  gap: 0;
+  border-radius: 0;
+  background: #f1eadf;
+  box-shadow: none;
+  border: 0;
+}
+.timeline-card[hidden] {
+  display: none;
+}
+.timeline-photo-side,
+.timeline-image-wrap {
+  border-radius: 0;
+}
+.timeline-image-wrap {
+  aspect-ratio: 1.12;
+  min-height: 420px;
+  box-shadow: none;
+}
+.timeline-image-wrap img {
+  animation: timeline-enter 0.65s ease both;
+}
+.timeline-photo-year {
+  position: absolute;
+  bottom: 45px;
+  right: 20px;
+  font-family: var(--serif);
+  font-size: clamp(60px, 7vw, 105px);
+  line-height: 1;
+  letter-spacing: -5px;
+  color: #fff8ef;
+  text-shadow: 0 3px 30px #0006;
+}
+.timeline-content-side {
+  padding: 38px 46px;
+  animation: timeline-copy 0.45s ease both;
+}
+.timeline-person-pill {
+  width: fit-content;
+  margin-bottom: 28px;
+}
+.timeline-tag-row {
+  margin-bottom: 8px;
+}
+.timeline-heading {
+  font-size: 39px;
+}
+.timeline-footer {
+  gap: 12px;
+}
+.timeline-quote {
+  margin: 12px 0 24px;
+}
+@keyframes timeline-enter {
+  from {
+    opacity: 0.65;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes timeline-copy {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* A physical showcase and small editorial details. */
+.showcase-cover {
+  position: absolute;
+  left: 20%;
+  top: 22px;
+  width: 290px;
+  height: 425px;
+  transform: rotate(-9deg);
+}
+.showcase-cover > .book-cover {
+  width: 100%;
+  height: 100%;
+}
+.memory-image {
+  overflow: hidden;
+}
+.memory-card {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.memory-date {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.memory-date::before {
+  content: "";
+  height: 1px;
+  width: 22px;
+  background: var(--rust);
+}
+.person-mini {
+  border: 1px solid #c8bdad99;
+  padding: 12px;
+  background: #f8f5eedb;
+}
+.people-strip {
+  gap: 8px;
+  padding-inline: 0;
+}
+.privacy-principles > div {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.privacy-symbol {
+  border: 1px solid var(--line);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+}
+.privacy-section .eyebrow {
+  margin-top: 22px;
+}
+.closing-section {
+  position: relative;
+  overflow: clip;
+}
+.closing-section::before,
+.closing-section::after {
+  content: "";
+  width: 430px;
+  height: 430px;
+  border: 1px solid #b4846152;
+  border-radius: 50%;
+  position: absolute;
+  top: 20%;
+  right: -290px;
+  pointer-events: none;
+}
+.closing-section::after {
+  left: -320px;
+  right: auto;
+  top: -60%;
+  width: 600px;
+  height: 600px;
+}
+[data-tilt],
+[data-magnetic] {
+  will-change: auto;
+}
+.scene-layer {
+  touch-action: pan-y;
+}
+
+/* Native disclosures work with JS disabled and support keyboard input. */
+.questions-section {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 80px;
+  padding-block: 80px 95px;
+  border-top: 1px solid var(--line);
+}
+.questions-intro .eyebrow {
+  margin-bottom: 22px;
+}
+.questions-intro .text-link {
+  margin-top: 28px;
+}
+.questions-intro h2 {
+  font-size: 49px;
+}
+.question {
+  border-bottom: 1px solid var(--line);
+}
+.question:first-child {
+  border-top: 1px solid var(--line);
+}
+.question summary {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  cursor: pointer;
+  padding: 25px 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.question summary::-webkit-details-marker {
+  display: none;
+}
+.question-number {
+  color: var(--rust);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+}
+.question summary > svg {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--rust);
+  transition: transform 0.3s ease;
+}
+.question[open] summary > svg {
+  transform: rotate(45deg);
+}
+.question-answer {
+  padding: 0 30px 24px 36px;
+}
+.question-answer p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+.question[open] .question-answer {
+  animation: timeline-copy 0.3s ease;
+}
+
+@media (min-width: 901px) and (max-height: 780px) {
+  .hero {
+    min-height: 700px;
+  }
+  .journey-enhanced .journey-art {
+    top: 88px;
+    height: 490px;
+  }
+  .journey-enhanced .journey-visual {
+    top: 36px;
+    width: min(330px, calc(100% - 50px));
+    left: 45px;
+  }
+  .journey-paper {
+    padding: 20px;
+  }
+  .journey-caption p {
+    font-size: 22px;
+  }
+}
+@media (max-width: 1100px) {
+  .site-header {
+    gap: 18px;
+  }
+  .desktop-nav {
+    gap: 25px;
+  }
+  .journey-layout {
+    gap: 20px;
+  }
+  .journey-step {
+    gap: 20px;
+  }
+  .journey-step h3 {
+    font-size: 38px;
+  }
+  .journey-scroll-note {
+    display: none;
+  }
+  .journey-people p {
+    font-size: 18px;
+  }
+  .timeline-content-side {
+    padding: 32px;
+  }
+  .person-mini {
+    padding: 8px;
+  }
+  .showcase-cover {
+    left: 16%;
+    width: 250px;
+    height: 365px;
+  }
+}
+@media (max-width: 900px) {
+  .hero-edition {
+    display: none;
+  }
+  .journey-section {
+    padding: 65px 0;
+  }
+  .journey-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .journey-step {
+    min-height: 370px;
+    padding: 75px 0;
+  }
+  .journey-step h3 {
+    font-size: 34px;
+  }
+  .journey-description {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .journey-art {
+    padding: 45px 15px 65px;
+    gap: 80px;
+  }
+  .journey-paper {
+    padding: 20px;
+  }
+  .journey-handwritten {
+    font-size: 16px;
+  }
+  .journey-people {
+    flex-wrap: wrap;
+  }
+  .journey-people p {
+    font-size: 18px;
+    margin: 5px 0 0;
+    flex-basis: 100%;
+  }
+  .journey-caption p {
+    font-size: 21px;
+  }
+  .journey-book-title p {
+    font-size: 27px;
+  }
+  .timeline-image-wrap {
+    aspect-ratio: 1.6;
+    min-height: 290px;
+  }
+  .timeline-photo-year {
+    font-size: 70px;
+    bottom: 32px;
+  }
+  .timeline-content-side {
+    padding: 30px;
+  }
+  .questions-section {
+    gap: 40px;
+  }
+  .questions-intro h2 {
+    font-size: 39px;
+  }
+}
+@media (max-width: 760px) {
+  .site-header {
+    min-height: 72px;
+    gap: 9px;
+  }
+  .motion-toggle {
+    margin-left: auto;
+    width: 28px;
+  }
+  .header-cta {
+    padding: 9px 12px;
+    gap: 9px;
+    font-size: 10px;
+    min-height: 44px;
+  }
+  .hero {
+    min-height: auto;
+    padding-top: 48px;
+    padding-bottom: 105px;
+  }
+  .hero h1 {
+    font-size: clamp(47px, 8.7vw, 66px);
+    letter-spacing: -2.5px;
+  }
+  .hero-description {
+    max-width: 355px;
+  }
+  .book-stage {
+    height: 470px;
+    margin: auto;
+  }
+  .stage-peek-button {
+    bottom: 30px;
+    font-size: 9px;
+  }
+  .stage-handwritten {
+    bottom: 75px;
+    right: 9px;
+  }
+  .stage-label {
+    bottom: 3px;
+    font-size: 7px;
+  }
+  .intro-section {
+    padding: 55px 0 60px;
+  }
+  .journey-section {
+    padding: 55px 0 65px;
+  }
+  .journey-heading {
+    padding-bottom: 34px;
+  }
+  .journey-heading h2 {
+    font-size: 37px;
+    letter-spacing: -1.7px;
+  }
+  .journey-layout {
+    display: block;
+  }
+  .journey-steps {
+    display: grid;
+    gap: 0;
+  }
+  .journey-step {
+    min-height: auto;
+    padding: 32px 0;
+    gap: 18px;
+  }
+  .journey-step h3 {
+    font-size: 31px;
+  }
+  .journey-step .eyebrow {
+    margin-bottom: 12px;
+    font-size: 8px;
+  }
+  .journey-description {
+    margin-top: 14px;
+    max-width: 470px;
+    font-size: 13px;
+  }
+  .journey-art {
+    display: none;
+  }
+  .timeline-section {
+    padding-block: 60px;
+  }
+  .timeline-invitation {
+    margin-top: 28px;
+  }
+  .timeline-scrubber {
+    overflow: visible;
+    gap: 0;
+  }
+  .timeline-year-node {
+    padding-inline: 10px;
+  }
+  .node-label {
+    display: none;
+  }
+  .node-year {
+    font-size: 19px;
+  }
+  .timeline-card {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .timeline-image-wrap {
+    min-height: 230px;
+    aspect-ratio: 1.5;
+  }
+  .timeline-content-side {
+    padding: 28px 24px;
+  }
+  .timeline-heading {
+    font-size: 33px;
+  }
+  .timeline-quote p {
+    font-size: 18px;
+  }
+  .timeline-tag-row .eyebrow {
+    font-size: 8px;
+  }
+  .timeline-person-pill {
+    margin-bottom: 22px;
+    font-size: 8px;
+  }
+  .timeline-annotation {
+    font-size: 8px;
+    letter-spacing: 0.7px;
+  }
+  .timeline-footer .text-link {
+    font-size: 10px;
+    gap: 7px;
+  }
+  .timeline-photo-year {
+    font-size: 66px;
+  }
+  .people-strip {
+    flex-wrap: wrap;
+  }
+  .person-mini {
+    padding: 10px;
+    flex: 1;
+  }
+  .person-mini div > span {
+    display: none;
+  }
+  .people-composition {
+    padding-inline: 0;
+  }
+  .showcase-cover {
+    width: 250px;
+    height: 350px;
+    left: 22%;
+    top: 15px;
+  }
+  .questions-section {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 55px 60px;
+  }
+  .questions-intro h2 {
+    font-size: 39px;
+  }
+  .questions-intro .text-link {
+    margin-top: 18px;
+  }
+  .question summary {
+    font-size: 12px;
+    padding: 22px 0;
+    gap: 12px;
+  }
+  .question-answer {
+    padding-left: 28px;
+    padding-right: 15px;
+  }
+  .question-answer p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 43px;
+  }
+  .book-stage {
+    height: 420px;
+  }
+  .showcase-cover {
+    left: 20%;
+    width: 220px;
+    height: 330px;
+  }
+  .motion-toggle {
+    margin-left: auto;
+  }
+  .mobile-menu {
+    margin-left: 0;
+  }
+  .journey-heading h2 {
+    font-size: 32px;
+  }
+  .person-mini {
+    gap: 6px;
+    padding: 8px;
+  }
+  .person-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
+html[data-motion="reduced"] {
+  scroll-behavior: auto;
+}
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+html[data-motion="reduced"] .button:hover,
+html[data-motion="reduced"] .timeline-year-node:hover {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

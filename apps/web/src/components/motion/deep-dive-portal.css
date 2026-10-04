@@ -1,0 +1,134 @@
+#deep-dive .deep-dive-portal-wrapper {
+  display: grid;
+  isolation: isolate;
+  min-height: 520px;
+}
+
+#deep-dive .deep-dive-photo-portal {
+  grid-area: 1 / 1;
+  align-self: stretch;
+  height: auto;
+  min-height: 520px;
+  transform: none;
+  transition: none;
+}
+
+.portal-photo-frame {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+}
+
+#deep-dive[data-open="true"][data-reduced="false"] .portal-photo-frame {
+  transform: scale(1.08);
+}
+
+#deep-dive .portal-dive-trigger {
+  z-index: 6;
+  min-height: 44px;
+  max-width: calc(100% - 40px);
+}
+
+#deep-dive[data-open="true"] .portal-dive-trigger {
+  top: 20px;
+  right: 20px;
+  bottom: auto;
+}
+
+#deep-dive .deep-dive-inner-world {
+  grid-area: 1 / 1;
+  position: relative;
+  inset: auto;
+  min-height: 520px;
+  width: 100%;
+  padding: 88px 24px 40px;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  pointer-events: auto;
+}
+
+#deep-dive .deep-dive-inner-world[hidden] {
+  display: none !important;
+}
+
+#deep-dive .inner-cards-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.portal-sample-note {
+  margin: 0 0 22px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--body);
+  text-align: center;
+}
+
+.spotlight-card .border-beam-glow {
+  animation-play-state: paused;
+}
+
+.spotlight-card[data-hovered="true"] .border-beam-glow {
+  animation-play-state: running;
+}
+
+.spotlight-card[data-reduced="true"] {
+  transform: none !important;
+  transition: none !important;
+  will-change: auto;
+}
+
+.spotlight-card[data-reduced="true"] .spotlight-layer,
+.spotlight-card[data-reduced="true"] .border-beam-layer {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #deep-dive .deep-dive-portal-wrapper,
+  #deep-dive .deep-dive-photo-portal {
+    min-height: 420px;
+  }
+
+  #deep-dive .deep-dive-inner-world {
+    min-height: 420px;
+    padding: 80px 16px 28px;
+  }
+
+  #deep-dive .inner-cards-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  #deep-dive .liquid-glass-card {
+    padding: 22px 20px;
+  }
+
+  #deep-dive .inner-world-cta .button {
+    white-space: normal;
+    text-align: center;
+  }
+
+  #deep-dive .portal-frame-hud {
+    max-width: calc(100% - 32px);
+  }
+
+  #deep-dive .portal-tag {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (pointer: coarse) {
+  .spotlight-card .border-beam-layer,
+  .spotlight-card .spotlight-layer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #deep-dive .portal-photo-frame {
+    transform: none !important;
+  }
+}

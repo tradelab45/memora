@@ -1,0 +1,14 @@
+name: Bug report
+description: Report a reproducible MEMORA issue
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include expected behavior and steps to reproduce. Do not attach private photos or biometric data.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser or device

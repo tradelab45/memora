@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "project": {
+    "name": "MEMORA",
+    "productType": "Privacy-first photo storytelling and living books",
+    "stack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind",
+      "Radix/shadcn",
+      "GSAP",
+      "R3F",
+      "Flutter",
+      "FastAPI",
+      "Supabase"
+    ]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [],
+    "assets": [],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "paper": "#f6f0e5",
+      "ink": "#302d27",
+      "muted": "#625e54",
+      "terracotta": "#9b4932",
+      "burgundy": "#6b2e34"
+    },
+    "typography": {
+      "headings": "Georgia",
+      "body": "Arial"
+    },
+    "motion": {
+      "scroll": "GSAP/Lenis",
+      "hero": "R3F/Drei",
+      "reduced": "static fallback"
+    },
+    "density": "editorial"
+  },
+  "components": {
+    "installed": ["Button", "Radix Dialog"],
+    "preferredPrimitives": ["shadcn-compatible Radix"],
+    "patterns": ["Editorial chapters", "Procedural keepsake book"]
+  },
+  "constraints": {
+    "must": [
+      "Self-hosted sample assets",
+      "Private by default",
+      "Responsive and reduced motion"
+    ],
+    "avoid": [
+      "Biometric uploads",
+      "Motion blocking content",
+      "Invented testimonials"
+    ]
+  },
+  "decisions": [
+    "Implement the recovered premium editorial plan with warm paper and terracotta; one focal effect per section.",
+    "Refine the warm editorial identity with a contrasting charcoal story chapter, hinged book hero and physical paper turns; preserve keyboard operation, full text contrast and a manual motion pause.",
+    "User requested a distinctive scroll-responsive experience: burgundy book zoom and hinged opening, full-bleed memory match cut, then an interactive cream app. Native sticky geometry, reduced-motion natural flow, touch scrolling, and a direct skip are required."
+  ],
+  "evidence": ["docs/source-conversation.md", "apps/web/src/app/globals.css"],
+  "generatedAt": "2026-10-03T10:36:08.57Z"
+}

@@ -1,0 +1,1 @@
+-- No personal data is seeded. Create test fixtures only in a disposable development stack.
