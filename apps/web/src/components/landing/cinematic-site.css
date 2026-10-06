@@ -9,9 +9,12 @@
   padding-inline: 4%;
   height: 72px;
   min-height: 72px;
-  border: 0;
-  background: #f6f0e5;
-  backdrop-filter: none;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.2)),
+    rgba(246, 240, 229, 0.78);
+  backdrop-filter: blur(20px) saturate(1.85) brightness(1.04);
+  -webkit-backdrop-filter: blur(20px) saturate(1.85) brightness(1.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
 }
 .memora-cinematic .brand-symbol {
   border: 0;
@@ -147,12 +150,21 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 18px 0;
-  border-top: 1px solid #a295816b;
-  transition: padding 0.25s;
+  padding: 16px 14px;
+  margin-block: 4px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .archive-person-list a:hover {
-  padding-left: 9px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateX(6px);
+  box-shadow:
+    0 8px 24px -6px rgba(48, 45, 39, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 .archive-person-initial {
   width: 37px;
@@ -258,9 +270,16 @@
   font-size: 51px;
 }
 .memora-cinematic .timeline-card {
-  background: #ede4d5;
-  border: 0;
-  border-radius: 0;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.72) 0%, rgba(237, 228, 213, 0.55) 100%),
+    rgba(237, 228, 213, 0.85);
+  backdrop-filter: blur(16px) saturate(1.7);
+  -webkit-backdrop-filter: blur(16px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  box-shadow:
+    0 16px 36px -10px rgba(48, 45, 39, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 .memora-cinematic .timeline-scrubber {
   margin-top: 35px;

@@ -1,0 +1,20 @@
+.cursor-light-pool {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 580px;
+  height: 580px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 55;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: radial-gradient(
+    circle,
+    rgba(155, 73, 50, 0.08) 0%,
+    rgba(215, 165, 115, 0.04) 40%,
+    transparent 70%
+  );
+  mix-blend-mode: soft-light;
+  will-change: transform;
+}

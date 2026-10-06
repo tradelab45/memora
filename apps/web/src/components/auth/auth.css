@@ -14,20 +14,28 @@
   height: 38px;
   min-width: 96px;
   padding: 3px 6px;
-  background: rgba(240, 235, 224, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(155, 73, 50, 0.2);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.12) 45%, rgba(255, 255, 255, 0.22)),
+    rgba(240, 235, 224, 0.75);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 9999px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.6),
-    0 2px 6px rgba(48, 45, 39, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.14),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.12),
+    0 2px 8px rgba(48, 45, 39, 0.05);
 }
 
 .auth-toggle-track:hover {
   background: rgba(245, 240, 230, 0.95);
   border-color: rgba(155, 73, 50, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 14px rgba(48, 45, 39, 0.08);
 }
 
 .auth-toggle-track.is-compact {
@@ -38,14 +46,14 @@
 }
 
 .auth-toggle-status-text {
-  font-family: var(--font-sans);
+  font-family: var(--display);
   font-size: 12px;
   font-weight: 600;
   color: #302d27;
   padding-left: 8px;
   padding-right: 32px;
   white-space: nowrap;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .auth-toggle-track.is-signed-in .auth-toggle-status-text {
@@ -99,12 +107,18 @@
   top: calc(100% + 8px);
   right: 0;
   width: 240px;
-  background: #fdfbf7;
-  border: 1px solid rgba(155, 73, 50, 0.2);
-  border-radius: 16px;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.88), rgba(253, 251, 247, 0.78)),
+    #fdfbf7;
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
   box-shadow:
-    0 16px 36px -8px rgba(48, 45, 39, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    0 20px 48px -10px rgba(48, 45, 39, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.14),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.1);
   padding: 14px 16px;
   z-index: 100;
   animation: dropdownFadeIn 0.2s ease-out;
@@ -305,13 +319,19 @@
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 440px;
-  background: #fbf9f4;
-  border: 1px solid rgba(155, 73, 50, 0.25);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(251, 247, 240, 0.72) 40%, rgba(243, 237, 226, 0.85) 100%),
+    rgba(251, 249, 244, 0.8);
+  backdrop-filter: blur(28px) saturate(1.85) brightness(1.03);
+  -webkit-backdrop-filter: blur(28px) saturate(1.85) brightness(1.03);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 28px;
   padding: 36px 32px 32px;
   box-shadow:
-    0 24px 60px -10px rgba(48, 45, 39, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    0 32px 72px -12px rgba(48, 45, 39, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.16),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.12);
   z-index: 1001;
   box-sizing: border-box;
   color: #302d27;
@@ -580,21 +600,29 @@
 
 .auth-tilt-card {
   position: relative;
-  background: #fbf9f4;
-  border: 1px solid rgba(155, 73, 50, 0.25);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(251, 247, 240, 0.75) 45%, rgba(243, 237, 226, 0.88) 100%),
+    rgba(251, 249, 244, 0.8);
+  backdrop-filter: blur(28px) saturate(1.85) brightness(1.03);
+  -webkit-backdrop-filter: blur(28px) saturate(1.85) brightness(1.03);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 28px;
   padding: 32px 30px;
   box-shadow:
-    0 24px 50px -12px rgba(48, 45, 39, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    0 28px 60px -12px rgba(48, 45, 39, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.16),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.12);
   transform-style: preserve-3d;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .auth-tilt-card:hover {
   box-shadow:
-    0 32px 64px -12px rgba(155, 73, 50, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+    0 36px 72px -12px rgba(155, 73, 50, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.22),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.16);
 }
 
 .card-inner-content {

@@ -1,0 +1,64 @@
+/* Liquid Glass Material: Refraction, Chromatic Rim & Specular Light */
+
+.liquid-glass {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.09)),
+    rgba(250, 246, 238, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0 -18px 30px -18px rgba(48, 44, 38, 0.18),
+    inset 1.5px 1.5px 0 rgba(140, 220, 255, 0.18),
+    inset -1.5px -1.5px 0 rgba(255, 140, 210, 0.14),
+    0 18px 50px rgba(45, 40, 32, 0.14);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Pointer-tracked specular highlight. --sx/--sy are set dynamically by LiquidGlass */
+.liquid-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--spec, 0);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: radial-gradient(
+    240px circle at var(--sx, 30%) var(--sy, 28%),
+    rgba(255, 255, 255, 0.36),
+    rgba(255, 255, 255, 0.12) 45%,
+    transparent 72%
+  );
+  mix-blend-mode: plus-lighter;
+}
+
+/* Ambient rim lighting */
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(255, 255, 255, 0.26), transparent 45%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 30%, transparent 70%, rgba(255, 255, 255, 0.06));
+}
+
+/* Dark variant for night / twilight / darkroom scenes */
+.liquid-glass-dark {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 45%, rgba(255, 255, 255, 0.06)),
+    rgba(18, 17, 16, 0.72) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 -18px 30px -18px rgba(0, 0, 0, 0.45),
+    inset 1.5px 1.5px 0 rgba(120, 220, 255, 0.12),
+    inset -1.5px -1.5px 0 rgba(255, 120, 200, 0.1),
+    0 22px 60px rgba(0, 0, 0, 0.38) !important;
+  color: #f7edda !important;
+}

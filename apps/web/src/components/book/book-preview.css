@@ -5,14 +5,23 @@
 .book-dialog.memora-reader {
   width: min(1080px, calc(100% - 40px));
   padding: 26px 34px 20px;
-  background: #eae4d9;
+  background:
+    linear-gradient(170deg, rgba(250, 247, 240, 0.94), rgba(234, 228, 217, 0.98)),
+    #eae4d9;
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
   max-height: 94dvh;
-  border: 1px solid #cfc4b4;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 16px;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
   overscroll-behavior: contain;
+  box-shadow:
+    0 24px 64px -12px rgba(48, 45, 39, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.16),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.12);
 }
 .memora-reader .reader-header {
   display: flex;
@@ -22,15 +31,21 @@
   margin-bottom: 25px;
 }
 .memora-reader .reader-edition {
-  font-size: 8px;
-  letter-spacing: 1.8px;
+  font-family: var(--display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--rust);
   margin-bottom: 9px;
 }
 .memora-reader .preview-title {
-  font-size: 31px;
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 700;
   padding: 0;
-  letter-spacing: -1px;
+  letter-spacing: -0.03em;
+  color: var(--ink);
 }
 .memora-reader .preview-description {
   font-size: 11px;
@@ -314,7 +329,22 @@
   width: 44px;
   min-height: 44px;
   border-radius: 50%;
-  border-color: #c9bcaa;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(245, 240, 230, 0.45));
+  backdrop-filter: blur(12px) saturate(1.7);
+  -webkit-backdrop-filter: blur(12px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 8px rgba(48, 45, 39, 0.06);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.memora-reader .reader-controls > .button:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 4px 14px rgba(48, 45, 39, 0.1);
 }
 .memora-reader .reader-pagination {
   text-align: center;
@@ -766,11 +796,19 @@
 }
 
 .print-specs-card {
-  background: #fbf7ee;
-  border: 1px solid #dcd4c3;
-  border-radius: 6px;
-  padding: 20px 24px;
-  box-shadow: 0 4px 18px rgba(48, 45, 39, 0.06);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(248, 245, 238, 0.65)),
+    #fbf7ee;
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow:
+    0 12px 32px -8px rgba(48, 45, 39, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.14),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.1);
 }
 
 .specs-header {
@@ -781,12 +819,14 @@
 }
 
 .specs-header h4 {
+  font-family: var(--display);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--rust);
 }
 

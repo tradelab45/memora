@@ -22,9 +22,14 @@
     "Newsreader", "Cormorant Garamond", "Playfair Display", Georgia,
     "Times New Roman", serif;
   --sans:
-    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Plus Jakarta Sans", "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --mono: "Geist Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --display: "Bricolage Grotesque Variable", "Newsreader", "Plus Jakarta Sans", sans-serif;
+  --glass-hi: 255 255 255;
+  --glass-tint: 250 246 238;
+  --glass-alpha: 0.65;
+  --glass-edge: rgba(255, 255, 255, 0.45);
 }
 * {
   box-sizing: border-box;
@@ -117,47 +122,65 @@ em {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  min-height: 50px;
-  padding: 14px 24px;
+  gap: 16px;
+  min-height: 48px;
+  padding: 12px 24px;
   border: 1px solid transparent;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 9999px;
+  font-family: var(--display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1.3;
-  transition:
-    background 0.2s,
-    transform 0.2s,
-    color 0.2s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .button:hover {
   transform: translateY(-2px);
 }
 .button-primary {
-  background: var(--rust);
+  background: linear-gradient(135deg, #a74e36 0%, var(--rust) 60%, #823422 100%);
   color: #fff8f0;
+  box-shadow:
+    0 4px 14px rgba(155, 73, 50, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .button-primary:hover {
-  background: #7f3928;
+  background: linear-gradient(135deg, #b2543b 0%, #8e3825 60%, #742d1e 100%);
+  box-shadow:
+    0 6px 20px rgba(155, 73, 50, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .button-outline {
-  background: transparent;
-  border-color: #bdb6a7;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.2)),
+    rgba(245, 240, 230, 0.7);
+  backdrop-filter: blur(12px) saturate(1.7);
+  -webkit-backdrop-filter: blur(12px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 2px 6px rgba(48, 45, 39, 0.04);
 }
 .button-outline:hover {
-  background: #ece6da;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 4px 14px rgba(48, 45, 39, 0.08);
 }
 .button-ghost {
   background: transparent;
 }
 .button-ghost:hover {
-  background: #ece6da;
+  background: rgba(236, 230, 218, 0.65);
+  backdrop-filter: blur(8px);
 }
 .button-sm {
   min-height: 40px;
-  padding: 10px 16px;
-  font-size: 11px;
-  gap: 20px;
+  padding: 8px 16px;
+  font-size: 11.5px;
+  gap: 12px;
 }
 .button-icon {
   padding: 10px;
@@ -1514,15 +1537,28 @@ h2 {
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid var(--line);
-  background: transparent;
-  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.15)),
+    rgba(245, 240, 230, 0.7);
+  backdrop-filter: blur(12px) saturate(1.7);
+  -webkit-backdrop-filter: blur(12px) saturate(1.7);
+  padding: 10px 18px;
+  font-family: var(--display);
   font-size: 12px;
-  border-radius: 3px;
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 2px 6px rgba(48, 45, 39, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .studio-steps button[aria-current="step"] {
-  background: #ebe1d1;
-  border-color: #b79c82;
+  background: linear-gradient(135deg, rgba(235, 225, 209, 0.95), rgba(245, 236, 220, 0.9));
+  border-color: rgba(183, 156, 130, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 14px rgba(155, 73, 50, 0.12);
 }
 .studio-steps button span {
   font-family: var(--serif);
@@ -1534,6 +1570,7 @@ h2 {
   padding-top: 30px;
 }
 .studio-panel h2 {
+  font-family: var(--display);
   font-size: 35px;
   letter-spacing: -1px;
 }
@@ -1550,18 +1587,39 @@ h2 {
   margin: 30px 0;
 }
 .studio-person {
-  border: 1px solid var(--line);
-  background: transparent;
-  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.65) 0%, rgba(245, 240, 230, 0.5) 100%),
+    rgba(248, 245, 238, 0.7);
+  backdrop-filter: blur(16px) saturate(1.7);
+  -webkit-backdrop-filter: blur(16px) saturate(1.7);
+  padding: 24px 26px;
   display: flex;
   align-items: center;
   gap: 17px;
   text-align: left;
-  border-radius: 4px;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 24px -6px rgba(48, 45, 39, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 1px 1px 0 rgba(140, 220, 255, 0.12),
+    inset -1px -1px 0 rgba(255, 140, 210, 0.1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.studio-person:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px -8px rgba(48, 45, 39, 0.14),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
 }
 .studio-person[aria-pressed="true"] {
-  background: #efe5d6;
-  border-color: #ac7458;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(239, 229, 214, 0.8) 100%),
+    rgba(239, 229, 214, 0.9);
+  border-color: rgba(172, 116, 88, 0.5);
+  box-shadow:
+    0 12px 28px -6px rgba(155, 73, 50, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
 }
 .studio-person .person-avatar {
   width: 50px;
