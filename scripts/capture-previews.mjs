@@ -129,6 +129,23 @@ async function run() {
     await page.waitForTimeout(400);
   }
 
+  // 6a-2. Archival Order & Checkout Modal
+  console.log("Capturing Archival Order & Checkout modal...");
+  const orderButton = page.locator(".reader-order-btn").first();
+  if (await orderButton.isVisible()) {
+    await orderButton.click();
+    await page.waitForTimeout(700);
+    await page.screenshot({
+      path: path.join(DOCS_DIR, "preview_order_modal.png"),
+    });
+    fs.copyFileSync(
+      path.join(DOCS_DIR, "preview_order_modal.png"),
+      path.join(ARTIFACT_DIR, "preview_order_modal.png")
+    );
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(400);
+  }
+
   // 6b. Archival Print Specifications & Spine Inspector Drawer
   console.log("Capturing Print Specs Drawer with Live Spine Thickness & CMYK Soft-Proofing...");
   const printSpecsBtn = page.getByRole("button", { name: "View fine-art print specifications" });

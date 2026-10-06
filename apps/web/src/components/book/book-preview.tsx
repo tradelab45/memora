@@ -18,12 +18,14 @@ import {
   Music2,
   SlidersHorizontal,
   Box,
+  Package,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { memories } from "@/lib/content";
 import { QrCode } from "@/components/ui/qr-code";
 import { ArViewModal } from "./ar-view-modal";
+import { OrderModal } from "./order-modal";
 import {
   playPaperRustle,
   playSubtleClick,
@@ -240,6 +242,7 @@ function BookReader({
   const [cmykProof, setCmykProof] = useState(false);
   const [showSoundtrackDialog, setShowSoundtrackDialog] = useState(false);
   const [showArModal, setShowArModal] = useState(false);
+  const [showOrderModal, setShowOrderModal] = useState(false);
   const [includeQrCode, setIncludeQrCode] = useState(true);
   const music = useMusic();
   const reducedMotion = useReducedMotion();
@@ -391,6 +394,20 @@ function BookReader({
           >
             <Printer size={15} />
             <span>Print Specs</span>
+          </button>
+
+          <button
+            type="button"
+            className="reader-order-btn"
+            onClick={() => {
+              setShowOrderModal(true);
+              playSubtleClick();
+            }}
+            aria-label="Order Smyth-sewn archival photobook"
+            title="Order Smyth-Sewn Keepsake"
+          >
+            <Package size={15} />
+            <span>Order</span>
           </button>
 
           <button
@@ -606,6 +623,17 @@ function BookReader({
               >
                 <Printer size={14} /> Print / Export PDF
               </Button>
+              <Button
+                size="sm"
+                className="specs-order-btn"
+                onClick={() => {
+                  setShowOrderModal(true);
+                  playSubtleClick();
+                }}
+                aria-label="Order printed archival keepsake"
+              >
+                <Package size={14} /> Order Smyth-Sewn Volume
+              </Button>
             </div>
           </div>
         </div>
@@ -764,6 +792,35 @@ function BookReader({
       <ArViewModal
         open={showArModal}
         onOpenChange={setShowArModal}
+      />
+
+      <OrderModal
+        open={showOrderModal}
+        onOpenChange={setShowOrderModal}
+        specs={{
+          coverColor: "#512e37",
+          coverName: "Burgundy Velvet",
+          foilChoice,
+          foilLabel:
+            foilChoice === "silver"
+              ? "Argentum Silver"
+              : foilChoice === "rose"
+                ? "Rose Gold Foil"
+                : foilChoice === "deboss"
+                  ? "Blind Deboss Lettering"
+                  : "Aurum Gold Foil",
+          foilIcon:
+            foilChoice === "silver"
+              ? "🪙"
+              : foilChoice === "rose"
+                ? "🌹"
+                : foilChoice === "deboss"
+                  ? "🖋️"
+                  : "🌟",
+          pageCount: totalPages,
+          spineThicknessMm,
+          includeQrCode,
+        }}
       />
     </Dialog.Content>
   );

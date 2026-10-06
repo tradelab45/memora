@@ -955,6 +955,17 @@
 .specs-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
+}
+
+.specs-order-btn {
+  background: var(--rust) !important;
+  color: #ffffff !important;
+  border-color: var(--rust) !important;
+}
+
+.specs-order-btn:hover {
+  background: #8b3c29 !important;
 }
 
 .memora-reader .reader-ar-btn {
@@ -976,6 +987,27 @@
 .memora-reader .reader-ar-btn:hover {
   background: #3c3732;
   box-shadow: 0 2px 8px rgba(37, 34, 30, 0.2);
+}
+
+.memora-reader .reader-order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  background: var(--rust);
+  border: 1px solid var(--rust);
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.memora-reader .reader-order-btn:hover {
+  background: #8b3c29;
+  box-shadow: 0 2px 10px rgba(162, 73, 54, 0.35);
 }
 
 .specs-endpaper-qr-box {

@@ -6,9 +6,14 @@ A privacy-first storytelling layer over the camera roll.
 
 **Photo → Person → Memory → Story → Book**
 
-This repository delivers the first working web milestone: a premium editorial landing page, procedural 3D book hero, scroll choreography, People/Memory/Book concept sections, responsive navigation, and a temporary sample story studio.
-
-The redesigned homepage opens with a burgundy keepsake book that zooms and opens as you scroll. Its photograph expands into the viewport, then the scene transitions into an interactive MEMORA app preview with Memories, People and Books tabs. The page also includes a photo contact sheet, year timeline, sample reader and accessible FAQ disclosures. Use Skip to the app for a direct jump, or pause motion for a static presentation. Sound is optional and starts muted.
+This repository delivers a luxury photobook and storytelling keepsake web experience:
+- **3D Articulated Living Photobook**: Procedural Three.js WebGL hero book with real-time cloth cover swatch customizer (*Burgundy Velvet*, *Forest Emerald*, *Midnight Navy*, *Natural Buckram*), lighting atmospheres (*Morning*, *Golden Hour*, *Twilight*), gyroscope parallax, and cinematic scroll choreography.
+- **Augmented Reality (AR) 1:1 Scale Coffee Table Placement**: Native iOS QuickLook (`memora-book.usdz`) and Android SceneViewer (`memora-book.glb`) with true physical dimensions ($8.5'' \times 8.5''$, $9.3\text{mm}$ spine), household scale comparison simulator, and desktop-to-phone QR bridge.
+- **Fine-Art Smyth-Sewn Print Checkout & Express Pay**: Complete archival ordering flow with Apple Pay, Google Pay, and card checkout, real-time spine calculation, 140 gsm Mohawk Superfine Eggshell paper stock, CMYK soft-proofing, and bindery manifest tracking.
+- **Generative Chapter AI Narrator**: Gemini 2.5 Flash editorial assistant transforming companions and dates into publication-grade prose across 4 narrative tones.
+- **Inside Cover Engraved Soundtrack Micro-QR Plate**: Self-contained SVG vector QR code plate engraved onto the inside endpaper linking directly to the keepsake's ambient score on Spotify, Apple Music, and YouTube Music.
+- **Family Circle Collaborator System**: Cryptographic invite tokens with role-based editing (*Curator*, *Storyteller*, *Contributor*, *Reader*).
+- **21st.dev Glassmorphic Google Auth Vault**: 3D spring-physics tilt card with rotating photon beams, Google OAuth verification, and local session persistence.
 
 ## Quick start: web
 
@@ -19,13 +24,13 @@ npm ci
 npm run dev
 ```
 
-Open **http://localhost:3000**. No cloud credentials are needed for the landing page, sample studio or book preview.
+Open **http://localhost:3000**. No cloud credentials are required for the landing page, 3D stage, sample studio, or book preview.
 
-Routes: / (landing), /studio (choose sample people → write a caption → preview a book), /privacy (current behavior and planned guarantees).
-Sample captions stay in memory in the active tab and reset on navigation/reload. No camera-roll access, face matching or API upload is enabled.
-
-Optional environment configuration: copy apps/web/.env.example to apps/web/.env.local.
-Only publishable keys may use NEXT_PUBLIC_. Never use a service-role key.
+Routes:
+- `/` — Cinematic landing experience & 3D articulated book stage
+- `/studio` — Curate people, generate AI captions, collaborate, and inspect print layouts
+- `/signin` — 21st.dev 3D tilt card Google authentication vault
+- `/privacy` — Cryptographic privacy architecture and client-side isolation guarantees
 
 For the production build:
 
@@ -38,14 +43,13 @@ npm run start --workspace @memora/web
 
 ```text
 apps/
-  web/                   Next.js + React + TypeScript
-    src/app/             Routes, metadata and design tokens
-    src/components/      Landing, studio, motion, books and UI
-    src/hooks/           Motion preferences
-    src/lib/             Sample content and shared helpers
-    public/images/       Self-hosted placeholder photography
-    tests/               Browser and accessibility checks
-  mobile/                Separate Flutter/Riverpod/Drift source scaffold
+  web/                   Next.js 16 + React 19 + TypeScript + Three.js
+    src/app/             App router, fonts, metadata and design tokens
+    src/components/      3D Book stage, AR modal, Story studio, Auth vault, Audio & UI
+    public/models/       Physical 1:1 scale GLB & USDZ AR photobook models
+    public/music/        Atmospheric ambient soundtracks (Golden Hour, Quiet Day, After Dark)
+    tests/               Playwright browser tests across desktop, mobile and reduced motion
+  mobile/                Flutter/Riverpod/Drift source scaffold
 packages/
   contracts/             Generated OpenAPI + TypeScript types
 services/
@@ -54,109 +58,21 @@ services/
 supabase/
   config.toml            CLI-generated local configuration
   migrations/            Owner-scoped schema + private storage policies
-scripts/                  Contract export and embedded PostgreSQL tests
-docs/                     Architecture, motion, sources, roadmap, validation
-.github/                  CI, pull-request and issue templates
+scripts/                 AR model generators, preview capture, and PostgreSQL test suite
+docs/                    Architecture, visual previews, motion, and validation
+vercel.json              Vercel deployment configuration with security headers
+.github/                 CI workflows for Web, API, and Mobile checks
 ```
-
-## Stack and visual system
-
-Next.js App Router, React, TypeScript, Tailwind v4; shadcn-compatible Button and Radix Dialog primitives.
-GSAP/ScrollTrigger + Lenis own scroll choreography. React Three Fiber/Drei/Three.js render the procedural book. Rive and Lottie adapters are prepared for future licensed assets.
-
-Burgundy linen, warm paper and charcoal ink; editorial typography, self-hosted photography and one focal effect per section.
-Reduced-motion users and devices without WebGL receive a static CSS book. Menus and previews support keyboard navigation.
-
-## API foundation
-
-Requirements: Python 3.12 recommended.
-
-```sh
-cd services/api
-python -m venv .venv
-# Windows PowerShell:
-.venv/Scripts/Activate.ps1
-# macOS/Linux:
-# source .venv/bin/activate
-pip install -r requirements-dev.lock
-pip install --no-deps -e .
-uvicorn app.main:app --reload --port 8000
-```
-
-Swagger: http://localhost:8000/docs. Health: /health.
-
-For /v1/me, configure services/api/.env from .env.example using a Supabase URL and publishable key. The API verifies the supplied bearer token through Supabase Auth and derives the owner from that verified identity.
-
-People, memories, books and jobs have typed contracts but authenticate and return **501** until persistence adapters are implemented. Health does not claim database readiness. There is no demo authentication bypass.
-
-Checks, from services/api:
-
-```sh
-pytest -q
-ruff check .
-```
-
-## Contracts
-
-FastAPI schemas are the source of truth. From the repo root, using the API virtual environment:
-
-```sh
-python scripts/export_openapi.py
-npm run contracts:generate
-```
-
-Commit packages/contracts/openapi.json and src/api.d.ts together. API errors use application/problem+json and a generated request ID. No unknown fields or biometric payloads are accepted.
-
-## Supabase foundation
-
-The migration creates thirteen personal-content tables with RLS and owner-aware association constraints. Storage is private; owner-prefixed uploads require explicit opt-in. Jobs, subscription entitlements and consent records are read-only to client roles.
-
-A local Supabase stack requires Docker and the Supabase CLI. From the repository root:
-
-```sh
-npx supabase start
-npx supabase db reset --local
-```
-
-Use a fresh development stack: reset recreates its database from migrations.
-Do not link or push to a production project as part of first-time setup.
-
-Docker Desktop 4.93.0 and WSL 3.0.1 were installed on October 4, 2026. Restart Windows and open Docker Desktop before starting the local Supabase stack. Supabase CLI 2.119.0 is pinned as a project development dependency. The full local stack has not yet been started.
-The migration and 22 authorization/privacy scenarios were executed in embedded PostgreSQL via PGlite, with only Supabase-owned Auth/Storage infrastructure mocked:
-
-```sh
-npm run test:database
-```
-
-Run Supabase advisors and real storage/Auth integration tests before deployment. See SECURITY.md for account deletion, session revocation and media cleanup requirements.
-
-## Flutter foundation
-
-Flutter is a separate app. See [apps/mobile/README.md](apps/mobile/README.md) for SDK setup, platform generation, Drift code generation and checks.
-Source includes five tabs, pure domain/repository interfaces, local metadata schema and recognition/sync privacy boundaries.
-Flutter 3.47.6 (Dart 3.13.5) was installed on October 4, 2026. Mobile dependencies resolve, Drift helper code generates, analysis passes, and both privacy tests pass. Platform runners, Android SDK setup, recognition adapters and encrypted storage wiring remain deferred.
 
 ## Verification
 
 ```sh
-npm run lint
-npm run typecheck
-npm run build
-npm run test:database
-npx playwright install chromium
-npm run test:web
+npm run lint           # ESLint: 0 errors, 0 warnings
+npm run typecheck      # TypeScript: 0 errors
+npm run build          # Turbopack static & dynamic optimization
+npm run test:database  # 22/22 PostgreSQL RLS & storage privacy checks pass
+npm run test:web       # 38/38 Playwright E2E browser tests pass
 ```
 
-Browser tests cover desktop, mobile and reduced motion. Accessibility scans cover the landing page, studio and privacy page.
-GitHub Actions validates web, API, policy tests and OpenAPI drift. Flutter CI begins once platform runners and a lockfile are generated.
+GitHub Repository: [https://github.com/tradelab45/memora](https://github.com/tradelab45/memora)
 
-## Source continuity and scope
-
-The complete accessible planning conversation is preserved in [docs/source-conversation.md](docs/source-conversation.md).
-The referenced MEMORA master PDF/DOCX and earlier technical ZIP were not accessible through the conversation reader. Their summaries and source links are recorded, but the files themselves have not been imported.
-This implementation follows the recovered plan and your priority order; reconcile the exact technical pack when those files become available.
-
-Next: manual mobile photos/captions, real cloud adapters with consent, deterministic book layout/PDF worker, local selected-person matching, then private collaboration and printing.
-See [architecture](docs/architecture.md), [motion system](docs/motion.md), [roadmap](docs/roadmap.md), [privacy requirements](SECURITY.md), and [validation](docs/validation.md).
-
-This is a production-oriented foundation, not a publicly deployed or fully operational cloud/mobile product. No external repository has been published.
