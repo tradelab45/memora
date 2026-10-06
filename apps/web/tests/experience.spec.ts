@@ -1,11 +1,22 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+
+async function openPublicSamples(page:Page) {
+  const details=page.locator('.landing-details');
+  if(await page.evaluate(()=>innerWidth<900)) {
+    if(!await details.getAttribute('open')) await details.locator(':scope > summary').click();
+    const sample=page.getByRole('button',{name:'Explore a sample',exact:true});
+    if(await sample.isVisible()) await sample.click();
+    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+  }
+}
 test("landing is responsive and all concept sections are reachable", async ({
   page,
 }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
+  await openPublicSamples(page);
   await expect(
     page.getByRole("heading", { name: "Life happens. Keep the feeling." }),
   ).toBeVisible();
@@ -50,13 +61,14 @@ test("cinematic chapters reveal a usable app with accessible library controls", 
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
+  await openPublicSamples(page);
   const experience = page.locator("#experience");
   const appLayer = experience.locator("#experience-app");
   const app = experience.getByTestId("app-preview");
   const enhanced = await page.evaluate(
     () =>
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-      window.innerHeight >= 600,
+      window.innerWidth >= 900 && window.innerHeight >= 600,
   );
   await expect(experience).toHaveAttribute("data-enhanced", String(enhanced));
 
@@ -162,40 +174,11 @@ test("cinematic chapters reveal a usable app with accessible library controls", 
   }
   expect(errors).toEqual([]);
 });
-test("sample story keeps a caption and book preview supports keyboard navigation", async ({
-  page,
-}) => {
-  await page.goto("/studio");
-  await page.getByRole("button", { name: "Find the little moments" }).click();
-  await page
-    .getByLabel("One line you’ll want to remember.")
-    .fill("Dad took the scenic route. I am glad we did.");
-  await page.getByRole("button", { name: "Keep this memory" }).click();
-  await expect(page.getByRole("status")).toContainText("saved");
-  await page.getByRole("button", { name: "See your book" }).click();
-  await page.getByRole("button", { name: "Flip through a sample" }).click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "Dad took the scenic route. I am glad we did.",
-  );
-  await page.getByRole("button", { name: "Next page" }).click();
-  await expect(page.getByRole("dialog")).toContainText("Page 2 of 3");
-  await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("dialog")).toContainText("Page 1 of 3");
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).not.toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Flip through a sample" }),
-  ).toBeFocused();
-  await page.getByRole("button", { name: "Reset sample" }).click();
-  await expect(
-    page.getByRole("heading", { name: "Who makes your world?" }),
-  ).toBeVisible();
-});
-
 test("timeline years support keyboard navigation and announce the selected memory", async ({
   page,
 }) => {
   await page.goto("/");
+  await openPublicSamples(page);
   const timeline = page.locator("#timeline");
   const lastYear = timeline.getByRole("tab", { name: "2026", exact: true });
   await lastYear.focus();
@@ -231,8 +214,9 @@ test("frequently asked questions can be expanded and closed with a keyboard", as
   page,
 }) => {
   await page.goto("/");
+  await openPublicSamples(page);
   for (const question of [
-    "Can I try MEMORA without an account?",
+    "Do I need an account to use MEMORA?",
     "Are my photos uploaded?",
     "Can I print my book?",
     "Is face recognition available yet?",
@@ -252,6 +236,7 @@ test("motion can be paused while the story remains usable", async ({
   page,
 }) => {
   await page.goto("/");
+  await openPublicSamples(page);
   const reduced = await page.evaluate(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
@@ -291,7 +276,7 @@ test("motion can be paused while the story remains usable", async ({
   ).toContainText("Ordinary, wonderful.");
   await app.getByRole("link", { name: "Open the studio", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "Who makes your world?" }),
+    page.getByRole("heading", { name: "A life worth keeping." }),
   ).toBeVisible();
   await page
     .getByRole("link", { name: "MEMORA home", exact: true })
@@ -334,6 +319,7 @@ test("book preview stays silent until enabled and respects page boundaries", asy
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
+  await openPublicSamples(page);
   const trigger = page
     .locator("#books")
     .getByRole("button", { name: "Flip through a sample" });
@@ -399,51 +385,7 @@ test("book preview stays silent until enabled and respects page boundaries", asy
   await expect(trigger).toBeFocused();
   expect(errors).toEqual([]);
 });
-test("empty people selection blocks progression", async ({ page }) => {
-  await page.goto("/studio");
-  for (const name of ["Mom", "Dad", "Arjun"])
-    await page.getByRole("button", { name: new RegExp(name) }).click();
-  await expect(
-    page.getByRole("button", { name: "Find the little moments" }),
-  ).toBeDisabled();
-  await expect(
-    page.getByRole("button", { name: "02 Your memories" }),
-  ).toBeDisabled();
-});
-test("sample data resets on reload and makes no third-party requests", async ({
-  page,
-}) => {
-  const external: string[] = [];
-  page.on("request", (request) => {
-    if (!new URL(request.url()).hostname.match(/^(127\.0\.0\.1|localhost)$/))
-      external.push(request.url());
-  });
-  await page.goto("/studio");
-  await page.getByRole("button", { name: "Find the little moments" }).click();
-  await page
-    .getByLabel("One line you’ll want to remember.")
-    .fill("Temporary private text");
-  await page.getByRole("button", { name: "Keep this memory" }).click();
-  await page.reload();
-  await expect(
-    page.getByRole("heading", { name: "Who makes your world?" }),
-  ).toBeVisible();
-  expect(external).toEqual([]);
-});
-
-test("book includes only the chosen people", async ({ page }) => {
-  await page.goto("/studio");
-  await page.getByRole("button", { name: /Mom/ }).click();
-  await page.getByRole("button", { name: /Arjun/ }).click();
-  await page.getByRole("button", { name: "Find the little moments" }).click();
-  await page.getByRole("button", { name: "See your book" }).click();
-  await page.getByRole("button", { name: "Flip through a sample" }).click();
-  await expect(page.getByRole("dialog")).toContainText("With Dad.");
-  await expect(page.getByRole("dialog")).toContainText("Page 1 of 1");
-  await expect(page.getByRole("button", { name: "Next page" })).toBeDisabled();
-});
-
-test("landing and sample studio pass accessibility scans", async ({ page }) => {
+test("landing, protected sign-in and privacy pass accessibility scans", async ({ page }) => {
   for (const route of ["/", "/studio", "/privacy"]) {
     await page.goto(route);
     const results = await new AxeBuilder({ page })

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox, ContactShadows } from "@react-three/drei";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 
 export type LightingMode = "morning" | "golden" | "twilight";
@@ -51,28 +52,46 @@ function drawPhoto(
   );
 }
 
+function getFoilColors(foilColor: string) {
+  switch (foilColor) {
+    case "silver":
+      return { text: "#f1f5f9", stroke: "#cbd5e1" };
+    case "rose":
+      return { text: "#fbcfe8", stroke: "#f472b6" };
+    case "deboss":
+      return { text: "rgba(0,0,0,0.45)", stroke: "rgba(0,0,0,0.3)" };
+    case "gold":
+    default:
+      return { text: "#dfc79f", stroke: "#c6a475" };
+  }
+}
+
 /** Self-hosted artwork, with an illustrated plate while the photograph loads. */
-function useBookTextures(cinematic: boolean) {
+function useBookTextures(
+  cinematic: boolean,
+  coverColor = "#512e37",
+  foilColor = "gold",
+) {
   const [textures, setTextures] = useState<BookTextures>();
 
   useEffect(() => {
-    const cover = canvasSurface(1024, 1365, cinematic ? "#512e37" : "#f3ecdf");
+    const foil = getFoilColors(foilColor);
+    const surfaceColor = coverColor || (cinematic ? "#512e37" : "#f3ecdf");
+    const cover = canvasSurface(1024, 1365, surfaceColor);
     const ctx = cover.context;
     ctx.fillStyle = cinematic
       ? "rgba(248, 235, 210, .04)"
       : "rgba(110, 83, 53, .035)";
     for (let x = 0; x < 1024; x += 4) ctx.fillRect(x, 0, 1, 1365);
     for (let y = 0; y < 1365; y += 4) ctx.fillRect(0, y, 1024, 1);
-    ctx.strokeStyle = cinematic ? "#c6a475" : "#b58a6d";
+    ctx.strokeStyle = foil.stroke;
     ctx.lineWidth = 2;
     ctx.strokeRect(58, 50, 908, 1265);
-    ctx.strokeStyle = cinematic
-      ? "rgba(198, 164, 117, .4)"
-      : "rgba(181, 138, 109, .4)";
+    ctx.strokeStyle = foil.stroke;
     ctx.lineWidth = 1;
     ctx.strokeRect(70, 62, 884, 1241);
     ctx.textAlign = "center";
-    ctx.fillStyle = cinematic ? "#dfc79f" : "#7c5c49";
+    ctx.fillStyle = foil.text;
     ctx.font = "26px Georgia, serif";
     ctx.fillText("M E M O R A", 512, 160);
     ctx.fillStyle = cinematic ? "#f6ecdd" : "#4a3528";
@@ -173,7 +192,7 @@ function useBookTextures(cinematic: boolean) {
       pagePhoto.onload = null;
       Object.values(nextTextures).forEach((texture) => texture.dispose());
     };
-  }, [cinematic]);
+  }, [cinematic, coverColor, foilColor]);
 
   return textures;
 }
@@ -233,15 +252,19 @@ function MemoryBook({
   isOpen,
   cinematic,
   progressRef,
+  coverColor = "#512e37",
+  foilColor = "gold",
 }: {
   onReady: () => void;
   isOpen: boolean;
   cinematic: boolean;
   progressRef?: RefObject<number>;
+  coverColor?: string;
+  foilColor?: string;
 }) {
   const book = useRef<THREE.Group>(null);
   const coverHinge = useRef<THREE.Group>(null);
-  const textures = useBookTextures(cinematic);
+  const textures = useBookTextures(cinematic, coverColor, foilColor);
   const gyroRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -356,7 +379,7 @@ function MemoryBook({
         position={[0, 0, -0.18]}
       >
         <meshStandardMaterial
-          color={cinematic ? "#512e37" : "#9b4932"}
+          color={coverColor}
           roughness={0.88}
         />
       </RoundedBox>
@@ -365,7 +388,7 @@ function MemoryBook({
           args={[0.22, 0.22, 4.24, 16, 1, false, Math.PI * 0.5, Math.PI]}
         />
         <meshStandardMaterial
-          color={cinematic ? "#452330" : "#9b4932"}
+          color={coverColor}
           roughness={0.84}
         />
       </mesh>
@@ -403,6 +426,15 @@ function MemoryBook({
             <planeGeometry args={[3.02, 4.06]} />
             <meshStandardMaterial map={textures.page} roughness={0.94} />
           </mesh>
+          <mesh position={[-1.36, 0, 0.128]}>
+            <planeGeometry args={[0.22, 4.06]} />
+            <meshBasicMaterial
+              color="#1a1815"
+              transparent
+              opacity={0.12}
+              depthWrite={false}
+            />
+          </mesh>
         </>
       )}
       {/* Hinge at the spine: the board and both artwork faces turn together. */}
@@ -410,7 +442,7 @@ function MemoryBook({
         <group position={[1.58, 0, 0]}>
           <RoundedBox args={[3.18, 4.24, 0.075]} radius={0.025} smoothness={2}>
             <meshStandardMaterial
-              color={cinematic ? "#512e37" : "#eee3cf"}
+              color={coverColor}
               roughness={0.88}
             />
           </RoundedBox>
@@ -418,7 +450,11 @@ function MemoryBook({
             <>
               <mesh position={[0, 0, 0.04]}>
                 <planeGeometry args={[3.14, 4.2]} />
-                <meshStandardMaterial map={textures.cover} roughness={0.88} />
+                <meshStandardMaterial
+                  map={textures.cover}
+                  roughness={0.74}
+                  metalness={foilColor === "deboss" ? 0.05 : 0.22}
+                />
               </mesh>
               <mesh position={[0, 0, -0.04]} rotation={[0, Math.PI, 0]}>
                 <planeGeometry args={[3.14, 4.2]} />
@@ -541,6 +577,9 @@ export default function BookScene({
   active = true,
   cinematic = false,
   lightingMode = "golden",
+  coverColor = "#512e37",
+  foilColor = "gold",
+  enablePostProcessing = true,
   progressRef,
 }: {
   onReady: () => void;
@@ -549,6 +588,9 @@ export default function BookScene({
   active?: boolean;
   cinematic?: boolean;
   lightingMode?: LightingMode;
+  coverColor?: string;
+  foilColor?: string;
+  enablePostProcessing?: boolean;
   progressRef?: RefObject<number>;
 }) {
   return (
@@ -560,11 +602,13 @@ export default function BookScene({
     >
       <ContextGuard onFailure={onFailure} />
       <LightingRig mode={lightingMode} />
-      {!cinematic && <SunlitDust lightingMode={lightingMode} />}
+      <SunlitDust lightingMode={lightingMode} />
       <MemoryBook
         onReady={onReady}
         isOpen={isOpen}
         cinematic={cinematic}
+        coverColor={coverColor}
+        foilColor={foilColor}
         progressRef={progressRef}
       />
       <ContactShadows
@@ -576,6 +620,16 @@ export default function BookScene({
         frames={1}
         resolution={256}
       />
+      {enablePostProcessing && (
+        <EffectComposer multisampling={0}>
+          <Bloom
+            luminanceThreshold={0.92}
+            luminanceSmoothing={0.12}
+            intensity={0.28}
+          />
+          <Vignette eskil={false} offset={0.2} darkness={0.3} />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }

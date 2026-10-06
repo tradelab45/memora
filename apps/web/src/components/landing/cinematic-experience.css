@@ -44,6 +44,32 @@
 .cinema-intro h1 em {
   color: #efc9ac;
 }
+.mobile-quick-jump-pill {
+  display: none;
+}
+@media (max-width: 760px) {
+  .mobile-quick-jump-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: #f7edda;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+  }
+  .mobile-quick-jump-pill:active {
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(0.98);
+  }
+}
 .cinema-book {
   position: relative;
   z-index: 2;
@@ -444,7 +470,7 @@
     gap: 10px;
   }
   .cinema-track[data-enhanced="true"] {
-    height: 350svh;
+    height: 250svh;
   }
   .cinema-track[data-enhanced="true"] .cinema-book {
     left: 0;
@@ -493,5 +519,127 @@
 @media (prefers-reduced-motion: reduce) {
   .cinema-scrap {
     transform: none;
+  }
+}
+
+/* A short, deliberate introduction on touch-sized screens. */
+.cinema-mobile-actions {
+  display: none;
+}
+@media (max-width: 899px) {
+  .cinema-track,
+  .cinema-track[data-enhanced="true"] {
+    height: auto;
+  }
+  .cinema-track .cinema-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+  }
+  .cinema-track .cinema-intro {
+    position: relative;
+    padding: 32px 20px 0;
+  }
+  .cinema-intro h1 {
+    font-size: clamp(42px, 10.8vw, 64px);
+    letter-spacing: -0.04em;
+    line-height: 1.04;
+  }
+  .cinema-kicker {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    margin-bottom: 16px;
+  }
+  .mobile-quick-jump-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 22px;
+    min-height: 46px;
+    padding: 12px 20px;
+    border: 1px solid #f0cbb5;
+    border-radius: 4px;
+    background: #f0cbb5;
+    color: #51282c;
+    font: 600 13px/1.4 var(--sans);
+    backdrop-filter: none;
+  }
+  .mobile-quick-jump-pill:focus-visible {
+    outline-color: #fff8ee;
+  }
+  .cinema-track .cinema-book {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(225px, 34svh, 310px);
+    margin: 0 auto;
+  }
+  .cinema-book .book-fallback {
+    width: 165px;
+    height: 215px;
+  }
+  .cinema-track .cinema-side-note,
+  .cinema-track .cinema-scrap,
+  .cinema-track .cinema-memory,
+  .cinema-track .cinema-rail {
+    display: none;
+  }
+  .cinema-track .cinema-mobile-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 18px;
+    gap: 4px;
+    color: #f7edda;
+    font-size: 12px;
+    text-align: center;
+  }
+  .cinema-mobile-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px;
+    border: 0;
+    background: none;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    font-size: 13px;
+  }
+  .cinema-mobile-actions button:focus-visible {
+    outline-color: #fff8ee;
+  }
+  .cinema-track .cinema-app-heading,
+  .cinema-track .cinema-app {
+    display: none;
+  }
+  .cinema-track[data-preview-open="true"] .cinema-app-heading,
+  .cinema-track[data-preview-open="true"] .cinema-app {
+    display: block;
+    position: relative;
+    inset: auto;
+    visibility: visible;
+  }
+  .cinema-track .cinema-app-heading {
+    padding-top: 28px;
+  }
+  .cinema-app-heading > span {
+    font-size: 10px;
+  }
+  .cinema-track .cinema-app {
+    padding-bottom: 30px;
+  }
+  .cinema-app .app-preview {
+    height: 640px;
+    max-height: none;
+  }
+  .cinema-app .app-preview-panel {
+    overflow-y: auto;
+  }
+  .cinema-app .app-preview-tabs button {
+    min-height: 44px;
   }
 }

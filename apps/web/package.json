@@ -21,6 +21,8 @@
     "@rive-app/react-canvas": "4.36.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^2.0.66",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.117.2",
     "@tailwindcss/postcss": "4.3.3",
     "@types/howler": "^2.2.13",
     "cannon-es": "^0.20.0",

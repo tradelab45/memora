@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { AuthProvider } from "@/components/auth/auth-provider";
 import { MotionProvider } from "@/components/motion/motion-provider";
+import "./fonts.css";
 import "./globals.css";
 import "./refinements.css";
+
 export const metadata: Metadata = {
   title: {
     default: "MEMORA — Your life. Remembered properly.",
@@ -11,7 +14,9 @@ export const metadata: Metadata = {
     "The people you love. The moments in between. Turn everyday photos into stories worth keeping with MEMORA.",
   robots: { index: true, follow: true },
 };
+
 export const viewport: Viewport = { themeColor: "#f8f5ee" };
+
 export default function RootLayout({
   children,
 }: {
@@ -23,7 +28,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <MotionProvider>{children}</MotionProvider>
+        <AuthProvider><MotionProvider>{children}</MotionProvider></AuthProvider>
       </body>
     </html>
   );

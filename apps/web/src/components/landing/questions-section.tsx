@@ -3,16 +3,16 @@ import Link from "next/link";
 
 const questions = [
   [
-    "Can I try MEMORA without an account?",
-    "Yes. The sample studio lets you choose people, add your own words and flip through a small book. Everything stays in the current browser tab and resets when you reload or leave the studio.",
+    "Do I need an account to use MEMORA?",
+    "You can explore the public sample here. Sign in with Google before adding your own photos, people and stories in the studio.",
   ],
   [
     "Are my photos uploaded?",
-    "The current website uses sample photographs only. It does not access your photo library or upload your captions. The planned app will make cloud backup a separate, explicit choice.",
+    "The landing page uses sample photographs. Your imported photos and stories are saved in this browser, under your signed-in account. Cloud backup requires a separate connection and is not enabled automatically.",
   ],
   [
     "Can I print my book?",
-    "For now, you can explore a digital sample. Print-ready exports and physical keepsakes are part of a later milestone. There is no checkout on this website yet.",
+    "Yes. In your book, choose Print / Save as PDF to open the browser print dialog. Audio stays in the digital book. Ordering a professionally printed keepsake is not available yet.",
   ],
   [
     "Is face recognition available yet?",

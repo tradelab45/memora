@@ -80,16 +80,18 @@
   min-height: 450px;
   border-radius: 3px;
   overflow: hidden;
-  background: #fbf7ee;
+  background: var(--reader-spread-bg, #fbf7ee);
+  transition: background-color 0.6s ease;
 }
 .memora-reader .reader-photo-page {
   display: flex;
   flex-direction: column;
   min-width: 0;
   padding: 30px 32px 23px;
-  background: #fbf7ee;
+  background: var(--reader-spread-bg, #fbf7ee);
   height: 100%;
   box-sizing: border-box;
+  transition: background-color 0.6s ease;
 }
 .memora-reader .reader-photo {
   position: relative;
@@ -138,10 +140,11 @@
   display: flex;
   flex-direction: column;
   padding: 30px 37px 23px;
-  background: #f6f0e4;
+  background: var(--reader-spread-bg, #f6f0e4);
   height: 100%;
   min-width: 0;
   box-sizing: border-box;
+  transition: background-color 0.6s ease;
 }
 .memora-reader .reader-story-kicker {
   display: flex;
@@ -304,6 +307,8 @@
   align-items: center;
   gap: 16px;
   margin-top: 23px;
+  position: relative;
+  z-index: 20;
 }
 .memora-reader .reader-controls > .button {
   width: 44px;
@@ -375,53 +380,51 @@
   max-width: 270px;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .book-dialog.memora-reader {
-    width: calc(100% - 20px);
-    padding: 20px 14px 15px;
-    max-height: 94dvh;
+    width: calc(100% - 16px);
+    padding: 14px 12px 14px;
+    max-height: 95dvh;
     box-sizing: border-box;
+    overflow-y: auto;
     overflow-x: hidden;
   }
   .memora-reader .reader-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     gap: 8px;
     flex-wrap: wrap;
   }
   .memora-reader .reader-edition {
-    font-size: 6px;
+    font-size: 7px;
     letter-spacing: 1.2px;
+    margin-bottom: 2px;
   }
   .memora-reader .preview-title {
-    font-size: 25px;
+    font-size: 22px;
   }
   .memora-reader .preview-description {
-    font-size: 10px;
-    max-width: 240px;
+    display: none;
   }
   .memora-reader .reader-header-actions {
-    gap: 6px;
+    gap: 4px;
     flex-shrink: 0;
   }
   .memora-reader .reader-cinematic-btn span,
-  .memora-reader .reader-print-specs-btn span {
+  .memora-reader .reader-print-specs-btn span,
+  .memora-reader .reader-soundtrack-btn span {
     display: none;
   }
   .memora-reader .reader-cinematic-btn,
-  .memora-reader .reader-print-specs-btn {
-    width: 40px;
-    min-height: 40px;
-    height: 40px;
+  .memora-reader .reader-print-specs-btn,
+  .memora-reader .reader-soundtrack-btn,
+  .memora-reader .reader-sound-toggle,
+  .memora-reader .reader-close {
+    width: 36px;
+    min-height: 36px;
+    height: 36px;
     padding: 0;
     justify-content: center;
     border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .memora-reader .reader-sound-toggle,
-  .memora-reader .reader-close {
-    width: 40px;
-    min-height: 40px;
-    height: 40px;
     flex-shrink: 0;
   }
   .memora-reader .reader-spread {
@@ -429,41 +432,68 @@
     min-height: 0;
   }
   .memora-reader .reader-photo-page {
-    padding: 18px 18px 16px;
+    padding: 10px 12px 8px;
   }
   .memora-reader .reader-photo {
     flex: none;
     min-height: 0;
-    aspect-ratio: 1.7;
+    max-height: 145px;
+    aspect-ratio: 2.2;
   }
   .memora-reader .reader-photo-caption {
-    padding-top: 10px;
+    padding-top: 6px;
   }
   .memora-reader .reader-photo-caption em {
-    font-size: 11px;
+    font-size: 10px;
   }
   .memora-reader .reader-story-page {
-    padding: 22px 24px;
+    padding: 10px 14px 12px;
   }
   .memora-reader .reader-story-body {
-    padding: 22px 0;
+    padding: 6px 0;
   }
   .memora-reader .reader-story-body h3 {
-    font-size: 33px;
-    margin-top: 12px;
+    font-size: 22px;
+    margin-top: 4px;
+    line-height: 1.2;
   }
   .memora-reader .reader-story-body blockquote {
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.45;
   }
   .memora-reader .reader-rule {
-    margin: 17px 0;
+    margin: 8px 0;
+    width: 22px;
   }
   .memora-reader .reader-person {
-    margin-top: 12px;
+    margin-top: 6px;
+    font-size: 9px;
   }
   .memora-reader .reader-spine {
     display: none;
+  }
+  .memora-reader .reader-audio-cluster {
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .reader-voice-keepsake .voice-keepsake-btn {
+    height: 28px;
+    padding: 0 8px;
+    font-size: 10px;
+    gap: 4px;
+  }
+  .reader-picture-soundtrack-wrapper {
+    padding: 1px 4px 1px 8px;
+    gap: 4px;
+  }
+  .reader-picture-soundtrack-btn {
+    font-size: 10px;
+    padding: 2px 0;
+    gap: 4px;
+  }
+  .reader-music-settings-trigger {
+    width: 22px;
+    height: 22px;
   }
   .memora-reader .reader-turn {
     width: 100%;
@@ -494,7 +524,15 @@
     z-index: 1;
   }
   .memora-reader .reader-controls {
-    margin-top: 22px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 30;
+    pointer-events: auto;
+  }
+  .memora-reader .reader-controls > .button {
+    width: 42px;
+    min-height: 42px;
+    height: 42px;
   }
   .memora-reader .reader-keyboard-hint {
     display: none;
@@ -530,9 +568,10 @@
   }
 }
 
-/* ── CINEMATIC & PRINT HEADER BUTTONS ── */
+/* ── CINEMATIC, PRINT & SOUNDTRACK HEADER BUTTONS ── */
 .memora-reader .reader-cinematic-btn,
-.memora-reader .reader-print-specs-btn {
+.memora-reader .reader-print-specs-btn,
+.memora-reader .reader-soundtrack-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -551,22 +590,85 @@
 }
 
 .memora-reader .reader-cinematic-btn:hover,
-.memora-reader .reader-print-specs-btn:hover {
+.memora-reader .reader-print-specs-btn:hover,
+.memora-reader .reader-soundtrack-btn:hover {
   background: #f0e9dc;
   color: var(--ink);
   border-color: #bfaea0;
 }
 
 .memora-reader .reader-cinematic-btn.is-active,
-.memora-reader .reader-print-specs-btn.is-active {
+.memora-reader .reader-print-specs-btn.is-active,
+.memora-reader .reader-soundtrack-btn.is-active {
   background: var(--rust);
   color: #fff8f0;
   border-color: var(--rust);
 }
 
-/* ── VOICE KEEPSAKE BADGE & WAVEFORM ── */
-.reader-voice-keepsake {
+/* ── VOICE KEEPSAKE BADGE & PICTURE SOUNDTRACK CLUSTER ── */
+.reader-audio-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   margin-top: 18px;
+}
+
+.reader-voice-keepsake {
+  display: inline-flex;
+}
+
+.reader-picture-soundtrack-wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: #f2ebd9;
+  border: 1px solid #dfd5c2;
+  border-radius: 20px;
+  padding: 2px 4px 2px 10px;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.reader-picture-soundtrack-wrapper:hover {
+  background: #eae2cc;
+  border-color: #d2c5ae;
+}
+
+.reader-picture-soundtrack-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.reader-picture-soundtrack-btn.is-playing {
+  color: var(--rust);
+}
+
+.reader-music-settings-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #d5cbb8;
+  background: #ffffff;
+  color: #625e54;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reader-music-settings-trigger:hover {
+  background: #faefe8;
+  color: var(--rust);
 }
 
 .voice-keepsake-btn {
@@ -719,9 +821,246 @@
   font-size: 14px;
 }
 
+.specs-foil-tag {
+  font-family: var(--font-sans) !important;
+  font-size: 12.5px !important;
+  font-weight: 600;
+  color: #9b4932 !important;
+}
+
+.memora-reader .reader-book.cmyk-proof-mode {
+  filter: contrast(0.96) saturate(0.92) sepia(0.04);
+}
+
+.memora-reader .reader-book.cmyk-proof-mode::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 65%, rgba(55, 45, 30, 0.06) 100%);
+  mix-blend-mode: multiply;
+  border-radius: 3px;
+  z-index: 5;
+}
+
+/* ── CMYK PROOFING TOGGLE BAR ── */
+.specs-cmyk-toggle-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f1ebd9;
+  border: 1px solid #dfd5c1;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.specs-cmyk-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cmyk-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #4a453c;
+}
+
+.cmyk-desc {
+  font-size: 10px;
+  color: #7c7263;
+}
+
+.cmyk-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #cfc4b4;
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: #554d42;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cmyk-toggle-btn:hover {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.cmyk-toggle-btn.is-active {
+  background: var(--rust);
+  border-color: var(--rust);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(155, 73, 50, 0.25);
+}
+
+.specs-foil-selector {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  background: #f6efe3;
+  border-radius: 8px;
+  border: 1px solid #e7ded0;
+}
+
+.foil-selector-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #7c5c49;
+  margin-bottom: 8px;
+}
+
+.foil-options-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.foil-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #d9cebe;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #4a453c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.foil-pill-btn:hover {
+  border-color: #9b4932;
+  color: #9b4932;
+}
+
+.foil-pill-btn.is-selected {
+  background: #302d27;
+  border-color: #302d27;
+  color: #f7edda;
+  font-weight: 600;
+}
+
 .specs-actions {
   display: flex;
   justify-content: flex-end;
+}
+
+.memora-reader .reader-ar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: #25221e;
+  border: 1px solid #25221e;
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: #f7edda;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.memora-reader .reader-ar-btn:hover {
+  background: #3c3732;
+  box-shadow: 0 2px 8px rgba(37, 34, 30, 0.2);
+}
+
+.specs-endpaper-qr-box {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  background: #f6efe3;
+  border-radius: 8px;
+  border: 1px solid #e7ded0;
+}
+
+.endpaper-qr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.endpaper-kicker {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--rust);
+  margin-bottom: 3px;
+}
+
+.endpaper-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 520px;
+}
+
+.endpaper-preview-plate {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #faf6ee;
+  border: 1px solid #ebd9c8;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.plate-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.plate-brand {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #9b4932;
+}
+
+.plate-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: #4a3e36;
+  margin: 0;
+}
+
+.plate-edition {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #8c7f70;
+}
+
+.plate-qr-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.plate-qr-hint {
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  color: #8c7f70;
+  text-transform: uppercase;
 }
 
 /* ── PRINT MEDIA STYLES ── */

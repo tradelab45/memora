@@ -15,6 +15,7 @@ export function CinematicExperience() {
   const root = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
   const [bookActive, setBookActive] = useState(true);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export function CinematicExperience() {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
     media.add(
-      "(min-height: 600px)",
+      "(min-width: 900px) and (min-height: 600px)",
       () => {
         const app = section.querySelector<HTMLElement>(".cinema-app");
         const intro = section.querySelector<HTMLElement>(".cinema-intro");
@@ -187,6 +188,7 @@ export function CinematicExperience() {
       className="cinema-track"
       data-enhanced="false"
       data-chapter="2"
+      data-preview-open={previewOpen}
       aria-label="From a keepsake to your memory space"
     >
       <div className="cinema-stage">
@@ -200,6 +202,9 @@ export function CinematicExperience() {
             <br />
             <em>Keep the feeling.</em>
           </h1>
+          <Link href="#sign-in" className="mobile-quick-jump-pill">
+            Start your story <ArrowUpRight size={16} />
+          </Link>
         </div>
         <div className="cinema-book">
           <BookStage cinematic progressRef={progressRef} active={bookActive} />
@@ -239,6 +244,18 @@ export function CinematicExperience() {
           </div>
           <Plus className="cinema-cross cross-one" size={18} />
           <Plus className="cinema-cross cross-two" size={18} />
+        </div>
+        <div className="cinema-mobile-actions">
+          <p>Your photos. Your words. Your soundtrack.</p>
+          <button
+            type="button"
+            aria-expanded={previewOpen}
+            aria-controls="experience-app"
+            onClick={() => setPreviewOpen(!previewOpen)}
+          >
+            {previewOpen ? "Close the sample" : "Explore a sample"}
+            <ArrowDown size={16} aria-hidden="true" />
+          </button>
         </div>
         <div className="cinema-app-heading">
           <span>FROM SOMETHING YOU SAVED</span>

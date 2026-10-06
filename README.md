@@ -121,7 +121,7 @@ npx supabase db reset --local
 Use a fresh development stack: reset recreates its database from migrations.
 Do not link or push to a production project as part of first-time setup.
 
-The host did not have Docker, so the full local Supabase stack was not started.
+Docker Desktop 4.93.0 and WSL 3.0.1 were installed on October 4, 2026. Restart Windows and open Docker Desktop before starting the local Supabase stack. Supabase CLI 2.119.0 is pinned as a project development dependency. The full local stack has not yet been started.
 The migration and 22 authorization/privacy scenarios were executed in embedded PostgreSQL via PGlite, with only Supabase-owned Auth/Storage infrastructure mocked:
 
 ```sh
@@ -134,7 +134,7 @@ Run Supabase advisors and real storage/Auth integration tests before deployment.
 
 Flutter is a separate app. See [apps/mobile/README.md](apps/mobile/README.md) for SDK setup, platform generation, Drift code generation and checks.
 Source includes five tabs, pure domain/repository interfaces, local metadata schema and recognition/sync privacy boundaries.
-Platform runners, recognition adapters and encrypted storage wiring are intentionally deferred. Flutter was not installed on the implementation host.
+Flutter 3.47.6 (Dart 3.13.5) was installed on October 4, 2026. Mobile dependencies resolve, Drift helper code generates, analysis passes, and both privacy tests pass. Platform runners, Android SDK setup, recognition adapters and encrypted storage wiring remain deferred.
 
 ## Verification
 

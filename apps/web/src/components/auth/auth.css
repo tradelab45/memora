@@ -1,0 +1,872 @@
+/* 21st.dev Style Authentication Components */
+
+/* 1. Header Auth Toggle Button */
+.auth-toggle-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.auth-toggle-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  min-width: 96px;
+  padding: 3px 6px;
+  background: rgba(240, 235, 224, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(155, 73, 50, 0.2);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    0 2px 6px rgba(48, 45, 39, 0.04);
+}
+
+.auth-toggle-track:hover {
+  background: rgba(245, 240, 230, 0.95);
+  border-color: rgba(155, 73, 50, 0.35);
+}
+
+.auth-toggle-track.is-compact {
+  min-width: 38px;
+  width: 38px;
+  padding: 3px;
+  justify-content: center;
+}
+
+.auth-toggle-status-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: #302d27;
+  padding-left: 8px;
+  padding-right: 32px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.auth-toggle-track.is-signed-in .auth-toggle-status-text {
+  padding-left: 32px;
+  padding-right: 8px;
+  color: #9b4932;
+}
+
+.auth-toggle-knob {
+  position: absolute;
+  right: 4px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.auth-toggle-track.is-signed-in .auth-toggle-knob {
+  transform: translateX(calc(-100% + 30px));
+  left: 4px;
+  right: auto;
+  background: #9b4932;
+  color: #ffffff;
+}
+
+.auth-knob-guest-icon {
+  color: #625e54;
+}
+
+.auth-knob-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.auth-knob-initials {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Account Dropdown */
+.auth-account-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background: #fdfbf7;
+  border: 1px solid rgba(155, 73, 50, 0.2);
+  border-radius: 16px;
+  box-shadow:
+    0 16px 36px -8px rgba(48, 45, 39, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  padding: 14px 16px;
+  z-index: 100;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-user-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-user-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: #302d27;
+}
+
+.dropdown-user-email {
+  font-size: 12px;
+  color: #625e54;
+  margin-top: 2px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #e9e3d5;
+  margin: 10px 0;
+}
+
+.dropdown-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdown-meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #166534;
+}
+
+.dropdown-meta-note {
+  font-size: 11px;
+  color: #787368;
+}
+
+.dropdown-signout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: #f5eee2;
+  border-radius: 8px;
+  color: #302d27;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-signout-btn:hover {
+  background: #eae0d0;
+  color: #9b4932;
+}
+
+/* 2. Traveling Border Light Beams */
+.auth-card-beams {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.beam {
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(155, 73, 50, 0.8),
+    rgba(224, 130, 90, 1),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.beam-t {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  animation: beamH 4s infinite linear;
+}
+
+.beam-r {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(155, 73, 50, 0.8),
+    transparent
+  );
+  animation: beamV 4s infinite linear 1s;
+}
+
+.beam-b {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  animation: beamHReverse 4s infinite linear 2s;
+}
+
+.beam-l {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    rgba(155, 73, 50, 0.8),
+    transparent
+  );
+  animation: beamVReverse 4s infinite linear 3s;
+}
+
+@keyframes beamH {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes beamV {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes beamHReverse {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes beamVReverse {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+
+/* 3. Auth Modal Dialog */
+.auth-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 22, 0.65);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  animation: fadeInOverlay 0.25s ease-out;
+}
+
+.auth-dialog-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 440px;
+  background: #fbf9f4;
+  border: 1px solid rgba(155, 73, 50, 0.25);
+  border-radius: 28px;
+  padding: 36px 32px 32px;
+  box-shadow:
+    0 24px 60px -10px rgba(48, 45, 39, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  z-index: 1001;
+  box-sizing: border-box;
+  color: #302d27;
+}
+
+.auth-card-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f3ece0;
+  border: 1px solid #dcd7cc;
+  color: #625e54;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.auth-card-close:hover {
+  background: #eae2d3;
+  color: #302d27;
+}
+
+.auth-modal-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+}
+
+.auth-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #9b4932;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.auth-title {
+  font-family: var(--font-serif);
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #302d27;
+  margin: 0 0 10px 0;
+}
+
+.auth-desc {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #625e54;
+  margin: 0;
+}
+
+.auth-modal-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.google-signin-btn,
+.card-google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 48px;
+  background: #ffffff;
+  border: 1.5px solid #d8cfbe;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #302d27;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.google-signin-btn:hover,
+.card-google-button:hover {
+  background: #faf8f5;
+  border-color: #9b4932;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(155, 73, 50, 0.12);
+}
+
+.google-icon,
+.google-svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.auth-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555045;
+  letter-spacing: 0.08em;
+}
+
+.auth-separator::before,
+.auth-separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5ded2;
+}
+
+.guest-continue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border: 1px solid #dfd6c6;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #625e54;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guest-continue-btn:hover {
+  background: #f0e9dc;
+  color: #302d27;
+}
+
+.auth-privacy-badge {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  background: #f2ece0;
+  border-radius: 12px;
+  border: 1px solid #e2dac9;
+}
+
+.privacy-badge-icon {
+  color: #9b4932;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.privacy-badge-text {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #625e54;
+  margin: 0;
+}
+
+/* 4. Opening Landing Page Auth Section */
+.auth-landing-section {
+  position: relative;
+  padding: 80px 24px 90px;
+  background: #f5efe4;
+  border-top: 1px solid #e6dfd1;
+  border-bottom: 1px solid #e6dfd1;
+  overflow: hidden;
+}
+
+.auth-section-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 420px);
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .auth-section-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.auth-section-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9b4932;
+  margin-bottom: 12px;
+}
+
+.auth-section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #302d27;
+  margin: 0 0 16px 0;
+}
+
+.auth-section-heading em {
+  font-style: italic;
+  font-weight: 300;
+  color: #9b4932;
+}
+
+.auth-section-subhead {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #625e54;
+  margin: 0 0 24px 0;
+  max-width: 540px;
+}
+
+.auth-guarantees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #302d27;
+}
+
+.guarantee-icon {
+  color: #9b4932;
+}
+
+/* 3D Tilt Card */
+.auth-card-wrapper {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.auth-tilt-card {
+  position: relative;
+  background: #fbf9f4;
+  border: 1px solid rgba(155, 73, 50, 0.25);
+  border-radius: 28px;
+  padding: 32px 30px;
+  box-shadow:
+    0 24px 50px -12px rgba(48, 45, 39, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease;
+}
+
+.auth-tilt-card:hover {
+  box-shadow:
+    0 32px 64px -12px rgba(155, 73, 50, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+}
+
+.card-inner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.card-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9b4932;
+}
+
+.brand-text {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #625e54;
+}
+
+.card-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #f0e8dc;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #625e54;
+}
+
+.card-mode-pill.is-active {
+  background: #eaf4ed;
+  color: #166534;
+}
+
+.mode-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* User Profile State in Card */
+.user-profile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-avatar-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #9b4932;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(155, 73, 50, 0.25);
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-avatar-initials {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-greeting {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: #302d27;
+  margin: 0;
+}
+
+.user-email {
+  font-size: 12.5px;
+  color: #625e54;
+  margin-top: 2px;
+}
+
+.user-session-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #f4ece0;
+  border-radius: 12px;
+}
+
+.perk-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #302d27;
+}
+
+.perk-check {
+  color: #166534;
+}
+
+.user-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-primary-cta {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  border-radius: 12px;
+  background: #9b4932;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.card-primary-cta:hover {
+  background: #873d2a;
+  transform: translateY(-1px);
+}
+
+.card-signout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: #f0e8dc;
+  border: 1px solid #dcd3c1;
+  color: #625e54;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-signout-btn:hover {
+  background: #e6dcce;
+  color: #302d27;
+}
+
+/* Guest State in Card */
+.guest-intro {
+  margin-bottom: 20px;
+}
+
+.guest-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: #302d27;
+  margin: 0 0 6px 0;
+}
+
+.guest-desc {
+  font-size: 13px;
+  color: #625e54;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.login-button-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-divider-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555045;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card-divider-or::before,
+.card-divider-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5ded2;
+}
+
+.card-guest-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  border-radius: 10px;
+  background: #f2ebe0;
+  border: 1px solid #ddd5c6;
+  color: #302d27;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.card-guest-button:hover {
+  background: #e9e0d1;
+  transform: translateY(-1px);
+}
+
+/* Verified account flow, with comfortable phone targets. */
+.auth-page { min-height: 100svh; display: grid; place-items: center; padding: 120px 24px 110px; background: #f6f0e5; }
+.auth-standalone-card { width: min(100%, 480px); padding: clamp(24px,5vw,48px); background: #fffcf6; border: 1px solid #d7cdbd; border-radius: 24px; }
+.auth-standalone-card h1 { font-family: var(--font-serif); font-size: clamp(48px,8vw,72px); line-height: 1.05; margin: 20px 0; }
+.auth-standalone-card > p { line-height: 1.7; }
+.auth-standalone-card .login-button-cluster { margin: 28px 0 16px; }
+.auth-message { font-size: 14px; line-height: 1.6; color: #625e54; overflow-wrap: anywhere; margin-top: 16px; }
+.auth-message[role=alert] { color: #922f2f; }
+.auth-toggle-track, .auth-toggle-track.is-compact, .auth-card-close, .dropdown-signout-btn { min-height: 44px; }
+.auth-toggle-track.is-compact, .auth-card-close { min-width: 44px; }
+.card-google-button { min-height: 52px; }
+.card-google-button:disabled { cursor: not-allowed; opacity: .65; }
+.auth-dialog-card { max-height: calc(100svh - 40px); overflow-y: auto; }
+.auth-privacy-badge { gap: 10px; font-size: 14px; }
+#sign-in { scroll-margin-top: 84px; }
+@media(prefers-reduced-motion:reduce) { .beam { animation: none; } }
+@media(max-width:899px) {
+  .auth-landing-section { padding: 32px 20px; }
+  .auth-section-container { gap: 24px; }
+  .auth-card-wrapper { order: -1; }
+}

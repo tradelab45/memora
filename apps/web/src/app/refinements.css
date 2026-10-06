@@ -21,13 +21,48 @@
   transform: scaleX(0);
   transform-origin: left;
 }
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.soundtrack-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 13px;
+  border-radius: 9999px;
+  background: rgba(240, 235, 224, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(155, 73, 50, 0.2);
+  color: #302d27;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(48, 45, 39, 0.04);
+}
+.soundtrack-header-btn:hover {
+  background: rgba(245, 240, 230, 0.95);
+  border-color: rgba(155, 73, 50, 0.35);
+  transform: translateY(-1px);
+}
+.soundtrack-header-btn.is-active {
+  background: #faefe8;
+  border-color: rgba(155, 73, 50, 0.4);
+  color: #9b4932;
+  box-shadow: 0 2px 8px rgba(155, 73, 50, 0.12);
+}
 .motion-toggle {
   display: grid;
   place-items: center;
   width: 38px;
   height: 44px;
   padding: 0;
-  margin-left: auto;
+  margin-left: 0;
   color: var(--muted);
   border: 0;
   background: transparent;
@@ -44,6 +79,20 @@
 }
 .header-cta {
   margin-left: 0;
+}
+.mobile-soundtrack-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--rust);
+  cursor: pointer;
+  padding: 8px 0;
+  text-align: left;
 }
 .desktop-nav a {
   position: relative;
@@ -787,16 +836,38 @@
   .site-header {
     min-height: 72px;
     gap: 9px;
+    overflow: hidden;
+  }
+  .header-actions-group {
+    gap: 6px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .soundtrack-header-btn {
+    padding: 0 8px;
+    height: 36px;
+  }
+  .soundtrack-header-label {
+    display: none;
   }
   .motion-toggle {
-    margin-left: auto;
+    margin-left: 0;
     width: 28px;
   }
   .header-cta {
-    padding: 9px 12px;
-    gap: 9px;
-    font-size: 10px;
-    min-height: 44px;
+    display: none;
+  }
+  .auth-toggle-status-text {
+    display: none;
+  }
+  .auth-toggle-track {
+    min-width: 44px !important;
+    width: 44px !important;
+    padding: 3px !important;
+    justify-content: center !important;
+  }
+  .auth-toggle-knob {
+    position: static !important;
   }
   .hero {
     min-height: auto;
@@ -992,6 +1063,140 @@
     width: 28px;
     height: 28px;
   }
+  .memora-cinematic {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── STUDIO GOOGLE AUTH BANNER & AI INSPIRATION ── */
+.studio-auth-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #fbf7ef;
+  border: 1px solid #e7ded0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 18px 0 28px;
+}
+
+.studio-auth-banner.is-user {
+  background: #f3f7f0;
+  border-color: #d1e2cc;
+}
+
+.studio-auth-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.studio-auth-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid #e2d8c7;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.auth-avatar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px #dcfce7;
+}
+
+.studio-auth-text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #302d27;
+}
+
+.studio-auth-text p {
+  font-size: 11.5px;
+  color: #625e54;
+  margin: 2px 0 0;
+}
+
+.studio-auth-btn-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1px solid #dcd3c1;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #302d27;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.studio-auth-btn-google:hover {
+  background: #faf6ee;
+  border-color: #9b4932;
+  color: #9b4932;
+}
+
+.studio-auth-btn-signout {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #d4c8b8;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #787368;
+  cursor: pointer;
+}
+
+.studio-auth-btn-signout:hover {
+  border-color: #b91c1c;
+  color: #b91c1c;
+}
+
+.studio-ai-prompt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #fbf7ef;
+  border: 1px solid #ded4c3;
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #7c5c49;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.studio-ai-prompt-btn:hover {
+  background: #302d27;
+  border-color: #302d27;
+  color: #f7edda;
+}
+
+@media (max-width: 640px) {
+  .studio-auth-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .studio-auth-btn-wrap {
+    width: 100%;
+  }
+  .studio-auth-btn-google {
+    width: 100%;
+    justify-content: center;
+  }
 }
 html[data-motion="reduced"] {
   scroll-behavior: auto;
@@ -1012,5 +1217,63 @@ html[data-motion="reduced"] .timeline-year-node:hover {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Keep shared header controls usable in the phone studio as well as the landing page. */
+@media (max-width: 899px) {
+  .site-header {
+    min-height: 68px;
+    padding-inline: 16px;
+    gap: 8px;
+    overflow: visible;
+  }
+  .site-header .wordmark {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .site-header .desktop-nav,
+  .site-header .header-cta {
+    display: none;
+  }
+  .site-header .mobile-menu {
+    display: inline-flex;
+    width: 44px;
+    min-height: 44px;
+  }
+  .header-actions-group {
+    gap: 2px;
+  }
+  .site-header .motion-toggle {
+    width: 44px;
+    min-height: 44px;
+  }
+  .site-header .soundtrack-header-btn {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    justify-content: center;
+  }
+  .soundtrack-header-label {
+    display: none;
+  }
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+@media (max-width: 380px) {
+  .site-header {
+    padding-inline: 10px;
+    gap: 4px;
+  }
+  .site-header .wordmark {
+    font-size: 13px;
+    gap: 4px;
+    letter-spacing: 1px;
+  }
+  .site-header .brand-symbol {
+    display: none;
   }
 }

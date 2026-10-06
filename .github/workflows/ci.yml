@@ -33,3 +33,20 @@ jobs:
       - run: pytest services/api/tests -q
       - run: python scripts/export_openapi.py
       - run: git diff --exit-code packages/contracts/openapi.json
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.6'
+          channel: stable
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+        working-directory: apps/mobile
+      - run: dart run build_runner build --delete-conflicting-outputs
+        working-directory: apps/mobile
+      - run: flutter analyze
+        working-directory: apps/mobile
+      - run: flutter test
+        working-directory: apps/mobile

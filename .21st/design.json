@@ -32,8 +32,8 @@
       "burgundy": "#6b2e34"
     },
     "typography": {
-      "headings": "Georgia",
-      "body": "Arial"
+      "headings": "Newsreader (self-hosted)",
+      "body": "Plus Jakarta Sans (self-hosted)"
     },
     "motion": {
       "scroll": "GSAP/Lenis",
@@ -62,7 +62,8 @@
   "decisions": [
     "Implement the recovered premium editorial plan with warm paper and terracotta; one focal effect per section.",
     "Refine the warm editorial identity with a contrasting charcoal story chapter, hinged book hero and physical paper turns; preserve keyboard operation, full text contrast and a manual motion pause.",
-    "User requested a distinctive scroll-responsive experience: burgundy book zoom and hinged opening, full-bleed memory match cut, then an interactive cream app. Native sticky geometry, reduced-motion natural flow, touch scrolling, and a direct skip are required."
+    "User requested a distinctive scroll-responsive experience: burgundy book zoom and hinged opening, full-bleed memory match cut, then an interactive cream app. Native sticky geometry, reduced-motion natural flow, touch scrolling, and a direct skip are required.",
+    "Use self-hosted Newsreader headings and Plus Jakarta Sans body text, readable labels and 44px minimum phone controls. Phones use a compact hero with immediate Google sign-in, an optional sample, optional marketing chapters, and persistent Home / Memories / People / Book navigation; desktop keeps the cinematic scroll."
   ],
   "evidence": ["docs/source-conversation.md", "apps/web/src/app/globals.css"],
   "generatedAt": "2026-10-03T10:36:08.57Z"

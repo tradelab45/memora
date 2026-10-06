@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--sans);
 }
 .app-preview .app-preview-topbar {
   min-height: 58px;
@@ -34,25 +34,23 @@
 }
 .app-preview .app-preview-monogram {
   color: var(--app-accent);
-  font:
-    italic 27px/1 Georgia,
-    serif;
+  font: italic 27px/1 var(--serif);
   letter-spacing: -3px;
 }
 .app-preview .app-preview-brand strong {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 2.1px;
 }
 .app-preview .app-preview-space {
-  font-size: 10px;
+  font-size: 11px;
   color: #716455;
   padding-left: 20px;
   margin-left: 6px;
   border-left: 1px solid #d8cfc1;
 }
 .app-preview .app-preview-sample {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1.5px;
   color: var(--app-accent);
   padding: 5px 8px;
@@ -74,7 +72,7 @@
   flex-shrink: 0;
 }
 .app-preview .app-preview-library-label {
-  font-size: 7px;
+  font-size: 11px;
   color: #716455;
   letter-spacing: 1.6px;
   padding-left: 14px;
@@ -128,9 +126,7 @@
   color: #716455;
 }
 .app-preview .app-preview-sidebar-note p {
-  font:
-    italic 13px/1.65 Georgia,
-    serif;
+  font: italic 13px/1.65 var(--serif);
 }
 .app-preview .app-preview-workspace {
   padding: 24px 28px 0;
@@ -149,21 +145,19 @@
   flex-shrink: 0;
 }
 .app-preview .app-preview-kicker {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1.5px;
   color: var(--app-accent);
   line-height: 1.5;
 }
 .app-preview .app-preview-panel-heading h3 {
-  font:
-    30px/1.16 Georgia,
-    serif;
+  font: 30px/1.16 var(--serif);
   color: #322b27;
   letter-spacing: -1.1px;
   margin-top: 8px;
 }
 .app-preview .app-preview-season {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: #716455;
   padding-top: 4px;
@@ -201,7 +195,7 @@
   left: 16px;
   top: 15px;
   padding: 6px 8px;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1px;
   background: #fcfaf5;
   color: #5e4d3f;
@@ -215,21 +209,17 @@
   flex-shrink: 0;
 }
 .app-preview .app-preview-feature-copy h4 {
-  font:
-    22px/1.18 Georgia,
-    serif;
+  font: 22px/1.18 var(--serif);
   letter-spacing: -0.5px;
 }
 .app-preview .app-preview-feature-copy p {
-  font:
-    italic 13px/1.5 Georgia,
-    serif;
+  font: italic 13px/1.5 var(--serif);
   color: #6b5c4d;
   margin-top: 7px;
   max-width: 330px;
 }
 .app-preview .app-preview-person-label {
-  font-size: 6px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: var(--app-accent);
   white-space: nowrap;
@@ -279,13 +269,11 @@
   width: 100%;
 }
 .app-preview .app-preview-thumbnail-copy strong {
-  font:
-    12px/1.2 Georgia,
-    serif;
+  font: 12px/1.2 var(--serif);
   font-weight: 400;
 }
 .app-preview .app-preview-thumbnail-copy > span {
-  font-size: 7px;
+  font-size: 11px;
   color: #716455;
 }
 .app-preview .app-preview-footer {
@@ -300,7 +288,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 8px;
+  font-size: 11px;
   color: #716455;
 }
 .app-preview .app-preview-footer a {
@@ -309,7 +297,7 @@
   gap: 9px;
   min-height: 44px;
   color: var(--app-accent);
-  font-size: 10px;
+  font-size: 11px;
 }
 .app-preview .app-preview-people-layout {
   height: 100%;
@@ -345,9 +333,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font:
-    20px Georgia,
-    serif;
+  font: 20px var(--serif);
 }
 .app-preview .app-preview-avatar-rose {
   background: #e8cebf;
@@ -362,14 +348,12 @@
   color: #8a6b36;
 }
 .app-preview .app-preview-person-selector strong {
-  font:
-    17px Georgia,
-    serif;
+  font: 17px var(--serif);
   font-weight: 400;
 }
 .app-preview .app-preview-person-selector small {
   display: block;
-  font-size: 7px;
+  font-size: 11px;
   color: #716455;
   margin-top: 5px;
 }
@@ -396,21 +380,17 @@
   justify-content: center;
 }
 .app-preview .app-preview-person-story-copy h4 {
-  font:
-    28px/1.12 Georgia,
-    serif;
+  font: 28px/1.12 var(--serif);
   letter-spacing: -1px;
   margin: 15px 0;
 }
 .app-preview .app-preview-person-story-copy blockquote {
-  font:
-    italic 16px/1.6 Georgia,
-    serif;
+  font: italic 16px/1.6 var(--serif);
   color: #6b5c4d;
   margin: 0;
 }
 .app-preview .app-preview-person-story-copy > span {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: #716455;
   margin-top: 20px;
@@ -452,15 +432,13 @@
     16px 14px 16px #322b2726;
 }
 .app-preview .app-preview-book-cover > span {
-  font-size: 6px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: #806853;
   text-align: center;
 }
 .app-preview .app-preview-book-cover h4 {
-  font:
-    31px/1 Georgia,
-    serif;
+  font: 31px/1 var(--serif);
   text-align: center;
   letter-spacing: -1px;
   margin: 17px 0 15px;
@@ -480,9 +458,7 @@
   object-fit: cover;
 }
 .app-preview .app-preview-book-cover > i {
-  font:
-    14px Georgia,
-    serif;
+  font: 14px var(--serif);
   color: #806853;
   margin-top: 13px;
 }
@@ -493,9 +469,7 @@
   align-items: start;
 }
 .app-preview .app-preview-book-copy h4 {
-  font:
-    34px/1.1 Georgia,
-    serif;
+  font: 34px/1.1 var(--serif);
   letter-spacing: -1px;
   margin: 17px 0;
 }
@@ -512,13 +486,13 @@
 .app-preview .app-preview-book-copy .button {
   border-color: #ad8985;
   color: var(--app-accent);
-  font-size: 10px;
+  font-size: 11px;
   min-height: 44px;
   padding: 11px 17px;
   gap: 18px;
 }
 .app-preview .app-preview-book-note {
-  font-size: 7px;
+  font-size: 11px;
   color: #716455;
   line-height: 1.6;
   margin-top: 12px;
@@ -583,7 +557,7 @@
     margin-block: 12px;
   }
   .app-preview .app-preview-book-copy > p:not(.app-preview-kicker) {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.7;
     margin-bottom: 12px;
   }
@@ -620,7 +594,7 @@
     gap: 10px;
   }
   .app-preview .app-preview-space {
-    font-size: 8px;
+    font-size: 11px;
     padding-left: 12px;
     margin-left: 2px;
   }
@@ -647,7 +621,7 @@
     justify-content: center;
     height: 35px;
     padding-inline: 8px;
-    font-size: 10px;
+    font-size: 11px;
     gap: 8px;
   }
   .app-preview .app-preview-tab-mark {
@@ -691,7 +665,7 @@
     margin-top: 4px;
   }
   .app-preview .app-preview-person-label {
-    font-size: 6px;
+    font-size: 11px;
   }
   .app-preview .app-preview-memory-selector {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -704,7 +678,7 @@
     padding: 6px;
   }
   .app-preview .app-preview-thumbnail-copy strong {
-    font-size: 9px;
+    font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -717,11 +691,11 @@
     gap: 7px;
   }
   .app-preview .app-preview-footer > span {
-    font-size: 6px;
+    font-size: 11px;
     gap: 4px;
   }
   .app-preview .app-preview-footer a {
-    font-size: 9px;
+    font-size: 11px;
     min-height: 40px;
   }
   .app-preview .app-preview-person-selector {
@@ -740,7 +714,7 @@
     font-size: 14px;
   }
   .app-preview .app-preview-person-selector small {
-    font-size: 6px;
+    font-size: 11px;
     margin-top: 3px;
   }
   .app-preview .app-preview-people-layout {
@@ -774,7 +748,7 @@
     padding: 14px 12px 10px;
   }
   .app-preview .app-preview-book-cover > span {
-    font-size: 4px;
+    font-size: 11px;
   }
   .app-preview .app-preview-book-cover h4 {
     font-size: 22px;
@@ -785,12 +759,12 @@
     margin: 12px 0;
   }
   .app-preview .app-preview-book-copy > p:not(.app-preview-kicker) {
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.7;
     margin-bottom: 13px;
   }
   .app-preview .app-preview-book-copy .button {
-    font-size: 8px;
+    font-size: 11px;
     padding-inline: 10px;
     gap: 7px;
     min-height: 38px;

@@ -43,9 +43,18 @@ export function toggleSound(): boolean {
  * Synthesizes the delicate, tactile whisper of turning fine book paper.
  * Uses shaped white noise with a bandpass filter and smooth exponential decay.
  */
-export function playPaperRustle(): void {
+export function playPaperRustle(pan = 0): void {
   if (!soundEnabled) return;
   try {
+    // Subtle mobile tactile haptic response
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      try {
+        navigator.vibrate(12);
+      } catch {
+        // haptics unavailable or disallowed
+      }
+    }
+
     const ctx = getAudioContext();
     if (!ctx) return;
 
@@ -83,11 +92,23 @@ export function playPaperRustle(): void {
     );
 
     whiteNoise.connect(filter);
-    filter.connect(gainNode);
+
+    // Spatial stereo panning if supported
+    let pannerNode: StereoPannerNode | null = null;
+    if (typeof ctx.createStereoPanner === "function" && pan !== 0) {
+      pannerNode = ctx.createStereoPanner();
+      pannerNode.pan.setValueAtTime(Math.max(-1, Math.min(1, pan)), ctx.currentTime);
+      filter.connect(pannerNode);
+      pannerNode.connect(gainNode);
+    } else {
+      filter.connect(gainNode);
+    }
+
     gainNode.connect(ctx.destination);
     whiteNoise.onended = () => {
       whiteNoise.disconnect();
       filter.disconnect();
+      pannerNode?.disconnect();
       gainNode.disconnect();
     };
 

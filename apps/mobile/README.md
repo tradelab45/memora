@@ -1,7 +1,7 @@
 # Flutter foundation
 
 Mobile is intentionally scaffolded separately from the cinematic web experience.
-Flutter SDK is required and was not present on the implementation host; this scaffold is not yet compiled.
+Requires a Flutter SDK with Dart >=3.11.0. Verified on October 4, 2026 with Flutter 3.47.6 and Dart 3.13.5: dependencies resolved, Drift code generated, analysis passed, and both existing privacy tests passed. Android SDK and platform runners are still needed before building an Android app.
 
 From this directory:
 

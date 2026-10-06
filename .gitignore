@@ -18,3 +18,5 @@ supabase/.temp/
 supabase/.branches/
 *.log
 .DS_Store
+*.zip
+

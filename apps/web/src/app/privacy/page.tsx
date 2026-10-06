@@ -1,51 +1,10 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/layout/site-header";
-export const metadata = { title: "Privacy by design" };
-export default function PrivacyPage() {
-  return (
-    <>
-      <SiteHeader />
-      <main className="legal-page page-width" id="main-content">
-        <p className="eyebrow">OUR FOUNDATION</p>
-        <h1>
-          Privacy <em>by design.</em>
-        </h1>
-        <p>
-          This first milestone is a public website and sample story studio. It
-          does not access your photo library, perform face recognition, create
-          an account, or upload your memories.
-        </p>
-        <h2>The sample studio</h2>
-        <p>
-          Your selected people and written captions remain in this page’s
-          temporary browser state. Refreshing or leaving the studio resets them.
-          Nothing is sent to an API.
-        </p>
-        <h2>The product we are building</h2>
-        <p>
-          Photo indexing and selected-person matching will run on your device by
-          default. Face embeddings and reference photos will stay in local
-          encrypted storage. Cloud backup will require explicit consent and
-          contain only selected content.
-        </p>
-        <h2>When cloud features arrive</h2>
-        <p>
-          Owner-scoped database policies, private media storage, short-lived
-          signed links, export and deletion controls are part of the
-          architecture. Sharing, AI, printing and backups are future features
-          and are not enabled here.
-        </p>
-        <h2>Website requests</h2>
-        <p>
-          The website serves its own sample images and scripts. There are no
-          analytics trackers or third-party font requests. A hosting provider
-          may process normal request logs; retention and provider details must
-          be documented before public launch.
-        </p>
-        <Link className="text-link" href="/">
-          Return to MEMORA ↗
-        </Link>
-      </main>
-    </>
-  );
-}
+import Link from 'next/link';
+import {SiteHeader} from '@/components/layout/site-header';
+export const metadata={title:'Your privacy'};
+export default function PrivacyPage(){return <><SiteHeader/><main className="legal-page page-width" id="main-content"><p className="eyebrow">YOUR MEMORIES. YOUR SAY.</p><h1>Personal means <em>personal.</em></h1>
+<h2>Your account</h2><p>Google and Supabase handle sign-in. Memora receives your account identifier, name and email to open your library. Authentication uses browser cookies. The studio requires a verified Google session.</p>
+<h2>Photos, words and songs</h2><p>You choose individual files. Your photos, captions, book draft and uploaded audio are stored in this browser, separated by account identifier. They are not automatically uploaded or synchronized to another device. Anyone with access to your browser profile or device storage may be able to inspect local files; this version does not encrypt them.</p>
+<h2>Keep a backup</h2><p>Browser storage can be cleared by you or the device. Export your library backup and keep it somewhere you trust. Signing out closes the library but retains its local files for your next sign-in. The library provides controls to remove saved content from this browser.</p>
+<h2>Music services</h2><p>Spotify, Apple Music and YouTube Music links open the selected service in its app or website, according to your phone settings. Those providers handle playback and their own privacy settings. Memora does not download their streams or access your subscription library. Music files you select from your device can play inside your book.</p>
+<h2>What is available</h2><p>Manual photo selection, editing and browser printing are available. Face recognition, automatic photo-library scanning, cloud backup, AI processing, shared libraries, paid subscriptions and physical print ordering are not enabled.</p>
+<h2>Website requests</h2><p>Sample photographs and fonts are served with the website. No analytics trackers are added. The hosting and authentication providers may process operational request logs. Provider retention details must be finalized before a public release.</p><Link className="text-link" href="/">Return to Memora ↗</Link></main></>;}

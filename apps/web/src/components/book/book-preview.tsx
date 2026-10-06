@@ -15,10 +15,15 @@ import {
   Pause,
   Printer,
   Sparkles,
+  Music2,
+  SlidersHorizontal,
+  Box,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { memories } from "@/lib/content";
+import { QrCode } from "@/components/ui/qr-code";
+import { ArViewModal } from "./ar-view-modal";
 import {
   playPaperRustle,
   playSubtleClick,
@@ -28,6 +33,17 @@ import {
   toggleSound,
   setSoundEnabled,
 } from "@/lib/audio";
+import {
+  useMusic,
+  toggleMusic,
+  setActivePhotoContext,
+  getTrackForPhoto,
+  getTrackDisplayName,
+} from "@/lib/music";
+import {
+  MusicSheetDialog,
+  AnimatedEqualizer,
+} from "@/components/music/music-sheet";
 import "./book-preview.css";
 
 type Memory = (typeof memories)[number];
@@ -89,6 +105,8 @@ function StoryPage({
   captions,
   playingMemoId,
   onPlayMemo,
+  onToggleSoundtrack,
+  onOpenSoundtrackSettings,
 }: {
   memory: Memory;
   index: number;
@@ -96,8 +114,17 @@ function StoryPage({
   captions?: Record<string, string>;
   playingMemoId?: string | null;
   onPlayMemo?: (id: string) => void;
+  onToggleSoundtrack?: () => void;
+  onOpenSoundtrackSettings?: () => void;
 }) {
   const isPlaying = playingMemoId === memory.id;
+  const music = useMusic();
+  const photoTrack = getTrackForPhoto(memory.id);
+  const trackName = photoTrack
+    ? getTrackDisplayName(photoTrack)
+    : music.bookSong
+      ? `${getTrackDisplayName(music.bookSong)} (Book)`
+      : "Score";
 
   return (
     <div className="reader-story-page">
@@ -116,36 +143,65 @@ function StoryPage({
           With <em>{memory.person}.</em>
         </p>
 
-        {onPlayMemo && (
-          <div className="reader-voice-keepsake">
-            <button
-              type="button"
-              className={`voice-keepsake-btn ${isPlaying ? "is-playing" : ""}`}
-              onClick={() => onPlayMemo(memory.id)}
-              aria-label={
-                isPlaying
-                  ? "Pause keepsake audio note"
-                  : `Play audio keepsake with ${memory.person}`
-              }
-            >
-              <Disc3
-                size={14}
-                className={`voice-disc-icon ${isPlaying ? "is-spinning" : ""}`}
-              />
-              <span className="voice-btn-text">
-                {isPlaying
-                  ? "Playing keepsake..."
-                  : `Audio note · ${memory.person}`}
-              </span>
-              <span className="voice-wave-bars" aria-hidden="true">
-                <span className="wave-bar bar-1" />
-                <span className="wave-bar bar-2" />
-                <span className="wave-bar bar-3" />
-                <span className="wave-bar bar-4" />
-              </span>
-            </button>
-          </div>
-        )}
+        <div className="reader-audio-cluster">
+          {onPlayMemo && (
+            <div className="reader-voice-keepsake">
+              <button
+                type="button"
+                className={`voice-keepsake-btn ${isPlaying ? "is-playing" : ""}`}
+                onClick={() => onPlayMemo(memory.id)}
+                aria-label={
+                  isPlaying
+                    ? "Pause keepsake audio note"
+                    : `Play audio keepsake with ${memory.person}`
+                }
+              >
+                <Disc3
+                  size={14}
+                  className={`voice-disc-icon ${isPlaying ? "is-spinning" : ""}`}
+                />
+                <span className="voice-btn-text">
+                  {isPlaying
+                    ? "Playing keepsake..."
+                    : `Audio note · ${memory.person}`}
+                </span>
+                <span className="voice-wave-bars" aria-hidden="true">
+                  <span className="wave-bar bar-1" />
+                  <span className="wave-bar bar-2" />
+                  <span className="wave-bar bar-3" />
+                  <span className="wave-bar bar-4" />
+                </span>
+              </button>
+            </div>
+          )}
+
+          {onToggleSoundtrack && (
+            <div className="reader-picture-soundtrack-wrapper">
+              <button
+                type="button"
+                className={`reader-picture-soundtrack-btn ${music.on ? "is-playing" : ""}`}
+                onClick={onToggleSoundtrack}
+                title={music.on ? "Mute music" : "Play music for this picture"}
+                aria-label={`Soundtrack: ${trackName}`}
+              >
+                <Music2 size={13} className="picture-music-icon" />
+                <span className="picture-music-name">{trackName}</span>
+                <AnimatedEqualizer active={music.on} />
+              </button>
+              {onOpenSoundtrackSettings && (
+                <button
+                  type="button"
+                  className="reader-music-settings-trigger"
+                  onClick={onOpenSoundtrackSettings}
+                  title="Assign custom song for this picture"
+                  aria-label="Soundtrack options"
+                >
+                  <SlidersHorizontal size={12} />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <div className="reader-page-footer">
         <span>THE DAYS BETWEEN · VOL. 01</span>
@@ -157,6 +213,13 @@ function StoryPage({
     </div>
   );
 }
+
+const PHOTO_PALETTES: Record<string, { bg: string; accent: string }> = {
+  coast: { bg: "#faf6ee", accent: "#e5d7c3" },
+  friends: { bg: "#faf2ee", accent: "#eddcd2" },
+  flowers: { bg: "#fdf3f5", accent: "#eedce2" },
+  mountains: { bg: "#f2f6f9", accent: "#dce6eb" },
+};
 
 function BookReader({
   pages,
@@ -173,10 +236,29 @@ function BookReader({
   const [playingMemoId, setPlayingMemoId] = useState<string | null>(null);
   const [isCinematic, setIsCinematic] = useState(false);
   const [showPrintSpecs, setShowPrintSpecs] = useState(false);
+  const [foilChoice, setFoilChoice] = useState<string>("gold");
+  const [cmykProof, setCmykProof] = useState(false);
+  const [showSoundtrackDialog, setShowSoundtrackDialog] = useState(false);
+  const [showArModal, setShowArModal] = useState(false);
+  const [includeQrCode, setIncludeQrCode] = useState(true);
+  const music = useMusic();
   const reducedMotion = useReducedMotion();
+  const totalPages = Math.max(pages.length * 2, 24);
+  const spineThicknessMm = (totalPages * 0.12 + 3.5).toFixed(1);
+  const spineThicknessIn = (Number(spineThicknessMm) / 25.4).toFixed(2);
   const memory = pages[page];
   const target = turn ? pages[turn.to] : memory;
   const next = turn?.direction === "next";
+
+  const activePalette = memory?.id
+    ? (PHOTO_PALETTES[memory.id] ?? { bg: "#faf6ef", accent: "#e7dac4" })
+    : { bg: "#faf6ef", accent: "#e7dac4" };
+
+  useEffect(() => {
+    if (memory?.id) {
+      setActivePhotoContext(memory.id);
+    }
+  }, [memory?.id]);
 
   // Complete a turn even if a browser suppresses its animation event, and clean up on close.
   useEffect(() => {
@@ -192,7 +274,8 @@ function BookReader({
     if (!pages.length || turn) return;
     const bounded = Math.max(0, Math.min(destination, pages.length - 1));
     if (bounded === page) return;
-    playPaperRustle();
+    const directionPan = bounded > page ? 0.45 : -0.45;
+    playPaperRustle(directionPan);
     dispatch({ type: "go", page: bounded, immediate: reducedMotion });
   };
 
@@ -284,6 +367,20 @@ function BookReader({
 
           <button
             type="button"
+            className="reader-ar-btn"
+            onClick={() => {
+              setShowArModal(true);
+              playSubtleClick();
+            }}
+            aria-label="View photobook in Augmented Reality 1:1 scale"
+            title="View in Augmented Reality (1:1 Scale)"
+          >
+            <Box size={14} />
+            <span>AR</span>
+          </button>
+
+          <button
+            type="button"
             className={`reader-print-specs-btn ${showPrintSpecs ? "is-active" : ""}`}
             onClick={() => {
               setShowPrintSpecs((prev) => !prev);
@@ -294,6 +391,28 @@ function BookReader({
           >
             <Printer size={15} />
             <span>Print Specs</span>
+          </button>
+
+          <button
+            type="button"
+            className={`reader-soundtrack-btn ${music.on ? "is-active" : ""}`}
+            onClick={() => {
+              setShowSoundtrackDialog((prev) => !prev);
+              playSubtleClick();
+            }}
+            aria-label={
+              music.on
+                ? `Soundtrack playing: ${music.playingLabel || "Score"}. Settings`
+                : "Soundtrack settings"
+            }
+            title={
+              music.on
+                ? `Soundtrack: ${music.playingLabel || "Score"}`
+                : "Soundtrack settings"
+            }
+          >
+            <AnimatedEqualizer active={music.on} />
+            <span>{music.on ? "Music" : "Score"}</span>
           </button>
 
           <button
@@ -357,14 +476,125 @@ function BookReader({
                 <span>Smyth-Sewn Hardcover · Lay-Flat</span>
               </div>
               <div>
-                <strong>Cover Cloth</strong>
-                <span>Buckram Natural Linen with Gold Foil</span>
+                <strong>Spine Thickness</strong>
+                <span>
+                  {spineThicknessMm} mm ({spineThicknessIn}&Prime;)
+                </span>
+              </div>
+              <div>
+                <strong>Cover Foil Stamp</strong>
+                <span className="specs-foil-tag">
+                  {foilChoice === "gold"
+                    ? "🌟 Aurum Gold Stamp"
+                    : foilChoice === "silver"
+                      ? "🪙 Argentum Silver"
+                      : foilChoice === "rose"
+                        ? "🌹 Rose Gold Foil"
+                        : "🖋️ Blind Deboss Lettering"}
+                </span>
               </div>
               <div>
                 <strong>Resolution</strong>
                 <span>300 DPI Fine-Art Archival CMYK</span>
               </div>
+              <div>
+                <strong>Inside Cover Plate</strong>
+                <span>{includeQrCode ? "Soundtrack Micro-QR" : "Blind Monogram"}</span>
+              </div>
             </div>
+
+            <div className="specs-cmyk-toggle-bar">
+              <div className="specs-cmyk-info">
+                <span className="cmyk-title">CMYK Archival Gamut Soft-Proof</span>
+                <span className="cmyk-desc">
+                  Simulate ink absorption and tactile surface reflectance on 140 gsm eggshell paper
+                </span>
+              </div>
+              <button
+                type="button"
+                className={`cmyk-toggle-btn ${cmykProof ? "is-active" : ""}`}
+                onClick={() => {
+                  setCmykProof((prev) => !prev);
+                  playSubtleClick();
+                }}
+                aria-pressed={cmykProof}
+                aria-label={
+                  cmykProof
+                    ? "Disable CMYK soft-proofing"
+                    : "Enable CMYK soft-proofing simulation"
+                }
+              >
+                <span>{cmykProof ? "Proofing Active" : "Simulate CMYK"}</span>
+              </button>
+            </div>
+
+            <div className="specs-foil-selector">
+              <span className="foil-selector-label">CUSTOMIZE FOIL STAMP</span>
+              <div className="foil-options-cluster">
+                {[
+                  { id: "gold", label: "Aurum Gold", icon: "🌟" },
+                  { id: "silver", label: "Silver", icon: "🪙" },
+                  { id: "rose", label: "Rose Gold", icon: "🌹" },
+                  { id: "deboss", label: "Blind Deboss", icon: "🖋️" },
+                ].map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    className={`foil-pill-btn ${foilChoice === f.id ? "is-selected" : ""}`}
+                    onClick={() => {
+                      setFoilChoice(f.id);
+                      playSubtleClick();
+                    }}
+                  >
+                    <span>{f.icon}</span>
+                    <span>{f.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="specs-endpaper-qr-box">
+              <div className="endpaper-qr-header">
+                <div>
+                  <span className="endpaper-kicker">ENDPAPER PLATE · ENGRAVED QR</span>
+                  <p className="endpaper-desc">
+                    Aesthetically engraved on inside cover endpaper. Scanning plays this
+                    keepsake's ambient soundtrack.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className={`cmyk-toggle-btn ${includeQrCode ? "is-active" : ""}`}
+                  onClick={() => {
+                    setIncludeQrCode((p) => !p);
+                    playSubtleClick();
+                  }}
+                  aria-pressed={includeQrCode}
+                >
+                  <span>{includeQrCode ? "QR Included" : "Monogram Only"}</span>
+                </button>
+              </div>
+              {includeQrCode && (
+                <div className="endpaper-preview-plate">
+                  <div className="plate-text-col">
+                    <span className="plate-brand">M E M O R A</span>
+                    <p className="plate-quote">We were here. And that was everything.</p>
+                    <span className="plate-edition">ORIGINAL SOUNDTRACK · VOL. 01</span>
+                  </div>
+                  <div className="plate-qr-col">
+                    <QrCode
+                      value="https://memora.app/soundtrack?vol=01"
+                      size={64}
+                      fgColor="#5a4133"
+                      bgColor="#f4ede0"
+                      ariaLabel="Soundtrack QR code"
+                    />
+                    <span className="plate-qr-hint">Scan with phone</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="specs-actions">
               <Button
                 size="sm"
@@ -383,9 +613,15 @@ function BookReader({
 
       {memory && target ? (
         <div
-          className="reader-book"
+          className={`reader-book ${cmykProof ? "cmyk-proof-mode" : ""}`}
           aria-label="Sample book spread"
           aria-busy={Boolean(turn)}
+          style={
+            {
+              "--reader-spread-bg": activePalette.bg,
+              "--reader-accent": activePalette.accent,
+            } as React.CSSProperties
+          }
         >
           <div
             className="reader-spread"
@@ -402,6 +638,7 @@ function BookReader({
               captions={captions}
               playingMemoId={playingMemoId}
               onPlayMemo={handlePlayMemo}
+              onToggleSoundtrack={() => toggleMusic()}
             />
           </div>
           <div className="reader-spine" aria-hidden="true" />
@@ -518,6 +755,16 @@ function BookReader({
         Use the arrow keys to turn a page{" "}
         <span aria-hidden="true">← &nbsp; →</span>
       </p>
+
+      <MusicSheetDialog
+        open={showSoundtrackDialog}
+        onOpenChange={setShowSoundtrackDialog}
+      />
+
+      <ArViewModal
+        open={showArModal}
+        onOpenChange={setShowArModal}
+      />
     </Dialog.Content>
   );
 }
