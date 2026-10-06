@@ -187,6 +187,26 @@ async function run() {
       path.join(DOCS_DIR, "preview_soundtrack.png"),
       path.join(ARTIFACT_DIR, "preview_soundtrack.png")
     );
+
+    // 7b. Music App Search & Arrow Mark Confirmation Modal
+    console.log("Capturing Music App Search & Arrow Mark Modal...");
+    const spotifyAttachBtn = page.locator(".streaming-app-btn.is-spotify").first();
+    if (await spotifyAttachBtn.isVisible()) {
+      await spotifyAttachBtn.click();
+      await page.waitForTimeout(600);
+      const suggestedSong = page.locator(".suggested-track-item").first();
+      if (await suggestedSong.isVisible()) {
+        await suggestedSong.click();
+        await page.waitForTimeout(600);
+      }
+      await page.screenshot({
+        path: path.join(DOCS_DIR, "preview_music_arrow_pick.png"),
+      });
+      fs.copyFileSync(
+        path.join(DOCS_DIR, "preview_music_arrow_pick.png"),
+        path.join(ARTIFACT_DIR, "preview_music_arrow_pick.png")
+      );
+    }
   }
 
   await context.close();

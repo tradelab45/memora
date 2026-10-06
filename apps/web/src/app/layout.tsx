@@ -11,6 +11,7 @@ import "./fonts.css";
 import "./globals.css";
 import "./refinements.css";
 import { CursorLight } from "@/components/ui/cursor-light";
+import { SongPick } from "@/components/music/song-pick";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <CursorLight />
+        <SongPick />
         <AuthProvider><MotionProvider>{children}</MotionProvider></AuthProvider>
       </body>
     </html>

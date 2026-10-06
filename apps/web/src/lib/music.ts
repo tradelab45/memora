@@ -30,9 +30,34 @@ export const BUILTIN_TRACKS: readonly TrackItem[] = [
   },
 ] as const;
 
+export type Service = "spotify" | "apple" | "youtube";
+
+export const SERVICE_NAME: Record<Service, string> = {
+  spotify: "Spotify",
+  apple: "Apple Music",
+  youtube: "YouTube Music",
+};
+
+export const SERVICE_EMOJI: Record<Service, string> = {
+  spotify: "🟢",
+  apple: "🍎",
+  youtube: "🔴",
+};
+
+export interface LinkTrack {
+  kind: "link";
+  service: Service;
+  id: string;
+  name: string;
+  artist?: string;
+  embed?: string;
+  url: string;
+}
+
 export type TrackRef =
   | { kind: "builtin"; id: string }
   | { kind: "file"; id: string; name: string }
+  | LinkTrack
   | null;
 
 export type MusicMode = "book" | "photo";
@@ -195,13 +220,141 @@ let currentTrackKey = "";
 const blobUrlCache = new Map<string, string>();
 let syncToken = 0;
 
+/** Generates the search deep-link or web search page for a music service */
+export function searchUrl(service: Service, query: string): string {
+  const q = encodeURIComponent(query.trim());
+  if (service === "spotify") {
+    return q
+      ? `https://open.spotify.com/search/${q}`
+      : "https://open.spotify.com/";
+  }
+  if (service === "apple") {
+    return q
+      ? `https://music.apple.com/search?term=${q}`
+      : "https://music.apple.com/";
+  }
+  return q
+    ? `https://music.youtube.com/search?q=${q}`
+    : "https://music.youtube.com/";
+}
+
+/** Parses pasted or shared link into a LinkTrack object */
+export function parseSongLink(raw: string): LinkTrack | null {
+  if (!raw || typeof raw !== "string") return null;
+  let u: URL;
+  try {
+    u = new URL(raw.trim());
+  } catch {
+    return null;
+  }
+  const host = u.hostname.replace(/^www\./, "");
+  if (host === "open.spotify.com") {
+    const m = u.pathname.match(/\/(?:intl-[a-z-]+\/)?(track|album|playlist|episode)\/([A-Za-z0-9]+)/);
+    if (!m) return null;
+    const typeLabel = m[1].charAt(0).toUpperCase() + m[1].slice(1);
+    return {
+      kind: "link",
+      service: "spotify",
+      id: `sp-${m[2]}`,
+      name: `Spotify ${typeLabel}`,
+      embed: `https://open.spotify.com/embed/${m[1]}/${m[2]}?utm_source=generator`,
+      url: u.toString(),
+    };
+  }
+  if (host === "music.apple.com") {
+    if (!/\/(album|song|playlist)\//.test(u.pathname)) return null;
+    const segments = u.pathname.split("/").filter(Boolean);
+    const titleFromPath = segments[segments.length - 2]?.replace(/-/g, " ") ?? "Apple Music Track";
+    const cleanTitle = titleFromPath.charAt(0).toUpperCase() + titleFromPath.slice(1);
+    return {
+      kind: "link",
+      service: "apple",
+      id: `am-${u.pathname}${u.search}`.slice(0, 120),
+      name: cleanTitle,
+      embed: `https://embed.music.apple.com${u.pathname}${u.search}`,
+      url: u.toString(),
+    };
+  }
+  if (
+    host === "youtube.com" ||
+    host === "music.youtube.com" ||
+    host === "m.youtube.com" ||
+    host === "youtu.be"
+  ) {
+    const v =
+      host === "youtu.be"
+        ? u.pathname.slice(1)
+        : u.searchParams.get("v") ?? u.pathname.match(/\/embed\/([\w-]+)/)?.[1] ?? "";
+    const list = u.searchParams.get("list");
+    if (v && /^[\w-]{6,}$/.test(v)) {
+      return {
+        kind: "link",
+        service: "youtube",
+        id: `yt-${v}`,
+        name: "YouTube Music Song",
+        embed: `https://www.youtube-nocookie.com/embed/${v}?rel=0&playsinline=1`,
+        url: u.toString(),
+      };
+    }
+    if (list && /^[\w-]+$/.test(list)) {
+      return {
+        kind: "link",
+        service: "youtube",
+        id: `ytl-${list}`,
+        name: "YouTube Music Playlist",
+        embed: `https://www.youtube-nocookie.com/embed/videoseries?list=${list}&playsinline=1`,
+        url: u.toString(),
+      };
+    }
+  }
+  return null;
+}
+
+/** Tries to resolve title metadata via public oEmbed where supported */
+export async function resolveSongLink(raw: string): Promise<LinkTrack | null> {
+  const t = parseSongLink(raw);
+  if (!t) return null;
+  const oembed =
+    t.service === "spotify"
+      ? `https://open.spotify.com/oembed?url=${encodeURIComponent(t.url)}`
+      : t.service === "youtube"
+        ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(t.url)}`
+        : "";
+  if (!oembed || typeof window === "undefined") return t;
+  try {
+    const ctl = new AbortController();
+    const timer = window.setTimeout(() => ctl.abort(), 3500);
+    const r = await fetch(oembed, { signal: ctl.signal });
+    window.clearTimeout(timer);
+    if (r.ok) {
+      const j = (await r.json()) as { title?: string; author_name?: string };
+      if (j.title) {
+        return {
+          ...t,
+          name: j.title.slice(0, 80),
+          artist: j.author_name,
+        };
+      }
+    }
+  } catch {
+    // fallback to default
+  }
+  return t;
+}
+
 export function getTrackDisplayName(track: TrackRef): string {
   if (!track) return "None (Muted)";
   if (track.kind === "builtin") {
     const item = BUILTIN_TRACKS.find((b) => b.id === track.id);
     return item ? item.name : track.id;
   }
-  return track.name;
+  if (track.kind === "file") {
+    return track.name;
+  }
+  if (track.kind === "link") {
+    return `${track.name} (${SERVICE_NAME[track.service]})`;
+  }
+  return "Custom Track";
 }
 
 async function resolveAudioSource(
@@ -211,14 +364,22 @@ async function resolveAudioSource(
     const item = BUILTIN_TRACKS.find((b) => b.id === track.id);
     return item?.src ?? `/music/${track.id}.mp3`;
   }
-  if (blobUrlCache.has(track.id)) {
-    return blobUrlCache.get(track.id)!;
+  if (track.kind === "file") {
+    if (blobUrlCache.has(track.id)) {
+      return blobUrlCache.get(track.id)!;
+    }
+    const blob = await retrieveAudioFile(track.id);
+    if (!blob) return null;
+    const url = URL.createObjectURL(blob);
+    blobUrlCache.set(track.id, url);
+    return url;
   }
-  const blob = await retrieveAudioFile(track.id);
-  if (!blob) return null;
-  const url = URL.createObjectURL(blob);
-  blobUrlCache.set(track.id, url);
-  return url;
+  if (track.kind === "link") {
+    // Use an atmospheric acoustic ambient loop as browser audio background for stream links
+    const fallbackItem = BUILTIN_TRACKS[0];
+    return fallbackItem.src;
+  }
+  return null;
 }
 
 function getTrackKey(track: TrackRef): string {

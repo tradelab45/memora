@@ -41,7 +41,10 @@ import {
   setActivePhotoContext,
   getTrackForPhoto,
   getTrackDisplayName,
+  SERVICE_EMOJI,
+  SERVICE_NAME,
 } from "@/lib/music";
+import { startMusicPick } from "@/lib/music-pick";
 import {
   MusicSheetDialog,
   AnimatedEqualizer,
@@ -76,11 +79,15 @@ function PhotoPage({
   memory,
   index,
   decorative = false,
+  onAttachMusic,
 }: {
   memory: Memory;
   index: number;
   decorative?: boolean;
+  onAttachMusic?: () => void;
 }) {
+  const photoTrack = getTrackForPhoto(memory.id);
+
   return (
     <div className="reader-photo-page">
       <div className="reader-photo">
@@ -91,6 +98,33 @@ function PhotoPage({
           sizes="(max-width: 720px) 90vw, 480px"
         />
         <span className="reader-photo-date">{memory.date}</span>
+        {onAttachMusic && !decorative && (
+          <button
+            type="button"
+            className="reader-photo-music-tag"
+            onClick={onAttachMusic}
+            title={
+              photoTrack
+                ? `Soundtrack: ${getTrackDisplayName(photoTrack)}. Click to reassign.`
+                : "Search music app and attach soundtrack to this photo"
+            }
+            aria-label={`Soundtrack for ${memory.title}`}
+          >
+            <Music2 size={11} />
+            <span>
+              {photoTrack ? (
+                <>
+                  {photoTrack.kind === "link" ? `${SERVICE_EMOJI[photoTrack.service]} ` : "🎵 "}
+                  {getTrackDisplayName(photoTrack).length > 20
+                    ? getTrackDisplayName(photoTrack).slice(0, 18) + "…"
+                    : getTrackDisplayName(photoTrack)}
+                </>
+              ) : (
+                "Attach Song ➔"
+              )}
+            </span>
+          </button>
+        )}
       </div>
       <div className="reader-photo-caption">
         <span>PLATE {String(index + 1).padStart(2, "0")}</span>
@@ -188,6 +222,11 @@ function StoryPage({
               >
                 <Music2 size={13} className="picture-music-icon" />
                 <span className="picture-music-name">{trackName}</span>
+                {photoTrack?.kind === "link" && (
+                  <span className="reader-track-service-tag" title={`Streaming from ${SERVICE_NAME[photoTrack.service]}`}>
+                    {SERVICE_EMOJI[photoTrack.service]}
+                  </span>
+                )}
                 <AnimatedEqualizer active={music.on} />
               </button>
               {onOpenSoundtrackSettings && (
@@ -658,6 +697,14 @@ function BookReader({
             <PhotoPage
               memory={turn && !next ? target : memory}
               index={turn && !next ? turn.to : page}
+              onAttachMusic={() => {
+                const currentMem = turn && !next ? target : memory;
+                startMusicPick({
+                  targetPhotoId: currentMem.id,
+                  targetTitle: currentMem.title,
+                  targetImage: currentMem.image,
+                });
+              }}
             />
             <StoryPage
               memory={turn && next ? target : memory}
@@ -667,6 +714,14 @@ function BookReader({
               playingMemoId={playingMemoId}
               onPlayMemo={handlePlayMemo}
               onToggleSoundtrack={() => toggleMusic()}
+              onOpenSoundtrackSettings={() => {
+                const currentMem = turn && next ? target : memory;
+                startMusicPick({
+                  targetPhotoId: currentMem.id,
+                  targetTitle: currentMem.title,
+                  targetImage: currentMem.image,
+                });
+              }}
             />
           </div>
           <div className="reader-spine" aria-hidden="true" />

@@ -701,6 +701,44 @@
   color: var(--rust);
 }
 
+/* Picture soundtrack tag overlaid on photograph */
+.reader-photo-music-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(48, 45, 39, 0.15);
+  transition: all 0.2s ease;
+  z-index: 4;
+}
+
+.reader-photo-music-tag:hover {
+  background: #ffffff;
+  color: var(--rust);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(155, 73, 50, 0.2);
+}
+
+.reader-track-service-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
 .voice-keepsake-btn {
   display: inline-flex;
   align-items: center;

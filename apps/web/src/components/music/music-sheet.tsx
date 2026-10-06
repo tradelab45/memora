@@ -11,7 +11,6 @@ import {
   Disc3,
   X,
   Sparkles,
-  ExternalLink,
   Headphones,
 } from "lucide-react";
 import {
@@ -25,7 +24,10 @@ import {
   BUILTIN_TRACKS,
   type TrackRef,
   getTrackDisplayName,
+  SERVICE_NAME,
+  SERVICE_EMOJI,
 } from "@/lib/music";
+import { startMusicPick } from "@/lib/music-pick";
 import { memories } from "@/lib/content";
 import Image from "next/image";
 import "./music-sheet.css";
@@ -35,12 +37,14 @@ export function SongPicker({
   onChange,
   label,
   emptyLabel = "Follows book soundtrack",
+  photoId = "",
   className = "",
 }: {
   value: TrackRef;
   onChange: (t: TrackRef) => void;
   label: string;
   emptyLabel?: string;
+  photoId?: string;
   className?: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -84,21 +88,15 @@ export function SongPicker({
               return;
             }
             if (val === "__STREAMING_SPOTIFY__") {
-              if (typeof window !== "undefined") {
-                window.open("https://open.spotify.com/search/nostalgic%20instrumental", "_blank");
-              }
+              startMusicPick({ service: "spotify", targetPhotoId: photoId });
               return;
             }
             if (val === "__STREAMING_APPLE__") {
-              if (typeof window !== "undefined") {
-                window.open("https://music.apple.com/search?term=nostalgic%20instrumental", "_blank");
-              }
+              startMusicPick({ service: "apple", targetPhotoId: photoId });
               return;
             }
             if (val === "__STREAMING_YT__") {
-              if (typeof window !== "undefined") {
-                window.open("https://music.youtube.com/search?q=nostalgic+instrumental+memories", "_blank");
-              }
+              startMusicPick({ service: "youtube", targetPhotoId: photoId });
               return;
             }
             if (!val) {
@@ -109,6 +107,8 @@ export function SongPicker({
             if (kind === "builtin") {
               onChange({ kind: "builtin", id });
             } else if (value && value.kind === "file" && value.id === id) {
+              onChange(value);
+            } else if (value && value.kind === "link" && value.id === id) {
               onChange(value);
             }
           }}
@@ -129,18 +129,25 @@ export function SongPicker({
               </option>
             </optgroup>
           )}
-          <optgroup label="Import or Stream">
-            <option value="__CUSTOM_UPLOAD__">
-              + Choose audio file from your device...
-            </option>
+          {value?.kind === "link" && (
+            <optgroup label="Assigned from Music App">
+              <option value={`link:${value.id}`}>
+                {SERVICE_EMOJI[value.service]} {value.name} ({SERVICE_NAME[value.service]})
+              </option>
+            </optgroup>
+          )}
+          <optgroup label="Search & Attach from Music Apps">
             <option value="__STREAMING_SPOTIFY__">
-              🟢 Launch Spotify on device...
+              🟢 Search Spotify & Attach with Arrow ➔
             </option>
             <option value="__STREAMING_APPLE__">
-              🍎 Launch Apple Music on device...
+              🍎 Search Apple Music & Attach with Arrow ➔
             </option>
             <option value="__STREAMING_YT__">
-              🔴 Launch YouTube Music on device...
+              🔴 Search YouTube Music & Attach with Arrow ➔
+            </option>
+            <option value="__CUSTOM_UPLOAD__">
+              + Choose audio file from your device...
             </option>
           </optgroup>
         </select>
@@ -344,6 +351,7 @@ export function MusicSheetDialog({
                           value={assigned}
                           onChange={(track) => setPhotoTrack(mem.id, track)}
                           emptyLabel="Inherit book soundtrack"
+                          photoId={mem.id}
                         />
                       </div>
                     </div>
@@ -397,44 +405,41 @@ export function MusicSheetDialog({
                 Launch your music streaming app directly:
               </p>
               <div className="streaming-apps-grid">
-                <a
-                  href="https://open.spotify.com/search/nostalgic%20ambient%20instrumental"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   className="streaming-app-btn is-spotify"
-                  aria-label="Open in Spotify"
+                  onClick={() => startMusicPick({ service: "spotify" })}
+                  aria-label="Search Spotify playlist or track and attach with arrow"
                 >
                   <span className="streaming-app-badge">🟢 Spotify</span>
                   <span className="streaming-app-action">
-                    Open app <ExternalLink size={12} />
+                    Search & Attach ➔
                   </span>
-                </a>
+                </button>
 
-                <a
-                  href="https://music.apple.com/search?term=nostalgic%20ambient%20instrumental"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   className="streaming-app-btn is-apple"
-                  aria-label="Open in Apple Music"
+                  onClick={() => startMusicPick({ service: "apple" })}
+                  aria-label="Search Apple Music playlist or track and attach with arrow"
                 >
                   <span className="streaming-app-badge">🍎 Apple Music</span>
                   <span className="streaming-app-action">
-                    Open app <ExternalLink size={12} />
+                    Search & Attach ➔
                   </span>
-                </a>
+                </button>
 
-                <a
-                  href="https://music.youtube.com/search?q=nostalgic+ambient+instrumental"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   className="streaming-app-btn is-youtube"
-                  aria-label="Open in YouTube Music"
+                  onClick={() => startMusicPick({ service: "youtube" })}
+                  aria-label="Search YouTube Music playlist or track and attach with arrow"
                 >
                   <span className="streaming-app-badge">🔴 YouTube Music</span>
                   <span className="streaming-app-action">
-                    Open app <ExternalLink size={12} />
+                    Search & Attach ➔
                   </span>
-                </a>
+                </button>
               </div>
             </div>
 

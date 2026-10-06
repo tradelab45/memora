@@ -394,3 +394,50 @@ test("landing, protected sign-in and privacy pass accessibility scans", async ({
     expect(results.violations).toEqual([]);
   }
 });
+
+test("music app search displays glowing arrow mark pointing to photo and confirms soundtrack attachment", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await openPublicSamples(page);
+
+  // Open the sample book reader
+  const trigger = page
+    .locator("#books")
+    .getByRole("button", { name: "Flip through a sample" });
+  await trigger.click();
+  const bookDialog = page.getByRole("dialog");
+  await expect(bookDialog).toBeVisible();
+
+  // Click soundtrack settings or the attach music tag
+  const soundtrackTrigger = page.locator(".reader-photo-music-tag").first();
+  if (await soundtrackTrigger.isVisible()) {
+    await soundtrackTrigger.click();
+  } else {
+    await page.getByRole("button", { name: /Soundtrack/i }).first().click();
+    await page.locator(".streaming-app-btn.is-spotify").click();
+  }
+
+  // Verify the Song Pick dialog is open
+  const pickDialog = page.locator(".song-pick-card");
+  await expect(pickDialog).toBeVisible();
+
+  // Pick a curated track
+  const suggestedBtn = pickDialog.locator(".suggested-track-item").first();
+  await expect(suggestedBtn).toBeVisible();
+  await suggestedBtn.click();
+
+  // Verify phase switches to "found" with glowing Arrow Mark
+  await expect(pickDialog).toContainText("Use this song for your photo?");
+  await expect(pickDialog.locator(".pipeline-arrow-mark")).toBeVisible();
+  await expect(pickDialog.locator(".arrow-glyph")).toContainText("➔");
+  await expect(pickDialog.locator(".arrow-label")).toContainText("Click Arrow to Attach ➔");
+  await expect(pickDialog.locator(".confirm-yes-btn")).toBeVisible();
+
+  // User confirms via the Arrow Mark
+  await pickDialog.locator(".pipeline-arrow-mark").click();
+
+  // Verify success confirmation
+  await expect(pickDialog.locator(".song-confirmed-banner")).toBeVisible();
+  await expect(pickDialog).toContainText("Soundtrack Uploaded & Attached!");
+});

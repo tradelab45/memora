@@ -309,6 +309,7 @@ export function StoryStudio(props?: {
                     value={currentPhotoTrack}
                     onChange={(track) => setPhotoTrack(memory.id, track)}
                     emptyLabel="Inherits common book soundtrack"
+                    photoId={memory.id}
                   />
                 </div>
                 <Button onClick={saveCaption} disabled={!caption.trim()}>

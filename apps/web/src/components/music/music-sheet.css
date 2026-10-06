@@ -536,6 +536,10 @@
   text-decoration: none;
   transition: all 0.2s ease;
   min-height: 54px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
 }
 
 .streaming-app-btn:hover {
