@@ -165,6 +165,24 @@ async function run() {
       path.join(DOCS_DIR, "preview_print_specs.png"),
       path.join(ARTIFACT_DIR, "preview_print_specs.png")
     );
+    // Close specs drawer
+    await printSpecsBtn.click();
+    await page.waitForTimeout(400);
+  }
+
+  // 6c. Google Veo 3.1 Living Cinema & Pomelli Typography Spread
+  console.log("Capturing Google Veo 3.1 Living Cinema & Pomelli Spread...");
+  const veoBtn = page.locator(".reader-veo-btn").first();
+  if (await veoBtn.isVisible()) {
+    await veoBtn.click();
+    await page.waitForTimeout(1000);
+    await page.screenshot({
+      path: path.join(DOCS_DIR, "preview_veo_cinema.png"),
+    });
+    fs.copyFileSync(
+      path.join(DOCS_DIR, "preview_veo_cinema.png"),
+      path.join(ARTIFACT_DIR, "preview_veo_cinema.png")
+    );
   }
 
   // Close flipbook modal

@@ -9,6 +9,7 @@ import { AuthSection } from "@/components/auth/auth-section";
 import { TimelineSection } from "./timeline-section";
 import { QuestionsSection } from "./questions-section";
 import { LandingDetails } from "./landing-details";
+import { FloeDock } from "@/components/layout/floe-dock";
 import { memories, people } from "@/lib/content";
 import "./cinematic-site.css";
 
@@ -273,6 +274,7 @@ export function LandingPage() {
         </a>
         <span>© {new Date().getFullYear()} MEMORA</span>
       </footer>
+      <FloeDock />
     </div>
   );
 }

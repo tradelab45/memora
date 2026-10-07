@@ -1,0 +1,487 @@
+/* =========================================================================
+   GOOGLE VEO 3.1 LIVING CINEMA & ARGON4 PRECISION TELEMETRY STYLES
+   ========================================================================= */
+
+.veo-cinema-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  overflow: hidden;
+  background: #1e1b18;
+  border-radius: inherit;
+  user-select: none;
+}
+
+.veo-cinema-wrapper.aspect-16\/9 {
+  aspect-ratio: 16 / 9;
+}
+
+.veo-cinema-wrapper.aspect-1\/1 {
+  aspect-ratio: 1 / 1;
+}
+
+.veo-cinema-wrapper.aspect-4\/3 {
+  aspect-ratio: 4 / 3;
+}
+
+.veo-image-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.veo-main-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.2s ease, filter 0.8s ease;
+}
+
+/* ── Veo 3.1 Living Camera Breathing & Parallax Drift ── */
+.veo-cinema-wrapper.is-living .veo-main-img {
+  animation: veoCameraDrift 14s infinite ease-in-out alternate;
+  filter: contrast(1.04) saturate(1.08) brightness(1.02);
+}
+
+@keyframes veoCameraDrift {
+  0% {
+    transform: scale(1) translate(0%, 0%);
+  }
+  33% {
+    transform: scale(1.035) translate(-0.8%, -0.4%);
+  }
+  66% {
+    transform: scale(1.025) translate(0.6%, -0.8%);
+  }
+  100% {
+    transform: scale(1.045) translate(-0.4%, 0.6%);
+  }
+}
+
+.veo-cinema-wrapper.is-reduced-motion.is-living .veo-main-img {
+  animation: none;
+}
+
+/* ── Generative Volumetric Light Leak & Rim Warmth ── */
+.veo-light-leak {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(48px);
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  transition: opacity 0.8s ease;
+}
+
+.veo-leak-left {
+  top: -15%;
+  left: -15%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(255, 210, 150, 0.7) 0%, rgba(220, 110, 70, 0) 70%);
+  animation: leakPulseLeft 9s infinite ease-in-out alternate;
+}
+
+.veo-leak-right {
+  bottom: -20%;
+  right: -10%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle, rgba(255, 180, 120, 0.6) 0%, rgba(210, 80, 50, 0) 75%);
+  animation: leakPulseRight 11s infinite ease-in-out alternate;
+}
+
+@keyframes leakPulseLeft {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(6%, 8%) scale(1.15);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(-3%, 4%) scale(0.95);
+    opacity: 0.3;
+  }
+}
+
+@keyframes leakPulseRight {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(-8%, -5%) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(4%, -7%) scale(1.05);
+    opacity: 0.25;
+  }
+}
+
+.veo-anamorphic-flare {
+  position: absolute;
+  top: 42%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 240, 200, 0) 0%,
+    rgba(255, 225, 160, 0.45) 50%,
+    rgba(255, 240, 200, 0) 100%
+  );
+  filter: blur(1.5px);
+  pointer-events: none;
+  opacity: 0.4;
+  animation: anamorphicGlint 7s infinite ease-in-out alternate;
+}
+
+@keyframes anamorphicGlint {
+  0% {
+    opacity: 0.15;
+    transform: translateY(0) scaleX(0.85);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-8px) scaleX(1.08);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(6px) scaleX(0.9);
+  }
+}
+
+.veo-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ── Argon4 Telemetry Ribbon (Top) ── */
+.veo-argon-ribbon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.argon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4.5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(18, 16, 14, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #efe8dc;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.argon-camera {
+  color: #f7d598;
+}
+
+.argon-icon {
+  color: #f7d598;
+}
+
+@media (max-width: 640px) {
+  .argon-exif,
+  .argon-profile {
+    display: none;
+  }
+}
+
+/* ── Date Plate Tag (Bottom Left) ── */
+.veo-plate-date {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(20, 18, 16, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: #f5f0e8;
+  z-index: 5;
+}
+
+/* ── Live Cinema Director Bar (Bottom Controls) ── */
+.veo-director-bar {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 7;
+}
+
+.veo-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.veo-toggle-btn:hover {
+  background: #ffffff;
+  color: var(--rust);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(155, 73, 50, 0.25);
+}
+
+.veo-toggle-btn.is-active {
+  background: linear-gradient(135deg, #a74e36 0%, #823422 100%);
+  color: #fff8f0;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 16px rgba(155, 73, 50, 0.4);
+}
+
+.veo-rec-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.veo-rec-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9b4932;
+  transition: all 0.2s ease;
+}
+
+.veo-rec-dot.is-pulsing {
+  background: #ff5252;
+  box-shadow: 0 0 8px #ff5252;
+  animation: recPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes recPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+.veo-director-cluster {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: clusterFadeIn 0.25s ease;
+}
+
+@keyframes clusterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.veo-speed-selector {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(22, 19, 16, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.speed-pill-btn {
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: #d8d0c2;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.speed-pill-btn.is-selected {
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.veo-prompt-info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(22, 19, 16, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f5f0e8;
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.veo-prompt-info-btn:hover {
+  background: rgba(45, 38, 30, 0.95);
+  border-color: #f7d598;
+  color: #f7d598;
+}
+
+/* ── Veo 3.1 Prompt Inspector Overlay Modal ── */
+.veo-prompt-sheet {
+  position: absolute;
+  inset: 10px;
+  background: rgba(18, 16, 14, 0.92);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 16px 18px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #efe8dc;
+  animation: promptSheetIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes promptSheetIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.veo-prompt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.veo-prompt-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #f7d598;
+}
+
+.veo-prompt-close {
+  background: transparent;
+  border: none;
+  color: #bfaea0;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.veo-prompt-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.veo-prompt-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0 0 12px;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 2px solid #f7d598;
+}
+
+.veo-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 14px;
+}
+
+.veo-telemetry-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.veo-telemetry-grid strong {
+  font-family: var(--font-mono, monospace);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: #bfaea0;
+}
+
+.veo-telemetry-grid span {
+  font-size: 11px;
+  color: #f3ecdf;
+  font-weight: 500;
+}

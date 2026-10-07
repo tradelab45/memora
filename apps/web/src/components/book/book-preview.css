@@ -600,6 +600,8 @@
 
 /* ── CINEMATIC, PRINT & SOUNDTRACK HEADER BUTTONS ── */
 .memora-reader .reader-cinematic-btn,
+.memora-reader .reader-veo-btn,
+.memora-reader .reader-pomelli-btn,
 .memora-reader .reader-print-specs-btn,
 .memora-reader .reader-soundtrack-btn {
   display: inline-flex;
@@ -620,6 +622,8 @@
 }
 
 .memora-reader .reader-cinematic-btn:hover,
+.memora-reader .reader-veo-btn:hover,
+.memora-reader .reader-pomelli-btn:hover,
 .memora-reader .reader-print-specs-btn:hover,
 .memora-reader .reader-soundtrack-btn:hover {
   background: #f0e9dc;
@@ -633,6 +637,67 @@
   background: var(--rust);
   color: #fff8f0;
   border-color: var(--rust);
+}
+
+.memora-reader .reader-veo-btn.is-active {
+  background: linear-gradient(135deg, #1a2234 0%, #0d131f 100%);
+  color: #79c0ff;
+  border-color: #58a6ff;
+  box-shadow: 0 0 10px rgba(88, 166, 255, 0.35);
+}
+
+.memora-reader .reader-pomelli-btn.is-active {
+  background: linear-gradient(135deg, #9b4932 0%, #7d3320 100%);
+  color: #fff8f0;
+  border-color: #9b4932;
+  box-shadow: 0 0 10px rgba(155, 73, 50, 0.35);
+}
+
+/* ── POMELLI ROMAN DROPCAP IN READER STORY SPREAD ── */
+.reader-story-page.is-pomelli .reader-pomelli-dropcap {
+  float: left;
+  font-family: var(--font-display, "Cormorant Garamond", serif);
+  font-size: 52px;
+  line-height: 0.82;
+  padding: 4px 8px 2px 0;
+  margin-right: 4px;
+  font-weight: 700;
+  color: var(--rust, #9b4932);
+  text-shadow: 0 2px 4px rgba(155, 73, 50, 0.15);
+  background: linear-gradient(145deg, #a74e36 0%, #7d3320 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── ARGON4 TELEMETRY PILL ROW IN SPREAD ── */
+.reader-argon-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(155, 73, 50, 0.15);
+}
+
+.reader-argon-pill-row .argon-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(42, 37, 33, 0.05);
+  color: #6a5e55;
+  border: 1px solid rgba(42, 37, 33, 0.1);
+  letter-spacing: 0.04em;
+}
+
+.reader-argon-pill-row .argon-chip.argon-shutter {
+  color: var(--rust, #9b4932);
+  border-color: rgba(155, 73, 50, 0.25);
+  background: rgba(155, 73, 50, 0.06);
 }
 
 /* ── VOICE KEEPSAKE BADGE & PICTURE SOUNDTRACK CLUSTER ── */

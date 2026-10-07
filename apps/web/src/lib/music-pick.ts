@@ -173,7 +173,7 @@ export function startMusicPick({
   targetTitle?: string;
   targetImage?: string;
   initialQuery?: string;
-}) {
+} = {}) {
   const resolved = resolvePhotoInfo(targetPhotoId);
   updateState({
     phase: "search",

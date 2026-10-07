@@ -19,7 +19,9 @@ import {
   SlidersHorizontal,
   Box,
   Package,
+  Video,
 } from "lucide-react";
+import { VeoCinema } from "@/components/motion/veo-cinema";
 import { Button } from "@/components/ui/button";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { memories } from "@/lib/content";
@@ -80,23 +82,41 @@ function PhotoPage({
   index,
   decorative = false,
   onAttachMusic,
+  livingCinema = false,
+  onToggleLivingCinema,
 }: {
   memory: Memory;
   index: number;
   decorative?: boolean;
   onAttachMusic?: () => void;
+  livingCinema?: boolean;
+  onToggleLivingCinema?: (active: boolean) => void;
 }) {
   const photoTrack = getTrackForPhoto(memory.id);
 
   return (
     <div className="reader-photo-page">
       <div className="reader-photo">
-        <Image
-          src={memory.image}
-          alt={decorative ? "" : memory.alt}
-          fill
-          sizes="(max-width: 720px) 90vw, 480px"
-        />
+        {livingCinema ? (
+          <VeoCinema
+            image={memory.image}
+            alt={decorative ? "" : memory.alt}
+            memoryId={memory.id}
+            title={memory.title}
+            date={memory.date}
+            initialLiving={true}
+            showControls={!decorative}
+            decorative={decorative}
+            onToggleLiving={onToggleLivingCinema}
+          />
+        ) : (
+          <Image
+            src={memory.image}
+            alt={decorative ? "" : memory.alt}
+            fill
+            sizes="(max-width: 720px) 90vw, 480px"
+          />
+        )}
         <span className="reader-photo-date">{memory.date}</span>
         {onAttachMusic && !decorative && (
           <button
@@ -143,6 +163,8 @@ function StoryPage({
   onPlayMemo,
   onToggleSoundtrack,
   onOpenSoundtrackSettings,
+  pomelliMode = true,
+  argonTelemetry = true,
 }: {
   memory: Memory;
   index: number;
@@ -152,6 +174,8 @@ function StoryPage({
   onPlayMemo?: (id: string) => void;
   onToggleSoundtrack?: () => void;
   onOpenSoundtrackSettings?: () => void;
+  pomelliMode?: boolean;
+  argonTelemetry?: boolean;
 }) {
   const isPlaying = playingMemoId === memory.id;
   const music = useMusic();
@@ -161,9 +185,12 @@ function StoryPage({
     : music.bookSong
       ? `${getTrackDisplayName(music.bookSong)} (Book)`
       : "Score";
+  const captionText = captions?.[memory.id]?.trim() || memory.caption;
+  const firstLetter = captionText.charAt(0);
+  const restCaption = captionText.slice(1);
 
   return (
-    <div className="reader-story-page">
+    <div className={`reader-story-page ${pomelliMode ? "is-pomelli" : ""}`}>
       <div className="reader-story-kicker">
         <span>OUR SUMMER</span>
         <span>CHAPTER {String(index + 1).padStart(2, "0")}</span>
@@ -172,12 +199,29 @@ function StoryPage({
         <p className="reader-date">{memory.date}</p>
         <h3>{memory.title}</h3>
         <span className="reader-rule" aria-hidden="true" />
-        <blockquote>
-          {captions?.[memory.id]?.trim() || memory.caption}
+        <blockquote className="reader-story-quote">
+          {pomelliMode ? (
+            <>
+              <span className="reader-pomelli-dropcap" aria-hidden="true">
+                {firstLetter}
+              </span>
+              <span>{restCaption}</span>
+            </>
+          ) : (
+            captionText
+          )}
         </blockquote>
         <p className="reader-person">
           With <em>{memory.person}.</em>
         </p>
+
+        {argonTelemetry && (
+          <div className="reader-argon-pill-row">
+            <span className="argon-chip">LEICA M11 · 35MM</span>
+            <span className="argon-chip">300 DPI MOHAWK</span>
+            <span className="argon-chip">VEO 3.1 CINEMA</span>
+          </div>
+        )}
 
         <div className="reader-audio-cluster">
           {onPlayMemo && (
@@ -276,6 +320,8 @@ function BookReader({
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
   const [playingMemoId, setPlayingMemoId] = useState<string | null>(null);
   const [isCinematic, setIsCinematic] = useState(false);
+  const [livingCinema, setLivingCinema] = useState(false);
+  const [pomelliMode, setPomelliMode] = useState(true);
   const [showPrintSpecs, setShowPrintSpecs] = useState(false);
   const [foilChoice, setFoilChoice] = useState<string>("gold");
   const [cmykProof, setCmykProof] = useState(false);
@@ -405,6 +451,52 @@ function BookReader({
           >
             {isCinematic ? <Pause size={14} /> : <Play size={14} />}
             <span>{isCinematic ? "Pause" : "Cinematic"}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`reader-veo-btn ${livingCinema ? "is-active" : ""}`}
+            aria-pressed={livingCinema}
+            aria-label={
+              livingCinema
+                ? "Disable Veo 3.1 Living Cinema"
+                : "Enable Veo 3.1 Living Cinema"
+            }
+            title={
+              livingCinema
+                ? "Veo 3.1 Living Cinema: Procedural loops, grain & light leaks"
+                : "Veo 3.1 Living Cinema (Turn On)"
+            }
+            onClick={() => {
+              setLivingCinema((prev) => !prev);
+              playSubtleClick();
+            }}
+          >
+            <Video size={14} />
+            <span>Veo 3.1</span>
+          </button>
+
+          <button
+            type="button"
+            className={`reader-pomelli-btn ${pomelliMode ? "is-active" : ""}`}
+            aria-pressed={pomelliMode}
+            aria-label={
+              pomelliMode
+                ? "Disable Pomelli luxury editorial spread"
+                : "Enable Pomelli luxury editorial spread"
+            }
+            title={
+              pomelliMode
+                ? "Pomelli Luxury Editorial: Roman drop-cap & Italian typographic grid"
+                : "Pomelli Luxury Editorial"
+            }
+            onClick={() => {
+              setPomelliMode((prev) => !prev);
+              playSubtleClick();
+            }}
+          >
+            <Sparkles size={14} />
+            <span>Pomelli</span>
           </button>
 
           <button
@@ -697,6 +789,8 @@ function BookReader({
             <PhotoPage
               memory={turn && !next ? target : memory}
               index={turn && !next ? turn.to : page}
+              livingCinema={livingCinema}
+              onToggleLivingCinema={(active) => setLivingCinema(active)}
               onAttachMusic={() => {
                 const currentMem = turn && !next ? target : memory;
                 startMusicPick({
@@ -714,6 +808,8 @@ function BookReader({
               playingMemoId={playingMemoId}
               onPlayMemo={handlePlayMemo}
               onToggleSoundtrack={() => toggleMusic()}
+              pomelliMode={pomelliMode}
+              argonTelemetry={true}
               onOpenSoundtrackSettings={() => {
                 const currentMem = turn && next ? target : memory;
                 startMusicPick({
@@ -754,6 +850,7 @@ function BookReader({
                       index={page}
                       total={pages.length}
                       captions={captions}
+                      pomelliMode={pomelliMode}
                     />
                   ) : (
                     <PhotoPage memory={memory} index={page} decorative />
@@ -768,6 +865,7 @@ function BookReader({
                       index={turn.to}
                       total={pages.length}
                       captions={captions}
+                      pomelliMode={pomelliMode}
                     />
                   )}
                 </div>
@@ -778,6 +876,7 @@ function BookReader({
                     index={page}
                     total={pages.length}
                     captions={captions}
+                    pomelliMode={pomelliMode}
                   />
                 </div>
               </div>

@@ -1,0 +1,264 @@
+/* =========================================================================
+   POMELLI ITALIAN LUXURY EDITORIAL & STITCH TOKENS STYLES
+   ========================================================================= */
+
+.pomelli-editorial-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 6px 10px 0;
+  color: var(--ink, #2a2521);
+  box-sizing: border-box;
+}
+
+/* ── Pomelli Folio Header ── */
+.pomelli-folio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(155, 73, 50, 0.16);
+  margin-bottom: 18px;
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: #7a6e65;
+}
+
+.pomelli-folio-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pomelli-folio-brand {
+  font-weight: 700;
+  color: var(--rust, #9b4932);
+}
+
+.pomelli-folio-divider {
+  opacity: 0.4;
+}
+
+.pomelli-folio-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pomelli-folio-cap {
+  font-weight: 700;
+  color: var(--ink, #2a2521);
+}
+
+/* ── Chapter Headline & Flourish ── */
+.pomelli-article-header {
+  margin-bottom: 18px;
+}
+
+.pomelli-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #7a6e65;
+  margin-bottom: 8px;
+}
+
+.pomelli-kicker-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rust, #9b4932);
+}
+
+.pomelli-date-tag {
+  font-weight: 600;
+}
+
+.pomelli-with-tag {
+  margin-left: auto;
+  font-size: 9.5px;
+  color: #8c7e73;
+}
+
+.pomelli-with-tag strong {
+  color: var(--rust, #9b4932);
+}
+
+.pomelli-headline {
+  font-family: var(--font-display, "Cormorant Garamond", serif);
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink, #2a2521);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.pomelli-title-flourish {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.flourish-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(155, 73, 50, 0.25) 0%, rgba(155, 73, 50, 0.05) 100%);
+}
+
+.flourish-symbol {
+  color: var(--rust, #9b4932);
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+/* ── Two-Column Fine-Art Layout ── */
+.pomelli-twocolumn-body {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 22px;
+  flex: 1;
+}
+
+@media (max-width: 680px) {
+  .pomelli-twocolumn-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.pomelli-col-prose {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pomelli-prose-paragraph {
+  font-family: var(--font-serif, "Newsreader", serif);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #3b352f;
+  margin: 0 0 16px;
+}
+
+/* ── The Sculpted Pomelli Roman Drop Cap ── */
+.pomelli-dropcap {
+  float: left;
+  font-family: var(--font-display, "Cormorant Garamond", serif);
+  font-size: 64px;
+  line-height: 0.8;
+  padding: 8px 10px 4px 0;
+  margin-right: 4px;
+  font-weight: 700;
+  color: var(--rust, #9b4932);
+  text-shadow:
+    0 2px 4px rgba(155, 73, 50, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+  font-feature-settings: "swsh" 1, "cswh" 1;
+  background: linear-gradient(145deg, #a74e36 0%, #7d3320 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pomelli-rest-text {
+  font-style: italic;
+}
+
+.pomelli-colophon-mark {
+  display: flex;
+  flex-direction: column;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(155, 73, 50, 0.2);
+  margin-top: auto;
+}
+
+.colophon-author {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink, #2a2521);
+}
+
+.colophon-location {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  color: #8c7e73;
+}
+
+/* ── Column 2: Pull Quote & Stitch Tokens ── */
+.pomelli-col-pullquote {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pomelli-pullquote-card {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(155, 73, 50, 0.16);
+  border-left: 3px solid var(--rust, #9b4932);
+  box-shadow: 0 4px 16px rgba(48, 45, 39, 0.05);
+}
+
+.pomelli-quote-icon {
+  color: var(--rust, #9b4932);
+  margin-bottom: 6px;
+  opacity: 0.75;
+}
+
+.pomelli-quote-text {
+  font-family: var(--font-display, "Cormorant Garamond", serif);
+  font-size: 16px;
+  line-height: 1.45;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink, #2a2521);
+  margin: 0 0 8px;
+}
+
+.pomelli-quote-cite {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: #8c7e73;
+  font-style: normal;
+}
+
+/* ── Stitch Design Tokens Telemetry Card ── */
+.pomelli-stitch-tokens {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(245, 238, 226, 0.6);
+  border: 1px solid rgba(220, 215, 204, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stitch-token-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+}
+
+.token-label {
+  color: #7a6e65;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.token-val {
+  color: var(--ink, #2a2521);
+  font-weight: 500;
+}
