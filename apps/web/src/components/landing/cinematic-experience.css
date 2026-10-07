@@ -12,7 +12,16 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: #6b2e34;
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 45%, rgba(142, 60, 68, 0.45) 0%, rgba(82, 28, 34, 0.95) 75%, #46171d 100%),
+    #582329;
+}
+.cinema-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, rgba(246, 215, 185, 0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 .cinema-intro {
   position: relative;
@@ -74,8 +83,8 @@
   position: relative;
   z-index: 2;
   width: min(600px, 58vw);
-  height: 530px;
-  margin: -10px auto 0;
+  height: 520px;
+  margin: 44px auto 0;
   transform-origin: center;
 }
 .cinema-book .book-stage {
@@ -291,7 +300,7 @@
 .cinema-track[data-enhanced="true"] .cinema-book {
   position: absolute;
   left: 50%;
-  top: 27%;
+  top: 29%;
   margin: 0 0 0 max(-300px, -29vw);
   height: 70%;
 }
@@ -347,8 +356,8 @@
 .cinema-track[data-chapter="2"] .chapter-two {
   opacity: 1 !important;
 }
-.cinema-track[data-chapter="2"] .cinema-scroll-cue {
-  visibility: hidden;
+.cinema-track[data-enhanced="true"] .cinema-scroll-cue {
+  display: none !important;
 }
 @media (min-width: 900px) and (max-height: 820px) {
   .cinema-intro {
@@ -641,5 +650,112 @@
   }
   .cinema-app .app-preview-tabs button {
     min-height: 44px;
+  }
+}
+
+/* ── CINEMATIC HERO SWATCH & LIGHTING CONTROLS DOCK ── */
+.book-stage-cinematic .stage-controls-dock {
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%),
+    rgba(40, 18, 24, 0.55);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 4px 10px;
+  box-shadow:
+    0 16px 36px -6px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.book-stage-cinematic .stage-picker-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: rgba(246, 215, 185, 0.7);
+  margin-right: 4px;
+}
+
+.book-stage-cinematic .stage-picker-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.22);
+  margin-inline: 4px;
+}
+
+.book-stage-cinematic .stage-swatch-picker,
+.book-stage-cinematic .stage-lighting-picker {
+  position: static;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.book-stage-cinematic .swatch-node,
+.book-stage-cinematic .lighting-node {
+  color: rgba(255, 248, 240, 0.78);
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 999px;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.book-stage-cinematic .swatch-node:hover,
+.book-stage-cinematic .lighting-node:hover {
+  color: #fffdf9;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.book-stage-cinematic .swatch-node.is-active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fffdf9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.book-stage-cinematic .lighting-node.is-active {
+  background: var(--rust, #9b4932);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fffdf9;
+  box-shadow: 0 2px 8px rgba(155, 73, 50, 0.4);
+}
+
+.book-stage-cinematic .swatch-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: inline-block;
+}
+
+.book-stage-cinematic .stage-actions-cluster {
+  display: none !important; /* Kept clean so Floe Dock rules the lower viewport */
+}
+
+@media (max-width: 768px) {
+  .book-stage-cinematic .stage-controls-dock {
+    bottom: 42px;
+    transform: translateX(-50%) scale(0.82);
+    transform-origin: center;
   }
 }

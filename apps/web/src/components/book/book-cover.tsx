@@ -1,7 +1,16 @@
 import Image from "next/image";
-export function BookCover({ className = "" }: { className?: string }) {
+export function BookCover({
+  className = "",
+  coverColor,
+}: {
+  className?: string;
+  coverColor?: string;
+}) {
   return (
-    <div className={"book-cover " + className}>
+    <div
+      className={"book-cover " + className}
+      style={coverColor ? { backgroundColor: coverColor } : undefined}
+    >
       <div className="book-cover-inner">
         <span className="book-imprint">M E M O R A</span>
         <p className="book-cover-title">

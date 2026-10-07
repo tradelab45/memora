@@ -155,7 +155,10 @@ export function BookStage({
         className={"book-fallback " + (showScene && ready ? "is-hidden" : "")}
         aria-hidden="true"
       >
-        <BookCover className={cinematic ? "cinematic-cover" : ""} />
+        <BookCover
+          className={cinematic ? "cinematic-cover" : ""}
+          coverColor={coverColor}
+        />
       </div>
 
       {showScene && (
@@ -180,103 +183,103 @@ export function BookStage({
         </div>
       )}
 
-      {!cinematic && (
-        <>
-          <div
-            className="stage-lighting-picker"
-            role="radiogroup"
-            aria-label="Solar lighting atmosphere"
-          >
-            {(
-              [
-                { id: "morning", label: "☼ Morning" },
-                { id: "golden", label: "✦ Golden Hour" },
-                { id: "twilight", label: "☽ Twilight" },
-              ] as const
-            ).map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                role="radio"
-                aria-checked={lightingMode === item.id}
-                className={`lighting-node ${lightingMode === item.id ? "is-active" : ""}`}
-                onClick={() => {
-                  setLightingMode(item.id);
-                  playSubtleClick();
-                }}
-                aria-label={`${item.label} atmosphere`}
-              >
-                <span>{item.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <div
-            className="stage-swatch-picker"
-            role="radiogroup"
-            aria-label="Book cover material swatch"
-          >
-            {COVER_SWATCHES.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                role="radio"
-                aria-checked={coverColor === item.color}
-                className={`swatch-node ${coverColor === item.color ? "is-active" : ""}`}
-                onClick={() => {
-                  setCoverColor(item.color);
-                  playSubtleClick();
-                }}
-                aria-label={`${item.name} cover swatch`}
-                title={`${item.name} cover cloth`}
-              >
-                <span
-                  className="swatch-pip"
-                  style={{ backgroundColor: item.color }}
-                  aria-hidden="true"
-                />
-                <span>{item.name}</span>
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-
-      {!cinematic && (
-        <div className="stage-actions-cluster">
-          {showScene && ready ? (
+      <div className="stage-controls-dock" aria-label="Book material & atmosphere settings">
+        <div
+          className="stage-swatch-picker"
+          role="radiogroup"
+          aria-label="Book cover material swatch"
+        >
+          <span className="stage-picker-title">CLOTH</span>
+          {COVER_SWATCHES.map((item) => (
             <button
+              key={item.id}
               type="button"
-              className="stage-peek-button"
-              onClick={toggleBookOpen}
-              aria-label={isOpen ? "Close book cover" : "Peek inside 3D book"}
-              aria-pressed={isOpen}
+              role="radio"
+              aria-checked={coverColor === item.color}
+              className={`swatch-node ${coverColor === item.color ? "is-active" : ""}`}
+              onClick={() => {
+                setCoverColor(item.color);
+                playSubtleClick();
+              }}
+              aria-label={`${item.name} cover swatch`}
+              title={`${item.name} cover cloth`}
             >
-              {isOpen ? <BookIcon size={14} /> : <BookOpen size={14} />}
-              <span>{isOpen ? "Close cover" : "Peek inside"}</span>
+              <span
+                className="swatch-pip"
+                style={{ backgroundColor: item.color }}
+                aria-hidden="true"
+              />
+              <span>{item.name}</span>
             </button>
-          ) : (
-            <Link href="#books" className="stage-peek-button stage-peek-link">
-              <BookOpen size={14} aria-hidden="true" />
-              <span>Explore the sample book</span>
-            </Link>
-          )}
+          ))}
+        </div>
 
+        <div className="stage-picker-divider" aria-hidden="true" />
+
+        <div
+          className="stage-lighting-picker"
+          role="radiogroup"
+          aria-label="Solar lighting atmosphere"
+        >
+          <span className="stage-picker-title">LIGHT</span>
+          {(
+            [
+              { id: "morning", label: "Morning" },
+              { id: "golden", label: "Golden" },
+              { id: "twilight", label: "Twilight" },
+            ] as const
+          ).map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="radio"
+              aria-checked={lightingMode === item.id}
+              className={`lighting-node ${lightingMode === item.id ? "is-active" : ""}`}
+              onClick={() => {
+                setLightingMode(item.id);
+                playSubtleClick();
+              }}
+              aria-label={`${item.label} atmosphere`}
+            >
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="stage-actions-cluster">
+        {showScene && ready ? (
           <button
             type="button"
-            className="stage-ar-button"
-            onClick={() => {
-              setShowArModal(true);
-              playSubtleClick();
-            }}
-            aria-label="View photobook in Augmented Reality 1:1 scale"
-            title="View in Augmented Reality (1:1 Scale)"
+            className="stage-peek-button"
+            onClick={toggleBookOpen}
+            aria-label={isOpen ? "Close book cover" : "Peek inside 3D book"}
+            aria-pressed={isOpen}
           >
-            <Box size={14} />
-            <span>AR (1:1 Scale)</span>
+            {isOpen ? <BookIcon size={14} /> : <BookOpen size={14} />}
+            <span>{isOpen ? "Close cover" : "Peek inside"}</span>
           </button>
-        </div>
-      )}
+        ) : (
+          <Link href="#books" className="stage-peek-button stage-peek-link">
+            <BookOpen size={14} aria-hidden="true" />
+            <span>Explore the sample book</span>
+          </Link>
+        )}
+
+        <button
+          type="button"
+          className="stage-ar-button"
+          onClick={() => {
+            setShowArModal(true);
+            playSubtleClick();
+          }}
+          aria-label="View photobook in Augmented Reality 1:1 scale"
+          title="View in Augmented Reality (1:1 Scale)"
+        >
+          <Box size={14} />
+          <span>AR (1:1 Scale)</span>
+        </button>
+      </div>
 
       {!cinematic && (
         <>

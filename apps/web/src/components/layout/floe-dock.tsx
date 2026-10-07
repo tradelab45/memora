@@ -42,7 +42,14 @@ export function FloeDock({
       badge: "3.1",
       onClick: () => {
         playSubtleClick();
-        onToggleLivingCinema?.();
+        if (onToggleLivingCinema) {
+          onToggleLivingCinema();
+        } else {
+          const flipTrigger = document.querySelector<HTMLButtonElement>(
+            'button[aria-haspopup="dialog"], .book-peek-trigger, [aria-label*="sample"]'
+          );
+          if (flipTrigger) flipTrigger.click();
+        }
       },
     },
     {
@@ -53,7 +60,14 @@ export function FloeDock({
       badge: "Pomelli",
       onClick: () => {
         playSubtleClick();
-        onTogglePomelli?.();
+        if (onTogglePomelli) {
+          onTogglePomelli();
+        } else {
+          const flipTrigger = document.querySelector<HTMLButtonElement>(
+            'button[aria-haspopup="dialog"], .book-peek-trigger, [aria-label*="sample"]'
+          );
+          if (flipTrigger) flipTrigger.click();
+        }
       },
     },
     {
@@ -79,7 +93,20 @@ export function FloeDock({
       badge: "Argon4",
       onClick: () => {
         playSubtleClick();
-        onOpenPrintSpecs?.();
+        if (onOpenPrintSpecs) {
+          onOpenPrintSpecs();
+        } else {
+          const flipTrigger = document.querySelector<HTMLButtonElement>(
+            'button[aria-haspopup="dialog"], .book-peek-trigger, [aria-label*="sample"]'
+          );
+          if (flipTrigger) flipTrigger.click();
+          window.setTimeout(() => {
+            const printSpecs = document.querySelector<HTMLButtonElement>(
+              ".reader-print-specs-btn, [aria-label*='fine-art print']"
+            );
+            if (printSpecs) printSpecs.click();
+          }, 350);
+        }
       },
     },
   ];
