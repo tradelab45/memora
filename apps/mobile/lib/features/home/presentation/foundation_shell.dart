@@ -10,7 +10,7 @@ class _FoundationShellState extends State<FoundationShell> {
   static const _chapters = ['Home', 'People', 'Memories', 'Books', 'Create'];
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('MEMORA')),
+    appBar: AppBar(title: const Text('KHWAISH')),
     body: SafeArea(
       child: Center(child: Padding(
         padding: const EdgeInsets.all(32),

@@ -28,7 +28,7 @@ export function LandingDetails({ children }: { children: ReactNode }) {
       }}
     >
       <summary>
-        <span>Discover more about MEMORA</span>
+        <span>Discover more about KHWAISH</span>
         <ChevronDown size={20} aria-hidden="true" />
       </summary>
       <div>{children}</div>

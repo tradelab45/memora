@@ -15,11 +15,11 @@ import { SongPick } from "@/components/music/song-pick";
 
 export const metadata: Metadata = {
   title: {
-    default: "MEMORA — Your life. Remembered properly.",
-    template: "%s · MEMORA",
+    default: "KHWAISH — Your life. Remembered properly.",
+    template: "%s · KHWAISH",
   },
   description:
-    "The people you love. The moments in between. Turn everyday photos into stories worth keeping with MEMORA.",
+    "The people you love. The moments in between. Turn everyday photos into stories worth keeping with KHWAISH.",
   robots: { index: true, follow: true },
 };
 

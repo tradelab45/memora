@@ -208,7 +208,7 @@ export function MusicSheetDialog({
           <header className="music-sheet-header">
             <div className="music-sheet-kicker">
               <Sparkles size={14} />
-              <span>MEMORA ATMOSPHERIC SOUNDTRACK</span>
+              <span>KHWAISH ATMOSPHERIC SOUNDTRACK</span>
             </div>
             <Dialog.Title className="music-sheet-title">
               Soundtrack for your Keepsake

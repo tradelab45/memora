@@ -3,9 +3,9 @@ requires = ["hatchling==1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "memora-api"
+name = "khwaish-api"
 version = "0.1.0"
-description = "MEMORA orchestration API foundation"
+description = "KHWAISH orchestration API foundation"
 requires-python = ">=3.11"
 dependencies = ["fastapi==0.135.1", "uvicorn[standard]==0.41.0", "httpx==0.28.1", "pydantic-settings==2.13.1"]
 

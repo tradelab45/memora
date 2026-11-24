@@ -1,4 +1,4 @@
--- MEMORA milestone 1. Personal content is owner-scoped; biometrics never enter this schema.
+-- KHWAISH milestone 1. Personal content is owner-scoped; biometrics never enter this schema.
 create table public.profiles (
   owner_id uuid primary key references auth.users(id) on delete cascade,
   display_name text not null default '' check (char_length(display_name) <= 80),

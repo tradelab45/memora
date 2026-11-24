@@ -72,7 +72,7 @@ export function ArViewModal({
   const arShareUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/#book-stage`
-      : "https://memora.app/#book-stage";
+      : "https://khwaish.app/#book-stage";
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -145,7 +145,7 @@ export function ArViewModal({
                       className="scale-book-repr"
                       style={{ backgroundColor: coverColor }}
                     >
-                      <span className="book-repr-label">MEMORA</span>
+                      <span className="book-repr-label">KHWAISH</span>
                       <span className="book-repr-sub">8.5″ Sq</span>
                     </div>
 
@@ -196,7 +196,7 @@ export function ArViewModal({
                   {/* iOS QuickLook trigger */}
                   <a
                     rel="ar"
-                    href="/models/memora-book.usdz"
+                    href="/models/khwaish-book.usdz"
                     className="ar-quicklook-btn ios-btn"
                     onClick={() => playSubtleClick()}
                   >
@@ -210,7 +210,7 @@ export function ArViewModal({
 
                   {/* Android Scene Viewer trigger */}
                   <a
-                    href="intent://arvr.google.com/scene-viewer/1.0?file=https://memora.app/models/memora-book.glb&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;"
+                    href="intent://arvr.google.com/scene-viewer/1.0?file=https://khwaish.app/models/khwaish-book.glb&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;"
                     className="ar-quicklook-btn android-btn"
                     onClick={() => playSubtleClick()}
                   >

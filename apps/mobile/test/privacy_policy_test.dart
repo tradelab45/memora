@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:memora_mobile/core/privacy/privacy_policy.dart';
-import 'package:memora_mobile/features/sync/domain/sync_policy.dart';
+import 'package:khwaish_mobile/core/privacy/privacy_policy.dart';
+import 'package:khwaish_mobile/features/sync/domain/sync_policy.dart';
 
 void main() {
   test('backup is blocked by default, even for a selected memory', () {

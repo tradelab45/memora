@@ -72,8 +72,8 @@ export interface MusicState {
   activeContextId: string;
 }
 
-const STORAGE_KEY = "memora-soundtrack-state";
-const DB_NAME = "memora-audio-storage";
+const STORAGE_KEY = "khwaish-soundtrack-state";
+const DB_NAME = "khwaish-audio-storage";
 const MAX_FILE_BYTES = 35 * 1024 * 1024; // 35 MB
 
 function loadStoredState(): Pick<

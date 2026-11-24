@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "MEMORA API",
+    "title": "KHWAISH API",
     "description": "Privacy-first orchestration contracts. Milestone 1: health and session verification are implemented; persistence endpoints authenticate and return 501.",
     "version": "0.1.0"
   },

@@ -10,7 +10,7 @@ from app.models import Health
 from app.routes import router
 
 app = FastAPI(
-    title="MEMORA API",
+    title="KHWAISH API",
     version="0.1.0",
     description="Privacy-first orchestration contracts. Milestone 1: health and session verification "
                 "are implemented; persistence endpoints authenticate and return 501.",
@@ -40,7 +40,7 @@ def problem(request: Request, status: int, detail: str, headers=None):
         media_type="application/problem+json",
         headers=headers,
         content={
-            "type": f"urn:memora:error:{status}",
+            "type": f"urn:khwaish:error:{status}",
             "title": "Request could not be completed",
             "status": status,
             "detail": detail,

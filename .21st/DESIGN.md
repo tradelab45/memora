@@ -1,4 +1,4 @@
-# MEMORA design context
+# KHWAISH design context
 
 Burgundy (#6b2e34), warm paper (#f6f0e5), charcoal (#302d27), muted ink (#625e54).
 Georgia editorial headings; familiar sans-serif labels and body copy. Self-hosted photography.

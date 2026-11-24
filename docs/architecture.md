@@ -1,4 +1,4 @@
-# MEMORA architecture
+# KHWAISH architecture
 
 ## Product loop
 

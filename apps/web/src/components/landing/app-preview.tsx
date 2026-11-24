@@ -41,14 +41,14 @@ export function AppPreview({ compact = false }: { compact?: boolean }) {
     <section
       className={`app-preview${compact ? " app-preview--compact" : ""}`}
       data-testid="app-preview"
-      aria-label="Interactive MEMORA sample app"
+      aria-label="Interactive KHWAISH sample app"
     >
       <header className="app-preview-topbar">
         <div className="app-preview-brand">
           <span className="app-preview-monogram" aria-hidden="true">
             m.
           </span>
-          <strong>MEMORA</strong>
+          <strong>KHWAISH</strong>
           <span className="app-preview-space">Your private space</span>
         </div>
         <span className="app-preview-sample">SAMPLE</span>
@@ -247,7 +247,7 @@ export function AppPreview({ compact = false }: { compact?: boolean }) {
               <div className="app-preview-book-layout">
                 <div className="app-preview-book-stage" aria-hidden="true">
                   <div className="app-preview-book-cover">
-                    <span>MEMORA · A SUMMER EDITION</span>
+                    <span>KHWAISH · A SUMMER EDITION</span>
                     <h4>
                       The days
                       <br />

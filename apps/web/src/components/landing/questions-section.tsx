@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const questions = [
   [
-    "Do I need an account to use MEMORA?",
+    "Do I need an account to use KHWAISH?",
     "You can explore the public sample here. Sign in with Google before adding your own photos, people and stories in the studio.",
   ],
   [

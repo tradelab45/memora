@@ -26,7 +26,7 @@ test("phones reach sign-in after a short hero and open samples only on request",
     .click();
   await expect(page.locator("#experience-app")).toBeHidden();
 
-  await page.getByText("Discover more about MEMORA", { exact: true }).click();
+  await page.getByText("Discover more about KHWAISH", { exact: true }).click();
   await expect(page.locator(".landing-details")).toHaveAttribute("open", "");
   await expect(page.locator("#idea")).toBeVisible();
   expect(

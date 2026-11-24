@@ -127,7 +127,7 @@ export function StoryJourney() {
               >
                 <div className="journey-paper">
                   <div className="journey-paper-top">
-                    <span>MEMORA</span>
+                    <span>KHWAISH</span>
                     <chapter.icon size={15} />
                   </div>
                   <div className="journey-image">
