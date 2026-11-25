@@ -45,6 +45,12 @@ test("phone navigation has usable destinations and touch targets", async ({
     name: "Mobile quick navigation",
     exact: true,
   });
+  // The navigation swaps its Suspense fallback for the live links while
+  // hydrating. Only the live Home link carries aria-current, so wait for it
+  // before measuring any link.
+  await expect(
+    nav.getByRole("link", { name: "Home", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
   for (const [name, href] of [
     ["Home", "/"],
     ["Memories", "/studio?view=memories"],
