@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../features/home/presentation/foundation_shell.dart';
 
-class MemoraApp extends StatelessWidget {
-  const MemoraApp({super.key});
+class KhwaishApp extends StatelessWidget {
+  const KhwaishApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'MEMORA',
+    title: 'KHWAISH',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       useMaterial3: true,

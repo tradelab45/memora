@@ -20,11 +20,11 @@ import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 
 export function Wordmark() {
   return (
-    <Link href="/" className="wordmark" aria-label="MEMORA home">
+    <Link href="/" className="wordmark" aria-label="KHWAISH home">
       <span className="brand-symbol" aria-hidden="true">
-        m.
+        k.
       </span>
-      MEMORA
+      KHWAISH
     </Link>
   );
 }
@@ -141,9 +141,9 @@ export function SiteHeader({ cinematic = false }: { cinematic?: boolean }) {
           <Dialog.Portal>
             <Dialog.Overlay className="dialog-overlay" />
             <Dialog.Content className="mobile-nav-panel" data-lenis-prevent>
-              <Dialog.Title className="eyebrow">MEMORA</Dialog.Title>
+              <Dialog.Title className="eyebrow">KHWAISH</Dialog.Title>
               <Dialog.Description className="sr-only">
-                Explore MEMORA or sign in to your private story.
+                Explore KHWAISH or sign in to your private story.
               </Dialog.Description>
               <Dialog.Close asChild>
                 <Button

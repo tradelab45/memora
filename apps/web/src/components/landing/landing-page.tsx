@@ -15,7 +15,7 @@ import "./cinematic-site.css";
 
 export function LandingPage() {
   return (
-    <div className="memora-cinematic">
+    <div className="khwaish-cinematic">
       <SiteHeader cinematic />
       <main id="main-content">
         <CinematicExperience />
@@ -260,7 +260,7 @@ export function LandingPage() {
               </p>
             </div>
             <div className="archive-big-wordmark" aria-hidden="true">
-              MEMORA
+              KHWAISH
             </div>
           </section>
         </LandingDetails>
@@ -272,7 +272,7 @@ export function LandingPage() {
         <a href="#main-content">
           Back to top <ArrowDown size={13} />
         </a>
-        <span>© {new Date().getFullYear()} MEMORA</span>
+        <span>© {new Date().getFullYear()} KHWAISH</span>
       </footer>
       <FloeDock />
     </div>

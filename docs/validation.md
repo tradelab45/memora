@@ -1,4 +1,4 @@
-# MEMORA validation
+# KHWAISH validation
 
 Latest verification: October 4, 2026.
 

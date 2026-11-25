@@ -6,7 +6,7 @@ Requires a Flutter SDK with Dart >=3.11.0. Verified on October 4, 2026 with Flut
 From this directory:
 
 ```sh
-flutter create --platforms=ios,android --project-name memora_mobile .
+flutter create --platforms=ios,android --project-name khwaish_mobile .
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter analyze

@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible MEMORA issue
+description: Report a reproducible KHWAISH issue
 body:
   - type: textarea
     id: behavior

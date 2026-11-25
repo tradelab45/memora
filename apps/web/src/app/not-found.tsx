@@ -9,7 +9,7 @@ export default function NotFound() {
         isn’t here yet.
       </h1>
       <Link className="text-link" href="/">
-        Back to MEMORA ↗
+        Back to KHWAISH ↗
       </Link>
     </main>
   );

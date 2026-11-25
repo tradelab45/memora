@@ -121,7 +121,7 @@ export function BookStage({
       ref={stage}
       className={"book-stage" + (cinematic ? " book-stage-cinematic" : "")}
       role="group"
-      aria-label="The Days Between: a sample MEMORA memory book"
+      aria-label="The Days Between: a sample KHWAISH memory book"
     >
       {!cinematic && (
         <>

@@ -69,7 +69,7 @@ export function StoryStudio(props?: {
               <em>A good beginning.</em>
             </h1>
             <p>
-              Try MEMORA with three sample memories. Everything stays in this
+              Try KHWAISH with three sample memories. Everything stays in this
               browser tab.
             </p>
           </div>

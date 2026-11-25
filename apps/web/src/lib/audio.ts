@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Procedural Web Audio API sound synthesizer for MEMORA.
+ * Procedural Web Audio API sound synthesizer for KHWAISH.
  * Uses no external assets or network calls. Sounds remain off until requested.
  */
 

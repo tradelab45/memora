@@ -22,10 +22,10 @@ test("landing is responsive and all concept sections are reachable", async ({
   ).toBeVisible();
   await expect(
     page.getByRole("group", {
-      name: "The Days Between: a sample MEMORA memory book",
+      name: "The Days Between: a sample KHWAISH memory book",
     }),
   ).toBeVisible();
-  if (process.env.MEMORA_CAPTURE)
+  if (process.env.KHWAISH_CAPTURE)
     await page.screenshot({
       path: "../../docs/previews/" + testInfo.project.name + ".png",
       fullPage: false,
@@ -216,7 +216,7 @@ test("frequently asked questions can be expanded and closed with a keyboard", as
   await page.goto("/");
   await openPublicSamples(page);
   for (const question of [
-    "Do I need an account to use MEMORA?",
+    "Do I need an account to use KHWAISH?",
     "Are my photos uploaded?",
     "Can I print my book?",
     "Is face recognition available yet?",
@@ -279,7 +279,7 @@ test("motion can be paused while the story remains usable", async ({
     page.getByRole("heading", { name: "A life worth keeping." }),
   ).toBeVisible();
   await page
-    .getByRole("link", { name: "MEMORA home", exact: true })
+    .getByRole("link", { name: "KHWAISH home", exact: true })
     .first()
     .click();
   await expect(
@@ -307,11 +307,11 @@ test("book preview stays silent until enabled and respects page boundaries", asy
   await page.addInitScript(() => {
     const OriginalAudioContext = window.AudioContext;
     if (!OriginalAudioContext) return;
-    const tracked = window as unknown as { __memoraAudioStarts: number };
-    tracked.__memoraAudioStarts = 0;
+    const tracked = window as unknown as { __khwaishAudioStarts: number };
+    tracked.__khwaishAudioStarts = 0;
     window.AudioContext = new Proxy(OriginalAudioContext, {
       construct(target, args) {
-        tracked.__memoraAudioStarts += 1;
+        tracked.__khwaishAudioStarts += 1;
         return Reflect.construct(target, args);
       },
     });
@@ -346,8 +346,8 @@ test("book preview stays silent until enabled and respects page boundaries", asy
   expect(
     await page.evaluate(
       () =>
-        (window as unknown as { __memoraAudioStarts?: number })
-          .__memoraAudioStarts ?? 0,
+        (window as unknown as { __khwaishAudioStarts?: number })
+          .__khwaishAudioStarts ?? 0,
     ),
   ).toBe(0);
 

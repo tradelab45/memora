@@ -26,7 +26,7 @@ test("phones reach sign-in after a short hero and open samples only on request",
     .click();
   await expect(page.locator("#experience-app")).toBeHidden();
 
-  await page.getByText("Discover more about MEMORA", { exact: true }).click();
+  await page.getByText("Discover more about KHWAISH", { exact: true }).click();
   await expect(page.locator(".landing-details")).toHaveAttribute("open", "");
   await expect(page.locator("#idea")).toBeVisible();
   expect(
@@ -45,6 +45,12 @@ test("phone navigation has usable destinations and touch targets", async ({
     name: "Mobile quick navigation",
     exact: true,
   });
+  // The navigation swaps its Suspense fallback for the live links while
+  // hydrating. Only the live Home link carries aria-current, so wait for it
+  // before measuring any link.
+  await expect(
+    nav.getByRole("link", { name: "Home", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
   for (const [name, href] of [
     ["Home", "/"],
     ["Memories", "/studio?view=memories"],

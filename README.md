@@ -1,4 +1,4 @@
-# MEMORA
+# KHWAISH
 
 ### Your life. Remembered properly.
 
@@ -8,7 +8,7 @@ A privacy-first storytelling layer over the camera roll.
 
 This repository delivers a luxury photobook and storytelling keepsake web experience:
 - **3D Articulated Living Photobook**: Procedural Three.js WebGL hero book with real-time cloth cover swatch customizer (*Burgundy Velvet*, *Forest Emerald*, *Midnight Navy*, *Natural Buckram*), lighting atmospheres (*Morning*, *Golden Hour*, *Twilight*), gyroscope parallax, and cinematic scroll choreography.
-- **Augmented Reality (AR) 1:1 Scale Coffee Table Placement**: Native iOS QuickLook (`memora-book.usdz`) and Android SceneViewer (`memora-book.glb`) with true physical dimensions ($8.5'' \times 8.5''$, $9.3\text{mm}$ spine), household scale comparison simulator, and desktop-to-phone QR bridge.
+- **Augmented Reality (AR) 1:1 Scale Coffee Table Placement**: Native iOS QuickLook (`khwaish-book.usdz`) and Android SceneViewer (`khwaish-book.glb`) with true physical dimensions ($8.5'' \times 8.5''$, $9.3\text{mm}$ spine), household scale comparison simulator, and desktop-to-phone QR bridge.
 - **Fine-Art Smyth-Sewn Print Checkout & Express Pay**: Complete archival ordering flow with Apple Pay, Google Pay, and card checkout, real-time spine calculation, 140 gsm Mohawk Superfine Eggshell paper stock, CMYK soft-proofing, and bindery manifest tracking.
 - **Generative Chapter AI Narrator**: Gemini 2.5 Flash editorial assistant transforming companions and dates into publication-grade prose across 4 narrative tones.
 - **Inside Cover Engraved Soundtrack Micro-QR Plate**: Self-contained SVG vector QR code plate engraved onto the inside endpaper linking directly to the keepsake's ambient score on Spotify, Apple Music, and YouTube Music.
@@ -36,7 +36,7 @@ For the production build:
 
 ```sh
 npm run build
-npm run start --workspace @memora/web
+npm run start --workspace @khwaish/web
 ```
 
 ## Repository

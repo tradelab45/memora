@@ -1,5 +1,5 @@
 {
-  "name": "memora",
+  "name": "khwaish",
   "version": "0.1.0",
   "private": true,
   "workspaces": [
@@ -7,11 +7,11 @@
     "packages/contracts"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace @memora/web",
-    "build": "npm run build --workspace @memora/web",
-    "lint": "npm run lint --workspace @memora/web",
-    "typecheck": "npm run typecheck --workspace @memora/web",
-    "test:web": "npm run test --workspace @memora/web",
+    "dev": "npm run dev --workspace @khwaish/web",
+    "build": "npm run build --workspace @khwaish/web",
+    "lint": "npm run lint --workspace @khwaish/web",
+    "typecheck": "npm run typecheck --workspace @khwaish/web",
+    "test:web": "npm run test --workspace @khwaish/web",
     "test:database": "node scripts/test-database.mjs",
     "contracts:generate": "node scripts/generate-contracts.mjs"
   },

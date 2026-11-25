@@ -25,7 +25,7 @@ globalThis.FileReader = class FileReader {
 async function generate() {
   const scene = new THREE.Scene();
   const bookGroup = new THREE.Group();
-  bookGroup.name = "MemoraKeepsakeBook";
+  bookGroup.name = "KhwaishKeepsakeBook";
 
   // Photobook physical dimensions: 8.5" x 8.5" (0.216m x 0.216m, 12mm spine)
   const coverGeo = new THREE.BoxGeometry(0.216, 0.003, 0.216);
@@ -94,7 +94,7 @@ async function generate() {
       { binary: true }
     );
   });
-  const glbPath = path.join(outDir, "memora-book.glb");
+  const glbPath = path.join(outDir, "khwaish-book.glb");
   fs.writeFileSync(glbPath, glbBuffer);
   console.log(`Exported GLB: ${glbPath} (${glbBuffer.length} bytes)`);
 
@@ -102,7 +102,7 @@ async function generate() {
   const usdzExporter = new USDZExporter();
   const usdzArrayBuffer = await usdzExporter.parseAsync(scene);
   const usdzBuffer = Buffer.from(usdzArrayBuffer);
-  const usdzPath = path.join(outDir, "memora-book.usdz");
+  const usdzPath = path.join(outDir, "khwaish-book.usdz");
   fs.writeFileSync(usdzPath, usdzBuffer);
   console.log(`Exported USDZ: ${usdzPath} (${usdzBuffer.length} bytes)`);
 }

@@ -400,7 +400,7 @@ function BookReader({
 
   return (
     <Dialog.Content
-      className="book-dialog memora-reader"
+      className="book-dialog khwaish-reader"
       data-lenis-prevent
       onKeyDown={(event) => {
         const element = event.target as HTMLElement;
@@ -425,7 +425,7 @@ function BookReader({
     >
       <header className="reader-header">
         <div>
-          <p className="reader-edition">MEMORA LIBRARY · A SAMPLE EDITION</p>
+          <p className="reader-edition">KHWAISH LIBRARY · A SAMPLE EDITION</p>
           <Dialog.Title className="preview-title">
             The days between.
           </Dialog.Title>
@@ -731,7 +731,7 @@ function BookReader({
                   </div>
                   <div className="plate-qr-col">
                     <QrCode
-                      value="https://memora.app/soundtrack?vol=01"
+                      value="https://khwaish.app/soundtrack?vol=01"
                       size={64}
                       fgColor="#5a4133"
                       bgColor="#f4ede0"

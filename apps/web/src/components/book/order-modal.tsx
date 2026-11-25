@@ -418,7 +418,7 @@ export function OrderModal({
             <div className="order-processing-view">
               <div className="processing-spinner-box">
                 <div className="processing-spinner" />
-                <span className="processing-kicker">MEMORA BINDERY INGESTION</span>
+                <span className="processing-kicker">KHWAISH BINDERY INGESTION</span>
                 <h3>Preparing Your Keepsake Volume...</h3>
               </div>
 

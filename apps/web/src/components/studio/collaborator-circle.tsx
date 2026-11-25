@@ -30,7 +30,7 @@ const DEFAULT_CONTRIBUTORS: Contributor[] = [
   {
     id: "1",
     name: "Elena Rostova",
-    email: "elena@memora.internal",
+    email: "elena@khwaish.internal",
     role: "curator",
     avatar: "ER",
     status: "active",
@@ -67,7 +67,7 @@ export function CollaboratorCircle() {
   const inviteLink =
     typeof window !== "undefined"
       ? `${window.location.origin}/invite/circle?token=vol1-c98f`
-      : "https://memora.app/invite/circle?token=vol1-c98f";
+      : "https://khwaish.app/invite/circle?token=vol1-c98f";
 
   const handleCopyLink = () => {
     navigator.clipboard?.writeText(inviteLink);
