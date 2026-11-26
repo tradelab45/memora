@@ -3,7 +3,7 @@ node_modules/
 package-lock.json
 packages/contracts/src/api.d.ts
 packages/contracts/openapi.json
-docs/source-conversation.md
+.claude/skills/memora-ui-reference/source-conversation.md
 supabase/
 apps/mobile/
 services/

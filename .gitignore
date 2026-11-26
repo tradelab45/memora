@@ -20,6 +20,3 @@ supabase/.branches/
 .DS_Store
 *.zip
 
-
-# Netlify
-.netlify

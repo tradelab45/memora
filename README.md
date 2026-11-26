@@ -59,8 +59,6 @@ supabase/
   config.toml            CLI-generated local configuration
   migrations/            Owner-scoped schema + private storage policies
 scripts/                 AR model generators, preview capture, and PostgreSQL test suite
-docs/                    Architecture, visual previews, motion, and validation
-vercel.json              Vercel deployment configuration with security headers
 .github/                 CI workflows for Web, API, and Mobile checks
 ```
 
